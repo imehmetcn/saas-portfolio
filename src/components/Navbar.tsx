@@ -2,19 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
-  const { scrollY } = useScroll();
-  const backgroundColor = useTransform(
-    scrollY,
-    [0, 100],
-    ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.95)"]
-  );
-  const backdropBlur = useTransform(scrollY, [0, 100], ["blur(8px)", "blur(20px)"]);
 
   useEffect(() => {
     const handleScroll = () => {

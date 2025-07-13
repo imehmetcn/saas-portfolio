@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Eye, Calendar, Tag } from "lucide-react";
-import Image from "next/image";
 
 export default function Portfolio() {
   const projects = [
@@ -300,7 +299,7 @@ export default function Portfolio() {
             className="inline-flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
           >
             <Github size={20} />
-            GitHub'da Daha Fazla
+            GitHub&apos;da Daha Fazla
           </motion.a>
         </motion.div>
       </div>

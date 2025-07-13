@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { User, Code2, Briefcase, Award, Download } from "lucide-react";
 
 export default function About() {
@@ -116,7 +115,7 @@ export default function About() {
               </p>
               <p>
                 Her projede en iyi kullanıcı deneyimini sunmayı hedefliyor, temiz kod yazma prensiplerini 
-                benimsiyor ve sürekli öğrenmeye odaklanıyorum. Startup'lardan büyük şirketlere kadar 
+                benimsiyor ve sürekli öğrenmeye odaklanıyorum. Startup&apos;lardan büyük şirketlere kadar 
                 çeşitli sektörlerde projeler gerçekleştirdim.
               </p>
               <p>
@@ -178,7 +177,7 @@ export default function About() {
           viewport={{ once: true }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 mb-4">
                 <stat.icon className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
