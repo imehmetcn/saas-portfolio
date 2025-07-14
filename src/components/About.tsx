@@ -494,9 +494,9 @@ export default function About() {
                     </div>
                   </div>
                   
-                  <p className="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
+                  <div className="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
                     {exp.description}
-                  </p>
+                  </div>
                   
                   <div className="mb-6">
                     <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Key Achievements:</h4>
