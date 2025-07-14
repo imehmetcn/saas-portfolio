@@ -10,19 +10,15 @@ import {
   Zap, 
   ChevronDown,
   ExternalLink,
-  Github,
-  Linkedin,
   Mail
 } from "lucide-react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
-  
-  const { scrollY } = useScroll();
 
   useEffect(() => {
     const handleScroll = () => {

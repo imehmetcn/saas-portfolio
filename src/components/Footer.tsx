@@ -13,7 +13,6 @@ import {
   Heart,
   ArrowUp,
   Send,
-  ExternalLink,
   Code2,
   Palette,
   Database,

@@ -6,7 +6,6 @@ import {
   User, 
   Code2, 
   Briefcase, 
-  Award, 
   Star, 
   TrendingUp, 
   Download, 
@@ -14,9 +13,6 @@ import {
   Pause,
   ChevronLeft,
   ChevronRight,
-  // Award, 
-  // Zap,
-  Zap,
   Target,
   Coffee,
   MapPin,
@@ -33,7 +29,6 @@ export default function About() {
   const [activeTab, setActiveTab] = useState('overview');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  // const [videoLoaded, setVideoLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -655,7 +650,7 @@ export default function About() {
                 </AnimatePresence>
 
                 <div className="flex justify-center mt-8 gap-2">
-                  {testimonials.map((_, index) => (
+                  {testimonials.map((testimonial, i) => (
                     <button
                       key={index}
                       onClick={() => setCurrentTestimonial(index)}

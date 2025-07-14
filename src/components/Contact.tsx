@@ -243,7 +243,7 @@ export default function Contact() {
                 transition={{ delay: 0.5 }}
                 className="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed"
               >
-                Thank you for reaching out! I'll get back to you within 24 hours with a detailed response about your project.
+                Thank you for reaching out! I&apos;ll get back to you within 24 hours with a detailed response about your project.
               </motion.p>
               
               <motion.div
@@ -305,7 +305,7 @@ export default function Contact() {
           </h2>
           
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Ready to transform your ideas into powerful digital solutions? Let's discuss your project and create something extraordinary.
+            Ready to transform your ideas into powerful digital solutions? Let&apos;s discuss your project and create something extraordinary.
           </p>
         </motion.div>
 
@@ -455,7 +455,7 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 backdrop-blur-sm"
-                        placeholder="Let's discuss your project"
+                        placeholder="Let&apos;s discuss your project"
                       />
                     </div>
 

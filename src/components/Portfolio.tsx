@@ -2,16 +2,15 @@
 
 import { useState, useRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import Image from 'next/image';
 import { 
   ExternalLink, 
   Github, 
   ChevronLeft,
   ChevronRight,
-  Filter,
   Search,
   Star,
   Eye,
-  Code2,
   Palette,
   Smartphone,
   Globe,
@@ -414,11 +413,13 @@ export default function Portfolio() {
 
                 <div className="relative">
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img
-                      src={featuredProjects[currentSlide].image}
-                      alt={featuredProjects[currentSlide].title}
-                      className="w-full h-80 object-cover"
-                    />
+                    <Image
+                  src={featuredProjects[currentSlide].image}
+                  alt={featuredProjects[currentSlide].title}
+                  width={600}
+                  height={400}
+                  className="w-full h-80 object-cover"
+                />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div className="absolute bottom-4 left-4 text-white">
                       <div className="font-semibold">{featuredProjects[currentSlide].client}</div>
@@ -501,9 +502,11 @@ export default function Portfolio() {
               className="group bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 dark:border-slate-700/50 hover:shadow-2xl transition-all duration-500"
             >
               <div className="relative overflow-hidden">
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
+                  width={600}
+                  height={400}
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
