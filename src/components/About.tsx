@@ -44,80 +44,80 @@ export default function About() {
       name: "React/Next.js", 
       level: 95, 
       color: "from-blue-500 to-cyan-500",
-      description: "Building modern web applications with cutting-edge React ecosystem"
+      description: "En yeni React ekosistemiyle modern web uygulamaları oluşturma"
     },
     { 
       name: "TypeScript", 
       level: 92, 
       color: "from-indigo-500 to-purple-500",
-      description: "Type-safe development for scalable applications"
+      description: "Ölçeklenebilir uygulamalar için tip güvenli geliştirme"
     },
     { 
       name: "Node.js", 
       level: 88, 
       color: "from-green-500 to-emerald-500",
-      description: "Backend development and API design"
+      description: "Arka uç geliştirme ve API tasarımı"
     },
     { 
-      name: "UI/UX Design", 
+      name: "UI/UX Tasarımı", 
       level: 85, 
       color: "from-purple-500 to-pink-500",
-      description: "Creating intuitive and beautiful user experiences"
+      description: "Sezgisel ve güzel kullanıcı deneyimleri oluşturma"
     },
     { 
       name: "Python", 
       level: 82, 
       color: "from-yellow-500 to-orange-500",
-      description: "Data processing and machine learning integration"
+      description: "Veri işleme ve makine öğrenimi entegrasyonu"
     },
     { 
-      name: "Database Design", 
+      name: "Veritabanı Tasarımı", 
       level: 80, 
       color: "from-cyan-500 to-blue-500",
-      description: "PostgreSQL, MongoDB, and Redis optimization"
+      description: "PostgreSQL, MongoDB ve Redis optimizasyonu"
     },
   ];
 
   const experiences = [
     {
-      title: "Senior Full Stack Developer",
+      title: "Kıdemli Full Stack Geliştirici",
       company: "TechCorp Solutions",
-      period: "2022 - Present",
-      location: "Istanbul, Turkey",
-      type: "Full-time",
-      description: "Leading development of enterprise SaaS applications serving 10K+ users. Built scalable microservices architecture and mentored junior developers.",
+      period: "2022 - Günümüz",
+      location: "İstanbul, Türkiye",
+      type: "Tam Zamanlı",
+      description: "10 binden fazla kullanıcıya hizmet veren kurumsal SaaS uygulamalarının geliştirilmesine liderlik ediyorum. Ölçeklenebilir mikroservis mimarisi kurdum ve genç geliştiricilere mentorluk yaptım.",
       achievements: [
-        "Reduced application load time by 60% through optimization",
-        "Led team of 5 developers in agile environment",
-        "Implemented CI/CD pipeline reducing deployment time by 80%"
+        "Optimizasyon sayesinde uygulama yükleme süresini %60 azalttım",
+        "Çevik bir ortamda 5 geliştiriciden oluşan bir ekibe liderlik ettim",
+        "Dağıtım süresini %80 azaltan CI/CD ardışık düzenini uyguladım"
       ],
       technologies: ["React", "Node.js", "TypeScript", "AWS", "Docker"]
     },
     {
-      title: "Frontend Team Lead",
+      title: "Frontend Takım Lideri",
       company: "Innovation Labs",
       period: "2020 - 2022",
-      location: "Remote",
-      type: "Full-time",
-      description: "Spearheaded frontend architecture for multiple client projects. Established coding standards and best practices across the organization.",
+      location: "Uzaktan",
+      type: "Tam Zamanlı",
+      description: "Birden fazla müşteri projesi için ön uç mimarisine öncülük ettim. Organizasyon genelinde kodlama standartları ve en iyi uygulamaları oluşturdum.",
       achievements: [
-        "Delivered 15+ successful projects on time and budget",
-        "Increased team productivity by 40% through mentoring",
-        "Established reusable component library used across projects"
+        "15'ten fazla başarılı projeyi zamanında ve bütçeye uygun olarak teslim ettim",
+        "Mentorluk yoluyla ekip verimliliğini %40 artırdım",
+        "Projeler arasında kullanılan yeniden kullanılabilir bir bileşen kütüphanesi oluşturdum"
       ],
       technologies: ["React", "Vue.js", "Angular", "TypeScript", "SASS"]
     },
     {
-      title: "Full Stack Developer",
+      title: "Full Stack Geliştirici",
       company: "WebStudio Pro",
       period: "2018 - 2020",
-      location: "Istanbul, Turkey",
-      type: "Full-time",
-      description: "Developed custom e-commerce solutions and business applications. Worked closely with clients to understand requirements and deliver tailored solutions.",
+      location: "İstanbul, Türkiye",
+      type: "Tam Zamanlı",
+      description: "Özel e-ticaret çözümleri ve iş uygulamaları geliştirdim. Gereksinimleri anlamak ve özel çözümler sunmak için müşterilerle yakın çalıştım.",
       achievements: [
-        "Built 20+ custom web applications",
-        "Achieved 98% client satisfaction rate",
-        "Implemented real-time features using WebSocket"
+        "20'den fazla özel web uygulaması oluşturdum",
+        "%98 müşteri memnuniyeti oranına ulaştım",
+        "WebSocket kullanarak gerçek zamanlı özellikler uyguladım"
       ],
       technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Bootstrap"]
     }
@@ -126,30 +126,30 @@ export default function About() {
   const stats = [
     { 
       number: "50+", 
-      label: "Projects Completed", 
+      label: "Tamamlanan Proje", 
       icon: Briefcase,
-      description: "Successful projects delivered",
+      description: "Başarıyla teslim edilen projeler",
       color: "from-blue-500 to-cyan-500"
     },
     { 
       number: "5+", 
-      label: "Years Experience", 
+      label: "Yıl Deneyim", 
       icon: Calendar,
-      description: "Professional development",
+      description: "Profesyonel gelişim",
       color: "from-green-500 to-emerald-500"
     },
     { 
       number: "25+", 
-      label: "Happy Clients", 
+      label: "Mutlu Müşteri", 
       icon: Heart,
-      description: "Satisfied customers worldwide",
+      description: "Dünya çapında memnun müşteriler",
       color: "from-purple-500 to-pink-500"
     },
     { 
       number: "15+", 
-      label: "Technologies", 
+      label: "Teknolojiler", 
       icon: Code2,
-      description: "Modern tech stack mastery",
+      description: "Modern teknoloji yığınında ustalık",
       color: "from-orange-500 to-red-500"
     },
   ];
@@ -157,11 +157,11 @@ export default function About() {
   const testimonials = [
     {
       name: "Sarah Johnson",
-      role: "Product Manager",
+      role: "Ürün Yöneticisi",
       company: "TechStartup Inc",
       image: "/api/placeholder/60/60",
       rating: 5,
-      text: "Working with this developer was exceptional. The quality of code and attention to detail exceeded our expectations. Highly recommended!"
+      text: "Bu geliştiriciyle çalışmak olağanüstüydü. Kod kalitesi ve detaylara gösterilen özen beklentilerimizi aştı. Kesinlikle tavsiye ederim!"
     },
     {
       name: "Mike Chen",
@@ -169,53 +169,53 @@ export default function About() {
       company: "Digital Solutions",
       image: "/api/placeholder/60/60",
       rating: 5,
-      text: "Outstanding technical skills and communication. Delivered our complex SaaS platform ahead of schedule with remarkable quality."
+      text: "Olağanüstü teknik beceriler ve iletişim. Karmaşık SaaS platformumuzu zamanından önce ve dikkate değer bir kalitede teslim etti."
     },
     {
       name: "Emily Rodriguez",
-      role: "Startup Founder",
+      role: "Startup Kurucusu",
       company: "InnovateLab",
       image: "/api/placeholder/60/60",
       rating: 5,
-      text: "Transformed our vision into reality. The expertise in modern technologies and user experience design was exactly what we needed."
+      text: "Vizyonumuzu gerçeğe dönüştürdü. Modern teknolojilerdeki ve kullanıcı deneyimi tasarımındaki uzmanlığı tam da ihtiyacımız olan şeydi."
     }
   ];
 
   const personalInfo = [
-    { icon: MapPin, label: "Location", value: "Istanbul, Turkey" },
-    { icon: Globe, label: "Languages", value: "Turkish, English" },
-    { icon: Coffee, label: "Coffee Consumed", value: "2,847 cups" },
-    { icon: BookOpen, label: "Books Read", value: "24 this year" }
+    { icon: MapPin, label: "Konum", value: "İstanbul, Türkiye" },
+    { icon: Globe, label: "Diller", value: "Türkçe, İngilizce" },
+    { icon: Coffee, label: "Tüketilen Kahve", value: "2.847 fincan" },
+    { icon: BookOpen, label: "Okunan Kitap", value: "Bu yıl 24" }
   ];
 
   const values = [
     {
       icon: Lightbulb,
-      title: "Innovation",
-      description: "Always exploring new technologies and creative solutions"
+      title: "İnovasyon",
+      description: "Her zaman yeni teknolojileri ve yaratıcı çözümleri keşfetmek"
     },
     {
       icon: Target,
-      title: "Quality",
-      description: "Committed to delivering exceptional results every time"
+      title: "Kalite",
+      description: "Her seferinde olağanüstü sonuçlar sunmaya adanmışlık"
     },
     {
       icon: Rocket,
-      title: "Growth",
-      description: "Continuous learning and improvement in every project"
+      title: "Gelişim",
+      description: "Her projede sürekli öğrenme ve gelişim"
     },
     {
       icon: Brain,
-      title: "Strategy",
-      description: "Thinking beyond code to solve real business problems"
+      title: "Strateji",
+      description: "Gerçek iş problemlerini çözmek için kodun ötesinde düşünmek"
     }
   ];
 
   const tabs = [
-    { id: 'overview', label: 'Overview', icon: User },
-    { id: 'experience', label: 'Experience', icon: Briefcase },
-    { id: 'skills', label: 'Skills', icon: Code2 },
-    { id: 'testimonials', label: 'Testimonials', icon: Star }
+    { id: 'overview', label: 'Genel Bakış', icon: User },
+    { id: 'experience', label: 'Deneyim', icon: Briefcase },
+    { id: 'skills', label: 'Yetenekler', icon: Code2 },
+    { id: 'testimonials', label: 'Referanslar', icon: Star }
   ];
 
   useEffect(() => {
@@ -270,15 +270,15 @@ export default function About() {
             className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
           >
             <User size={16} />
-            Get to Know Me Better
+            Beni Daha Yakından Tanıyın
           </motion.div>
           
           <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent mb-6">
-            About Me
+            Hakkımda
           </h2>
           
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-            A passionate developer crafting innovative digital experiences with modern technologies and creative problem-solving
+            Modern teknolojiler ve yaratıcı problem çözme ile yenilikçi dijital deneyimler yaratan tutkulu bir geliştirici
           </p>
         </motion.div>
 
@@ -353,23 +353,20 @@ export default function About() {
               <div className="lg:col-span-2 space-y-8">
                 <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-slate-700/50">
                   <h3 className="text-3xl font-bold text-slate-800 dark:text-white mb-6">
-                    Creative Solutions, Modern Technologies
+                    Yaratıcı Çözümler, Modern Teknolojiler
                   </h3>
                   <div className="space-y-6 text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
                     <p>
-                      With over 5 years of experience in full-stack development, I specialize in creating 
-                      user-centered, high-performance web applications. My expertise lies in the modern JavaScript 
-                      ecosystem, particularly React, Next.js, and TypeScript, where I build robust SaaS solutions.
+                      5 yılı aşkın full-stack geliştirme deneyimimle, kullanıcı odaklı, yüksek performanslı web uygulamaları oluşturma konusunda uzmanım. 
+                      Uzmanlığım, özellikle sağlam SaaS çözümleri oluşturduğum React, Next.js ve TypeScript gibi modern JavaScript ekosisteminde yatmaktadır.
                     </p>
                     <p>
-                      I&apos;m passionate about delivering exceptional user experiences through clean code principles 
-                      and continuous learning. From startups to enterprise companies, I&apos;ve successfully delivered 
-                      projects across various industries, always focusing on scalability and maintainability.
+                      Temiz kod prensipleri ve sürekli öğrenme yoluyla olağanüstü kullanıcı deneyimleri sunma konusunda tutkuluyum. 
+                      Startup'lardan kurumsal şirketlere kadar çeşitli sektörlerde, her zaman ölçeklenebilirlik ve sürdürülebilirliğe odaklanarak projeleri başarıyla teslim ettim.
                     </p>
                     <p>
-                      My goal is to leverage technology to simplify people&apos;s lives and become a trusted partner 
-                      in businesses&apos; digital transformation journeys. I believe in the power of collaboration 
-                      and innovative thinking to solve complex problems.
+                      Amacım, insanların hayatını kolaylaştırmak için teknolojiden yararlanmak ve işletmelerin dijital dönüşüm yolculuklarında güvenilir bir ortak olmaktır. 
+                      Karmaşık sorunları çözmek için iş birliğinin ve yenilikçi düşüncenin gücüne inanıyorum.
                     </p>
                   </div>
                   
@@ -379,7 +376,7 @@ export default function About() {
                     className="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:shadow-xl transition-all duration-300"
                   >
                     <Download size={20} />
-                    Download CV
+                    CV'mi İndir
                   </motion.button>
                 </div>
 
@@ -412,7 +409,7 @@ export default function About() {
               <div className="space-y-6">
                 {/* Personal Info */}
                 <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50">
-                  <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Personal Info</h4>
+                  <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Kişisel Bilgiler</h4>
                   <div className="space-y-4">
                     {personalInfo.map((info) => (
                       <div key={info.label} className="flex items-center gap-3">
@@ -430,19 +427,19 @@ export default function About() {
 
                 {/* Quick Stats */}
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
-                  <h4 className="text-lg font-semibold mb-4">Quick Facts</h4>
+                  <h4 className="text-lg font-semibold mb-4">Hızlı Bilgiler</h4>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="opacity-90">Response Time</span>
-                      <span className="font-semibold">&lt; 24 hours</span>
+                      <span className="opacity-90">Yanıt Süresi</span>
+                      <span className="font-semibold">&lt; 24 saat</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="opacity-90">Time Zone</span>
+                      <span className="opacity-90">Saat Dilimi</span>
                       <span className="font-semibold">GMT+3</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="opacity-90">Availability</span>
-                      <span className="font-semibold">Mon-Fri</span>
+                      <span className="opacity-90">Müsaitlik</span>
+                      <span className="font-semibold">Pzt-Cum</span>
                     </div>
                   </div>
                 </div>
@@ -499,7 +496,7 @@ export default function About() {
                   </div>
                   
                   <div className="mb-6">
-                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Key Achievements:</h4>
+                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Temel Başarılar:</h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-slate-600 dark:text-slate-300">
@@ -511,7 +508,7 @@ export default function About() {
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Technologies Used:</h4>
+                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Kullanılan Teknolojiler:</h4>
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech, idx) => (
                         <span
@@ -587,7 +584,7 @@ export default function About() {
               <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-slate-700/50">
                 <div className="flex justify-between items-center mb-8">
                   <h3 className="text-2xl font-bold text-slate-800 dark:text-white">
-                    Client Testimonials
+                    Müşteri Yorumları
                   </h3>
                   <div className="flex items-center gap-2">
                     <button
