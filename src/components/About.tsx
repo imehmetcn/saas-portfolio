@@ -414,7 +414,7 @@ export default function About() {
                 <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50">
                   <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Personal Info</h4>
                   <div className="space-y-4">
-                    {personalInfo.map((info, index) => (
+                    {personalInfo.map((info) => (
                       <div key={info.label} className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
                           <info.icon className="text-blue-600 dark:text-blue-400" size={16} />
