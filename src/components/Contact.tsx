@@ -297,7 +297,7 @@ export default function Contact() {
             className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
           >
             <MessageSquare size={16} />
-            Let's Build Something Amazing Together
+            Let&apos;s Build Something Amazing Together
           </motion.div>
           
           <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent mb-6">

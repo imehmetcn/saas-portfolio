@@ -290,12 +290,12 @@ export default function About() {
           viewport={{ once: true }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat, idx) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05, y: -5 }}
               className="group text-center bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-xl transition-all duration-300"
@@ -650,12 +650,12 @@ export default function About() {
                 </AnimatePresence>
 
                 <div className="flex justify-center mt-8 gap-2">
-                  {testimonials.map((testimonial, i) => (
+                  {testimonials.map((_, i) => (
                     <button
-                      key={index}
-                      onClick={() => setCurrentTestimonial(index)}
+                      key={i}
+                      onClick={() => setCurrentTestimonial(i)}
                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentTestimonial
+                        i === currentTestimonial
                           ? 'bg-blue-600 w-8'
                           : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
                       }`}
