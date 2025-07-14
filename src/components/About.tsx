@@ -362,7 +362,7 @@ export default function About() {
                     </p>
                     <p>
                       Temiz kod prensipleri ve sürekli öğrenme yoluyla olağanüstü kullanıcı deneyimleri sunma konusunda tutkuluyum. 
-                      Startup'lardan kurumsal şirketlere kadar çeşitli sektörlerde, her zaman ölçeklenebilirlik ve sürdürülebilirliğe odaklanarak projeleri başarıyla teslim ettim.
+                      Startup&apos;lardan kurumsal şirketlere kadar çeşitli sektörlerde, her zaman ölçeklenebilirlik ve sürdürülebilirliğe odaklanarak projeleri başarıyla teslim ettim.
                     </p>
                     <p>
                       Amacım, insanların hayatını kolaylaştırmak için teknolojiden yararlanmak ve işletmelerin dijital dönüşüm yolculuklarında güvenilir bir ortak olmaktır. 
@@ -376,7 +376,7 @@ export default function About() {
                     className="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:shadow-xl transition-all duration-300"
                   >
                     <Download size={20} />
-                    CV'mi İndir
+                    CV&apos;mi İndir
                   </motion.button>
                 </div>
 
