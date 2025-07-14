@@ -62,10 +62,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
         >
           <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
-            Projelerimi İncele
+            View My Work
           </button>
           <button className="border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 px-8 py-4 rounded-full font-semibold text-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300">
-            İletişime Geç
+            Get In Touch
           </button>
         </motion.div>
 
