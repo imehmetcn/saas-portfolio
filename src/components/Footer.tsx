@@ -16,14 +16,11 @@ import {
   ExternalLink,
   Code2,
   Palette,
-  Smartphone,
   Database,
-  Cloud,
-  Shield,
+  Smartphone,
   Zap,
   Users,
-  Coffee,
-  MessageCircle
+  Coffee
 } from "lucide-react";
 
 export default function Footer() {

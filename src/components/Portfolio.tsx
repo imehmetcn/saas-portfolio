@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { 
   ExternalLink, 
   Github, 
-  Play,
   ChevronLeft,
   ChevronRight,
   Filter,

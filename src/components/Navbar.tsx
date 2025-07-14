@@ -23,8 +23,6 @@ export default function Navbar() {
   const [showSubMenu, setShowSubMenu] = useState(false);
   
   const { scrollY } = useScroll();
-  const navbarOpacity = useTransform(scrollY, [0, 100], [0.8, 0.95]);
-  const navbarBlur = useTransform(scrollY, [0, 100], [8, 20]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,11 +70,6 @@ export default function Navbar() {
     { name: "Contact", href: "#contact", hasSubmenu: false },
   ];
 
-  const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" }
-  ];
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);

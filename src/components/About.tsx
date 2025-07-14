@@ -7,13 +7,15 @@ import {
   Code2, 
   Briefcase, 
   Award, 
+  Star, 
+  TrendingUp, 
   Download, 
   Play,
   Pause,
   ChevronLeft,
   ChevronRight,
-  Star,
-  TrendingUp,
+  // Award, 
+  // Zap,
   Zap,
   Target,
   Coffee,
@@ -31,7 +33,7 @@ export default function About() {
   const [activeTab, setActiveTab] = useState('overview');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  // const [videoLoaded, setVideoLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
