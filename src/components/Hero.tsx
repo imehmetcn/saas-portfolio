@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ChevronDown, Code, Palette, Zap } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Globe, Code, Palette } from "lucide-react";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -21,113 +21,167 @@ export default function Hero() {
   const y = useTransform(smoothProgress, [0, 1], ["0%", "25%"]);
   const opacity = useTransform(smoothProgress, [0, 0.5, 0.8], [1, 0.6, 0]);
   const scale = useTransform(smoothProgress, [0, 1], [1, 0.95]);
-  const blur = useTransform(smoothProgress, [0, 1], ["blur(0px)", "blur(2px)"]);
 
   return (
-    <motion.section 
+    <motion.section
       ref={ref}
-      style={{ 
-        y, 
-        opacity, 
+      style={{
+        y,
+        opacity,
         scale,
-        filter: blur,
-        willChange: "transform, opacity, filter"
+        willChange: "transform, opacity"
       }}
       className="min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto text-center">
-        {/* Ana Başlık */}
+      {/* Minimal Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-indigo-400/10 via-blue-400/10 to-purple-400/10 blur-3xl"></div>
+
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:80px_80px] opacity-20"></div>
+      </div>
+
+      <div className="max-w-5xl mx-auto text-center relative z-10">
+        {/* Professional Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-8"
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full text-sm font-medium mb-8"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-800 dark:text-white mb-6">
-            <span className="block">Modern</span>
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              SaaS Çözümleri
-            </span>
-          </h1>
-          <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Yaratıcı tasarım ve gelişmiş teknoloji ile işinizi dijital dünyada öne çıkarıyorum
-          </p>
+          <span>UI/UX Front-End Developer</span>
         </motion.div>
 
-        {/* CTA Butonları */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        {/* Main Heading - Clean & Bold */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+          className="text-5xl sm:text-7xl lg:text-8xl font-bold text-slate-800 dark:text-white mb-6 tracking-tight"
         >
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
-            View My Work
-          </button>
-          <button className="border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 px-8 py-4 rounded-full font-semibold text-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300">
-            Get In Touch
-          </button>
-        </motion.div>
+          <span className="block mb-2">Mehmet Can</span>
+          <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">Şahin</span>
+        </motion.h1>
 
-        {/* Özellik Kartları */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        {/* Professional Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid md:grid-cols-3 gap-8 mb-16"
+          className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8"
         >
-          <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-lg rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
-            <div className="bg-blue-100 dark:bg-blue-900/30 w-12 h-12 rounded-lg flex items-center justify-center mb-4 mx-auto">
-              <Code className="text-blue-600 dark:text-blue-400" size={24} />
-            </div>
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
-              Modern Kodlama
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300">
-              En güncel teknolojiler ile performanslı ve ölçeklenebilir uygulamalar
-            </p>
-          </div>
+          Teknolojiye olan merakım ve tutkum nedeniyle web geliştirme alanında uzmanlaşıyor, 
+          kullanıcı odaklı ve görsel açıdan etkileyici dijital deneyimler tasarlıyorum.
+        </motion.p>
 
-          <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-lg rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
-            <div className="bg-purple-100 dark:bg-purple-900/30 w-12 h-12 rounded-lg flex items-center justify-center mb-4 mx-auto">
-              <Palette className="text-purple-600 dark:text-purple-400" size={24} />
-            </div>
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
-              Yaratıcı Tasarım
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300">
-              Kullanıcı deneyimini önceleyen, etkileyici ve işlevsel arayüzler
-            </p>
-          </div>
-
-          <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-lg rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
-            <div className="bg-green-100 dark:bg-green-900/30 w-12 h-12 rounded-lg flex items-center justify-center mb-4 mx-auto">
-              <Zap className="text-green-600 dark:text-green-400" size={24} />
-            </div>
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
-              Hızlı Çözümler
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300">
-              Zamanında teslimat ve sürekli destek ile projelerinizi hayata geçiriyorum
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Scroll İndikartörü */}
+        {/* Skills Tags */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-wrap gap-2 justify-center mb-10"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="text-slate-400 dark:text-slate-500"
-          >
-            <ChevronDown size={32} />
-          </motion.div>
+          {["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "UI/UX", "Figma"].map((skill, index) => (
+            <span 
+              key={skill}
+              className="px-3 py-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50"
+            >
+              {skill}
+            </span>
+          ))}
         </motion.div>
+
+        {/* Social Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-wrap gap-4 justify-center mb-12"
+        >
+          <motion.a
+            href="https://github.com/mehmetcn"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+          >
+            <Github size={16} />
+            <span>github.com/mehmetcn</span>
+          </motion.a>
+          <motion.a
+            href="https://linkedin.com/in/emcshn"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+          >
+            <Linkedin size={16} />
+            <span>linkedin.com/in/emcshn</span>
+          </motion.a>
+          <motion.a
+            href="mailto:imehmetshn@hotmail.com"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+          >
+            <Mail size={16} />
+            <span>imehmetshn@hotmail.com</span>
+          </motion.a>
+          <motion.a
+            href="https://mehmetcn.com.tr"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+          >
+            <Globe size={16} />
+            <span>mehmetcn.com.tr</span>
+          </motion.a>
+        </motion.div>
+
+        {/* Clean CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="flex flex-wrap gap-6 justify-center"
+        >
+          <motion.a
+            href="#portfolio"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-10 py-5 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+          >
+            <Code className="w-5 h-5" />
+            Projelerimi İncele
+          </motion.a>
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-10 py-5 rounded-full font-semibold text-lg border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+          >
+            <Palette className="w-5 h-5" />
+            İletişime Geç
+          </motion.a>
+        </motion.div>
+
+        {/* Minimal Decorative Elements */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1/2 w-64 h-64 border border-indigo-200 dark:border-indigo-900/30 rounded-full opacity-20"
+        />
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute top-1/3 right-0 transform -translate-y-1/2 translate-x-1/2 w-40 h-40 border border-purple-200 dark:border-purple-900/30 rounded-full opacity-20"
+        />
       </div>
     </motion.section>
   );

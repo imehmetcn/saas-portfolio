@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <ScrollAnimations />
       <ScrollProgressIndicator />
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 relative z-10">
+      <main id="top" className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 relative z-10">
         <Navbar />
         <Hero />
         <About />

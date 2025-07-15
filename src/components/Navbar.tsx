@@ -4,19 +4,16 @@ import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
-  Sun, 
-  Moon, 
   Globe, 
   Zap, 
   ChevronDown,
-  ExternalLink,
+  Code,
   Mail
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
 
@@ -28,42 +25,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const theme = localStorage.getItem('theme');
-      setIsDark(theme === 'dark');
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  };
-
   const navItems = [
-    { name: "Home", href: "#", hasSubmenu: false },
-    { name: "About", href: "#about", hasSubmenu: false },
-    { 
-      name: "Services", 
-      href: "#services", 
-      hasSubmenu: true,
-      submenu: [
-        { name: "Web Development", href: "#services", icon: Globe },
-        { name: "SaaS Solutions", href: "#services", icon: Zap },
-        { name: "Consulting", href: "#services", icon: ExternalLink }
-      ]
-    },
-    { name: "Portfolio", href: "#portfolio", hasSubmenu: false },
-    { name: "Contact", href: "#contact", hasSubmenu: false },
+    { name: "Ana Sayfa", href: "#top", hasSubmenu: false },
+    { name: "Hakkımda", href: "#about", hasSubmenu: false },
+    { name: "Hizmetler", href: "#services", hasSubmenu: false },
+    { name: "Projeler", href: "#portfolio", hasSubmenu: false },
+    { name: "İletişim", href: "#contact", hasSubmenu: false },
   ];
 
 
@@ -100,15 +67,15 @@ export default function Navbar() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex items-center gap-3"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Zap className="text-white" size={20} />
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-xl flex items-center justify-center">
+                <Code className="text-white" size={20} />
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  SaaS Portfolio
+                <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  Mehmet Can Şahin
                 </h1>
                 <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  Modern Developer
+                  UI/UX Front-End Developer
                 </div>
               </div>
             </motion.div>
@@ -124,7 +91,7 @@ export default function Navbar() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       onMouseEnter={() => setShowSubMenu(true)}
                       onMouseLeave={() => setShowSubMenu(false)}
-                      className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                     >
                       {item.name}
                       <ChevronDown size={14} className={`transition-transform duration-300 ${showSubMenu ? 'rotate-180' : ''}`} />
@@ -139,7 +106,7 @@ export default function Navbar() {
                         e.preventDefault();
                         handleNavClick(item.href);
                       }}
-                      className="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 block"
+                      className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 block"
                     >
                       {item.name}
                     </motion.a>
@@ -169,9 +136,9 @@ export default function Navbar() {
                                 e.preventDefault();
                                 handleNavClick(subItem.href);
                               }}
-                              className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
+                              className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
                             >
-                              <subItem.icon size={16} className="text-blue-500" />
+                              <subItem.icon size={16} className="text-indigo-500" />
                               <span className="font-medium">{subItem.name}</span>
                             </motion.a>
                           ))}
@@ -185,17 +152,6 @@ export default function Navbar() {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
-              {/* Theme Toggle */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                onClick={toggleTheme}
-                className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 hover:scale-105"
-              >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </motion.button>
-
               {/* CTA Button - Desktop */}
               <motion.a
                 href="#contact"
@@ -206,10 +162,10 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick('#contact');
                 }}
-                className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2.5 rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+                className="hidden md:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-5 py-2.5 rounded-xl font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <Mail size={16} />
-                Get In Touch
+                İletişime Geç
               </motion.a>
 
               {/* Mobile Menu Button */}
@@ -218,7 +174,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+                className="lg:hidden w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
@@ -280,10 +236,10 @@ export default function Navbar() {
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Zap className="text-white" size={16} />
+                    <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-blue-600 rounded-lg flex items-center justify-center">
+                      <Code className="text-white" size={16} />
                     </div>
-                    <span className="font-bold text-slate-800 dark:text-white">Menu</span>
+                    <span className="font-bold text-slate-800 dark:text-white">Menü</span>
                   </div>
                   <button
                     onClick={() => setIsOpen(false)}
@@ -308,7 +264,7 @@ export default function Navbar() {
                           e.preventDefault();
                           handleNavClick(item.href);
                         }}
-                        className="flex items-center justify-between p-3 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
+                        className="flex items-center justify-between p-3 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
                       >
                         <span className="font-medium">{item.name}</span>
                         {item.hasSubmenu && <ChevronDown size={16} />}
@@ -328,7 +284,7 @@ export default function Navbar() {
                                 e.preventDefault();
                                 handleNavClick(subItem.href);
                               }}
-                              className="flex items-center gap-2 p-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
+                              className="flex items-center gap-2 p-2 text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
                             >
                               <subItem.icon size={14} />
                               {subItem.name}
@@ -350,10 +306,10 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick('#contact');
                   }}
-                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
                 >
                   <Mail size={18} />
-                  Start a Project
+                  İletişime Geç
                 </motion.a>
               </div>
             </motion.div>
