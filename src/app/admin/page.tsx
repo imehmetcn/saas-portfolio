@@ -466,7 +466,7 @@ function PortfolioEditor() {
     }
   ]);
 
-  const [editingProject, setEditingProject] = useState(null);
+  const [editingProject, setEditingProject] = useState<number | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
@@ -504,13 +504,13 @@ function PortfolioEditor() {
     setShowAddForm(false);
   };
 
-  const handleDeleteProject = (id) => {
+  const handleDeleteProject = (id: number) => {
     if (confirm("Bu projeyi silmek istediğinizden emin misiniz?")) {
       setProjects(projects.filter(p => p.id !== id));
     }
   };
 
-  const updateProject = (id, field, value) => {
+  const updateProject = (id: number, field: string, value: string | number | string[]) => {
     setProjects(projects.map(p =>
       p.id === id ? { ...p, [field]: value } : p
     ));
@@ -922,7 +922,7 @@ function SettingsEditor() {
     alert("Ayarlar başarıyla güncellendi!");
   };
 
-  const markMessageAsRead = (id) => {
+  const markMessageAsRead = (id: number) => {
     const updatedMessages = messages.map(msg =>
       msg.id === id ? { ...msg, read: true } : msg
     );
@@ -930,7 +930,7 @@ function SettingsEditor() {
     localStorage.setItem("contactMessages", JSON.stringify(updatedMessages));
   };
 
-  const deleteMessage = (id) => {
+  const deleteMessage = (id: number) => {
     if (confirm("Bu mesajı silmek istediğinizden emin misiniz?")) {
       const updatedMessages = messages.filter(msg => msg.id !== id);
       setMessages(updatedMessages);
