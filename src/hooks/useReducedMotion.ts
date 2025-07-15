@@ -8,9 +8,11 @@ export function useReducedMotion() {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setShouldReduceMotion(mediaQuery.matches);
 
-    // Mobil cihazlarda animasyonları azalt
+    // Mobil cihazlarda animasyonları azalt (ama tamamen kaldırma)
     const isMobile = window.innerWidth < 768;
-    if (isMobile) {
+    const isSlowDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+    
+    if (isMobile && isSlowDevice) {
       setShouldReduceMotion(true);
     }
 

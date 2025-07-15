@@ -33,36 +33,28 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
 
-  // Mobilde animasyonları azalt
+  // Scroll animasyonları - mobilde daha yumuşak
   const springConfig = shouldReduceMotion
-    ? { stiffness: 100, damping: 30, restDelta: 0.01 }
+    ? { stiffness: 120, damping: 40, restDelta: 0.01 }
     : { stiffness: 80, damping: 50, restDelta: 0.0001 };
 
   const smoothProgress = useSpring(scrollYProgress, springConfig);
 
-  // Mobilde parallax efektlerini azalt - Hooks her zaman çağrılmalı
-  const yMobile = useTransform(smoothProgress, [0, 1], ["0%", "10%"]);
-  const yDesktop = useTransform(smoothProgress, [0, 1], ["0%", "25%"]);
-  const y = shouldReduceMotion ? yMobile : yDesktop;
-
-  const opacityMobile = useTransform(smoothProgress, [0, 0.8], [1, 0.8]);
-  const opacityDesktop = useTransform(smoothProgress, [0, 0.5, 0.8], [1, 0.6, 0]);
-  const opacity = shouldReduceMotion ? opacityMobile : opacityDesktop;
-
-  const scaleMobile = useTransform(smoothProgress, [0, 1], [1, 0.98]);
-  const scaleDesktop = useTransform(smoothProgress, [0, 1], [1, 0.95]);
-  const scale = shouldReduceMotion ? scaleMobile : scaleDesktop;
+  // Parallax efektleri - mobilde azaltılmış
+  const y = useTransform(smoothProgress, [0, 1], shouldReduceMotion ? ["0%", "15%"] : ["0%", "30%"]);
+  const opacity = useTransform(smoothProgress, [0, 0.5, 0.8], shouldReduceMotion ? [1, 0.9, 0.7] : [1, 0.6, 0]);
+  const scale = useTransform(smoothProgress, [0, 1], shouldReduceMotion ? [1, 0.99] : [1, 0.95]);
 
   // İsmi parçalara ayır
   const nameParts = heroData.title.split(" ");
   const firstName = nameParts.slice(0, -1).join(" ");
   const lastName = nameParts[nameParts.length - 1];
 
-  // Mobilde çok basit animasyon ayarları
-  const mobileAnimationProps = shouldReduceMotion ? {
-    initial: { opacity: 0.8 },
+  // Animasyon ayarları - mobilde daha yumuşak
+  const animationProps = shouldReduceMotion ? {
+    initial: { opacity: 0.9 },
     animate: { opacity: 1 },
-    transition: { duration: 0.1 }
+    transition: { duration: 0.3 }
   } : {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -91,7 +83,7 @@ export default function Hero() {
       <div className="max-w-5xl mx-auto text-center relative z-10 mt-10 sm:mt-0">
         {/* Professional Badge */}
         <motion.div
-          {...mobileAnimationProps}
+          {...animationProps}
           className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full text-sm font-medium mb-8"
         >
           <span>{heroData.subtitle}</span>
@@ -99,9 +91,9 @@ export default function Hero() {
 
         {/* Main Heading - Clean & Bold */}
         <motion.h1
-          initial={mobileAnimationProps.initial}
-          animate={mobileAnimationProps.animate}
-          transition={{ ...mobileAnimationProps.transition, delay: shouldReduceMotion ? 0.1 : 0.2 }}
+          initial={animationProps.initial}
+          animate={animationProps.animate}
+          transition={{ ...animationProps.transition, delay: shouldReduceMotion ? 0.1 : 0.2 }}
           className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-800 dark:text-white mb-6 tracking-tight"
         >
           <span className="block mb-2">{firstName}</span>
@@ -110,9 +102,9 @@ export default function Hero() {
 
         {/* Professional Description */}
         <motion.p
-          initial={mobileAnimationProps.initial}
-          animate={mobileAnimationProps.animate}
-          transition={{ ...mobileAnimationProps.transition, delay: shouldReduceMotion ? 0.15 : 0.4 }}
+          initial={animationProps.initial}
+          animate={animationProps.animate}
+          transition={{ ...animationProps.transition, delay: shouldReduceMotion ? 0.15 : 0.4 }}
           className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8"
         >
           {heroData.description}
@@ -120,9 +112,9 @@ export default function Hero() {
 
         {/* Skills Tags */}
         <motion.div
-          initial={mobileAnimationProps.initial}
-          animate={mobileAnimationProps.animate}
-          transition={{ ...mobileAnimationProps.transition, delay: shouldReduceMotion ? 0.2 : 0.5 }}
+          initial={animationProps.initial}
+          animate={animationProps.animate}
+          transition={{ ...animationProps.transition, delay: shouldReduceMotion ? 0.2 : 0.5 }}
           className="flex flex-wrap gap-2 justify-center mb-8"
         >
           {heroData.skills.map((skill) => (
