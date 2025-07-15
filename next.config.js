@@ -1,12 +1,7 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Performans optimizasyonları
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   
@@ -18,31 +13,8 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 gün
   },
   
-  // Webpack optimizasyonu
-  webpack: (config, { dev, isServer }) => {
-    // Production'da bundle boyutunu küçült
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-          framerMotion: {
-            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-            name: 'framer-motion',
-            chunks: 'all',
-          },
-        },
-      };
-    }
-    return config;
-  },
-  
   // Gzip sıkıştırma
   compress: true,
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = nextConfig;
