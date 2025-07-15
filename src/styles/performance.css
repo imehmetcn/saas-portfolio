@@ -1,0 +1,84 @@
+/* Mobil Performans Optimizasyonları */
+
+/* GPU hızlandırması için transform3d kullan */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Mobilde animasyonları azalt */
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Blur efektlerini mobilde azalt */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  .backdrop-blur-sm {
+    backdrop-filter: blur(2px) !important;
+  }
+  
+  /* Gradient'ları basitleştir */
+  .bg-gradient-to-br {
+    background: linear-gradient(135deg, var(--tw-gradient-from), var(--tw-gradient-to)) !important;
+  }
+}
+
+/* Prefers-reduced-motion desteği */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch optimizasyonu */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch cihazlarda hover efektlerini kaldır */
+  .hover\:scale-105:hover {
+    transform: none !important;
+  }
+  
+  .hover\:shadow-lg:hover {
+    box-shadow: none !important;
+  }
+  
+  /* Touch hedefleri büyüt */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Scroll performansı */
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  .scroll-smooth {
+    scroll-behavior: auto;
+  }
+}
+
+/* Layout shift önleme */
+.prevent-layout-shift {
+  contain: layout style paint;
+}
+
+/* Mobil viewport optimizasyonu */
+@media (max-width: 768px) {
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
+  }
+}
