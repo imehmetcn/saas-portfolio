@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
-  Globe, 
-  Zap, 
-  ChevronDown,
   Code,
   Mail
 } from "lucide-react";
@@ -15,7 +12,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showSubMenu, setShowSubMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,17 +22,16 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { name: "Ana Sayfa", href: "#top", hasSubmenu: false },
-    { name: "Hakkımda", href: "#about", hasSubmenu: false },
-    { name: "Hizmetler", href: "#services", hasSubmenu: false },
-    { name: "Projeler", href: "#portfolio", hasSubmenu: false },
-    { name: "İletişim", href: "#contact", hasSubmenu: false },
+    { name: "Ana Sayfa", href: "#top" },
+    { name: "Hakkımda", href: "#about" },
+    { name: "Hizmetler", href: "#services" },
+    { name: "Projeler", href: "#portfolio" },
+    { name: "İletişim", href: "#contact" },
   ];
 
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    setShowSubMenu(false);
     
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
@@ -84,19 +79,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <div key={item.name} className="relative">
-                  {item.hasSubmenu ? (
-                    <motion.button
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      onMouseEnter={() => setShowSubMenu(true)}
-                      onMouseLeave={() => setShowSubMenu(false)}
-                      className="flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                    >
-                      {item.name}
-                      <ChevronDown size={14} className={`transition-transform duration-300 ${showSubMenu ? 'rotate-180' : ''}`} />
-                    </motion.button>
-                  ) : (
+                  {(
                     <motion.a
                       href={item.href}
                       initial={{ opacity: 0, y: -20 }}
@@ -112,40 +95,7 @@ export default function Navbar() {
                     </motion.a>
                   )}
 
-                  {/* Submenu */}
-                  {item.hasSubmenu && (
-                    <AnimatePresence>
-                      {showSubMenu && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                          onMouseEnter={() => setShowSubMenu(true)}
-                          onMouseLeave={() => setShowSubMenu(false)}
-                          className="absolute top-full left-0 mt-2 w-56 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden"
-                        >
-                          {item.submenu?.map((subItem, subIndex) => (
-                            <motion.a
-                              key={subItem.name}
-                              href={subItem.href}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.2, delay: subIndex * 0.05 }}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleNavClick(subItem.href);
-                              }}
-                              className="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
-                            >
-                              <subItem.icon size={16} className="text-indigo-500" />
-                              <span className="font-medium">{subItem.name}</span>
-                            </motion.a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  )}
+                  {/* Submenu removed */}
                 </div>
               ))}
             </div>
@@ -267,31 +217,9 @@ export default function Navbar() {
                         className="flex items-center justify-between p-3 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
                       >
                         <span className="font-medium">{item.name}</span>
-                        {item.hasSubmenu && <ChevronDown size={16} />}
                       </a>
                       
-                      {/* Mobile Submenu */}
-                      {item.hasSubmenu && (
-                        <div className="ml-4 mt-2 space-y-1">
-                          {item.submenu?.map((subItem, subIndex) => (
-                            <motion.a
-                              key={subItem.name}
-                              href={subItem.href}
-                              initial={{ opacity: 0, x: 10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.2, delay: subIndex * 0.05 }}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleNavClick(subItem.href);
-                              }}
-                              className="flex items-center gap-2 p-2 text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200"
-                            >
-                              <subItem.icon size={14} />
-                              {subItem.name}
-                            </motion.a>
-                          ))}
-                        </div>
-                      )}
+                      {/* Mobile Submenu removed */}
                     </motion.div>
                   ))}
                 </div>

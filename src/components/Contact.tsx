@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   Mail, 
   Phone, 
   MapPin, 
   Send, 
   CheckCircle,
-  Github,
-  Linkedin,
+  FileCode2,
+  MessagesSquare,
   Globe,
   MessageSquare,
   ArrowRight,
@@ -27,7 +27,6 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,13 +87,13 @@ export default function Contact() {
 
   const socialLinks = [
     { 
-      icon: Github, 
+      icon: FileCode2, 
       href: "https://github.com/mehmetcn", 
       label: "GitHub",
       color: "hover:text-gray-600 dark:hover:text-gray-400"
     },
     { 
-      icon: Linkedin, 
+      icon: MessagesSquare, 
       href: "https://linkedin.com/in/emcshn", 
       label: "LinkedIn",
       color: "hover:text-blue-600 dark:hover:text-blue-400"

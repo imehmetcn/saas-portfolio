@@ -1,17 +1,16 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from 'next/image';
 import { 
   ExternalLink, 
-  Github, 
+  FileCode2, 
   Search,
   Star,
   Code,
   Globe,
   Zap,
-  Award,
   TrendingUp,
   Users,
   Clock,
@@ -124,7 +123,7 @@ export default function Portfolio() {
     }
   ];
 
-  const featuredProjects = projects.slice(0, 3);
+  // Featured projects removed as they're not being used
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
@@ -314,7 +313,7 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.9 }}
                       className="bg-slate-800/90 text-white p-2 rounded-full hover:bg-slate-800 transition-colors"
                     >
-                      <Github size={16} />
+                      <FileCode2 size={16} />
                     </motion.a>
                   </div>
                 </div>

@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { 
-  Github, 
-  Linkedin, 
+  FileCode2, 
+  MessagesSquare, 
   Mail, 
   Phone,
   MapPin,
@@ -25,14 +25,14 @@ export default function Footer() {
   const socialLinks = [
     { 
       name: "GitHub", 
-      icon: Github, 
+      icon: FileCode2, 
       url: "https://github.com/mehmetcn", 
       color: "hover:text-gray-800 dark:hover:text-gray-200",
       bgColor: "hover:bg-gray-100 dark:hover:bg-gray-800"
     },
     { 
       name: "LinkedIn", 
-      icon: Linkedin, 
+      icon: MessagesSquare, 
       url: "https://linkedin.com/in/emcshn", 
       color: "hover:text-blue-600",
       bgColor: "hover:bg-blue-50 dark:hover:bg-blue-900/20"
