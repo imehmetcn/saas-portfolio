@@ -98,25 +98,48 @@ body::-webkit-scrollbar {
   perspective: 1000px;
 }
 
-/* Mobilde animasyonları azalt */
+/* Mobilde animasyonları büyük ölçüde azalt */
 @media (max-width: 768px) {
   * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.3s !important;
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+    animation-fill-mode: none !important;
   }
   
-  /* Blur efektlerini mobilde azalt */
-  .backdrop-blur-xl {
-    backdrop-filter: blur(8px) !important;
+  /* Blur efektlerini mobilde tamamen kaldır */
+  .backdrop-blur-xl,
+  .backdrop-blur-sm,
+  .backdrop-blur {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
   }
   
-  .backdrop-blur-sm {
-    backdrop-filter: blur(2px) !important;
+  .dark .backdrop-blur-xl,
+  .dark .backdrop-blur-sm,
+  .dark .backdrop-blur {
+    background: rgba(15, 23, 42, 0.9) !important;
   }
   
-  /* Gradient'ları basitleştir */
-  .bg-gradient-to-br {
-    background: linear-gradient(135deg, var(--tw-gradient-from), var(--tw-gradient-to)) !important;
+  /* Gradient'ları solid renklerle değiştir */
+  .bg-gradient-to-br,
+  .bg-gradient-to-r,
+  .bg-gradient-to-l {
+    background: var(--tw-gradient-from) !important;
+  }
+  
+  /* Transform'ları kaldır */
+  .hover\:scale-105:hover,
+  .hover\:scale-110:hover,
+  .hover\:scale-102:hover {
+    transform: none !important;
+  }
+  
+  /* Shadow'ları kaldır */
+  .hover\:shadow-xl:hover,
+  .hover\:shadow-lg:hover,
+  .shadow-2xl,
+  .shadow-xl {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
   }
 }
 

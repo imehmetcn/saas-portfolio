@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import Image from 'next/image';
 import { 
   ExternalLink, 
@@ -65,13 +64,7 @@ export default function Portfolio() {
     }
   }, []);
   
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  // Removed scroll animations for better mobile performance
 
   const categories = [
     { id: 'all', label: 'Tüm Projeler', icon: Globe },
@@ -105,37 +98,19 @@ export default function Portfolio() {
       id="portfolio" 
       className="py-20 bg-gradient-to-br from-slate-50 via-indigo-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden"
     >
-      {/* Animated Background Elements */}
-      <motion.div
-        style={{ y: backgroundY }}
-        className="absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute top-32 left-10 w-32 h-32 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-80 right-20 w-24 h-24 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute bottom-60 left-1/3 w-40 h-40 bg-gradient-to-r from-cyan-400/15 to-indigo-400/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-32 right-1/4 w-28 h-28 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-2xl animate-bounce"></div>
-      </motion.div>
+      {/* Simplified Background - Mobilde animasyon yok */}
+      <div className="absolute inset-0 overflow-hidden hidden md:block">
+        <div className="absolute top-32 left-10 w-32 h-32 bg-indigo-400/10 rounded-full"></div>
+        <div className="absolute bottom-32 right-1/4 w-28 h-28 bg-blue-400/10 rounded-full"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <motion.div
-          style={{ y: textY }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
-          >
+        {/* Header - Mobilde animasyon yok */}
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-full text-sm font-semibold mb-6">
             <Code className="w-5 h-5" />
             Projelerim
-          </motion.div>
+          </div>
           
           <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent mb-6">
             Portföy
@@ -144,43 +119,26 @@ export default function Portfolio() {
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
             Web geliştirme, UI/UX tasarım ve güvenlik alanlarında geliştirdiğim projelerden örnekler
           </p>
-        </motion.div>
+        </div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
+        {/* Stats - Mobilde animasyon yok */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {stats.map((stat) => (
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="group text-center bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-xl transition-all duration-300"
+              className="group text-center bg-white/60 dark:bg-slate-800/60 rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <stat.icon className="text-white" size={20} />
               </div>
               <div className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{stat.number}</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Filters and Search */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-4 justify-between items-center mb-12"
-        >
+        {/* Filters and Search - Mobilde animasyon yok */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mb-12">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
@@ -208,25 +166,14 @@ export default function Portfolio() {
               className="pl-10 pr-4 py-2 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/20 dark:border-slate-700/50 rounded-full text-slate-800 dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Projects Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 xl:grid-cols-3 gap-8"
-        >
-          {filteredProjects.map((project, index) => (
-            <motion.div
+        {/* Projects Grid - Mobilde animasyon yok */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {filteredProjects.map((project) => (
+            <div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="group bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 dark:border-slate-700/50 hover:shadow-2xl transition-all duration-500"
+              className="group bg-white/60 dark:bg-slate-800/60 rounded-2xl overflow-hidden border border-white/20 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300"
             >
               <div className="relative overflow-hidden">
                 <Image
@@ -253,27 +200,23 @@ export default function Portfolio() {
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="flex gap-2">
                     {project.url && (
-                      <motion.a
+                      <a
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
                         className="bg-white/90 text-slate-800 p-2 rounded-full hover:bg-white transition-colors"
                       >
                         <ExternalLink size={16} />
-                      </motion.a>
+                      </a>
                     )}
-                    <motion.a
+                    <a
                       href={`https://github.com/mehmetcn/${project.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
                       className="bg-slate-800/90 text-white p-2 rounded-full hover:bg-slate-800 transition-colors"
                     >
                       <FileCode2 size={16} />
-                    </motion.a>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -335,16 +278,12 @@ export default function Portfolio() {
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {filteredProjects.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
+          <div className="text-center py-20">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">
               Proje bulunamadı
@@ -352,7 +291,7 @@ export default function Portfolio() {
             <p className="text-slate-600 dark:text-slate-400">
               Arama kriterlerinizi veya kategori filtrenizi değiştirmeyi deneyin
             </p>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

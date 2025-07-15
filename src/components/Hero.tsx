@@ -58,11 +58,11 @@ export default function Hero() {
   const firstName = nameParts.slice(0, -1).join(" ");
   const lastName = nameParts[nameParts.length - 1];
 
-  // Mobilde basit animasyon ayarları
+  // Mobilde çok basit animasyon ayarları
   const mobileAnimationProps = shouldReduceMotion ? {
-    initial: { opacity: 0 },
+    initial: { opacity: 0.8 },
     animate: { opacity: 1 },
-    transition: { duration: 0.3 }
+    transition: { duration: 0.1 }
   } : {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -135,101 +135,65 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Social Links - Responsive */}
-        <motion.div
-          initial={mobileAnimationProps.initial}
-          animate={mobileAnimationProps.animate}
-          transition={{ ...mobileAnimationProps.transition, delay: shouldReduceMotion ? 0.25 : 0.6 }}
-          className="flex flex-wrap gap-3 justify-center mb-10"
-        >
-          <motion.a
+        {/* Social Links - Responsive - Mobilde animasyon yok */}
+        <div className="flex flex-wrap gap-3 justify-center mb-10">
+          <a
             href="https://github.com/mehmetcn"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
           >
             <Github size={14} className="sm:block" />
             <span className="hidden sm:block">github.com/mehmetcn</span>
             <span className="sm:hidden">GitHub</span>
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="https://linkedin.com/in/emcshn"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
           >
             <Linkedin size={14} className="sm:block" />
             <span className="hidden sm:block">linkedin.com/in/emcshn</span>
             <span className="sm:hidden">LinkedIn</span>
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="mailto:imehmetshn@hotmail.com"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
           >
             <Mail size={14} className="sm:block" />
             <span className="hidden sm:block">imehmetshn@hotmail.com</span>
             <span className="sm:hidden">Email</span>
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="https://mehmetcn.com.tr"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/80 dark:bg-slate-800/80 rounded-full text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
           >
             <Globe size={14} className="sm:block" />
             <span className="hidden sm:block">mehmetcn.com.tr</span>
             <span className="sm:hidden">Web</span>
-          </motion.a>
-        </motion.div>
+          </a>
+        </div>
 
-        {/* Clean CTA Buttons - Responsive */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="flex flex-wrap gap-4 justify-center"
-        >
-          <motion.a
+        {/* Clean CTA Buttons - Responsive - Mobilde animasyon yok */}
+        <div className="flex flex-wrap gap-4 justify-center">
+          <a
             href="#portfolio"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-full font-semibold text-base sm:text-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2"
           >
             <Code className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Projelerimi İncele</span>
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             className="bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-6 sm:px-10 py-3 sm:py-5 rounded-full font-semibold text-base sm:text-lg border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 flex items-center gap-2"
           >
             <Palette className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>İletişime Geç</span>
-          </motion.a>
-        </motion.div>
-
-        {/* Minimal Decorative Elements */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-1/2 w-64 h-64 border border-indigo-200 dark:border-indigo-900/30 rounded-full opacity-20"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute top-1/3 right-0 transform -translate-y-1/2 translate-x-1/2 w-40 h-40 border border-purple-200 dark:border-purple-900/30 rounded-full opacity-20"
-        />
+          </a>
+        </div>
       </div>
     </motion.section>
   );
