@@ -40,18 +40,18 @@ export default function Hero() {
 
   const smoothProgress = useSpring(scrollYProgress, springConfig);
 
-  // Mobilde parallax efektlerini azalt
-  const y = shouldReduceMotion
-    ? useTransform(smoothProgress, [0, 1], ["0%", "10%"])
-    : useTransform(smoothProgress, [0, 1], ["0%", "25%"]);
+  // Mobilde parallax efektlerini azalt - Hooks her zaman çağrılmalı
+  const yMobile = useTransform(smoothProgress, [0, 1], ["0%", "10%"]);
+  const yDesktop = useTransform(smoothProgress, [0, 1], ["0%", "25%"]);
+  const y = shouldReduceMotion ? yMobile : yDesktop;
 
-  const opacity = shouldReduceMotion
-    ? useTransform(smoothProgress, [0, 0.8], [1, 0.8])
-    : useTransform(smoothProgress, [0, 0.5, 0.8], [1, 0.6, 0]);
+  const opacityMobile = useTransform(smoothProgress, [0, 0.8], [1, 0.8]);
+  const opacityDesktop = useTransform(smoothProgress, [0, 0.5, 0.8], [1, 0.6, 0]);
+  const opacity = shouldReduceMotion ? opacityMobile : opacityDesktop;
 
-  const scale = shouldReduceMotion
-    ? useTransform(smoothProgress, [0, 1], [1, 0.98])
-    : useTransform(smoothProgress, [0, 1], [1, 0.95]);
+  const scaleMobile = useTransform(smoothProgress, [0, 1], [1, 0.98]);
+  const scaleDesktop = useTransform(smoothProgress, [0, 1], [1, 0.95]);
+  const scale = shouldReduceMotion ? scaleMobile : scaleDesktop;
 
   // İsmi parçalara ayır
   const nameParts = heroData.title.split(" ");
