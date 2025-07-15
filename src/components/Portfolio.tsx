@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from 'next/image';
 import { 
@@ -21,24 +21,7 @@ export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-  
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-
-  const categories = [
-    { id: 'all', label: 'Tüm Projeler', icon: Globe },
-    { id: 'web', label: 'Web Projeleri', icon: Globe },
-    { id: 'ui', label: 'UI/UX', icon: Code },
-    { id: 'security', label: 'Güvenlik', icon: Zap }
-  ];
-
-  // CV'den alınan projeler
-  const projects = [
+  const [projects, setProjects] = useState([
     {
       id: 1,
       title: "Anatolyadan-transfer.com",
@@ -66,62 +49,38 @@ export default function Portfolio() {
       status: "Live",
       rating: 4.9,
       url: "https://sultantekyap.com.tr"
-    },
-    {
-      id: 3,
-      title: "Kudam Akademi",
-      description: "Eğitim kurumu için web sitesi. Kurs bilgileri, eğitmenler ve online kayıt sistemi içerir.",
-      image: "/file.svg",
-      category: "web",
-      tags: ["HTML", "CSS", "JavaScript", "PHP"],
-      features: ["Kurs Kataloğu", "Online Kayıt", "Eğitmen Profilleri"],
-      client: "Kudam Akademi",
-      year: 2022,
-      status: "Live",
-      rating: 4.8,
-      url: "https://kudamakademi.com"
-    },
-    {
-      id: 4,
-      title: "Endemo",
-      description: "E-ticaret platformu. Ürün kataloğu, sepet sistemi ve ödeme entegrasyonu içerir.",
-      image: "/file.svg",
-      category: "web",
-      tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-      features: ["Ürün Kataloğu", "Sepet Sistemi", "Ödeme Entegrasyonu"],
-      client: "Endemo",
-      year: 2022,
-      status: "Live",
-      rating: 4.7,
-      url: "https://endemo.com.tr"
-    },
-    {
-      id: 5,
-      title: "UI/UX Tasarım Portföyü",
-      description: "Çeşitli web ve mobil uygulamalar için UI/UX tasarımları. Kullanıcı deneyimi odaklı modern arayüzler.",
-      image: "/file.svg",
-      category: "ui",
-      tags: ["Figma", "Adobe XD", "UI/UX", "Wireframing"],
-      features: ["Wireframes", "Prototipler", "Kullanıcı Akışları", "Stil Rehberleri"],
-      client: "Çeşitli",
-      year: 2023,
-      status: "Ongoing",
-      rating: 5.0
-    },
-    {
-      id: 6,
-      title: "Güvenlik Denetim Aracı",
-      description: "Web uygulamaları için basit güvenlik denetim aracı. Yaygın güvenlik açıklarını tespit eder.",
-      image: "/file.svg",
-      category: "security",
-      tags: ["Python", "Security", "Penetration Testing"],
-      features: ["SQL Injection Tespiti", "XSS Tespiti", "Güvenlik Raporu"],
-      client: "Kişisel Proje",
-      year: 2023,
-      status: "In Development",
-      rating: 4.5
     }
+  ]);
+
+  // Admin panelinden verileri yükle
+  useEffect(() => {
+    const savedData = localStorage.getItem("portfolioData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setProjects(parsedData);
+      } catch (error) {
+        console.error("Portfolio verileri yüklenirken hata:", error);
+      }
+    }
+  }, []);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  const categories = [
+    { id: 'all', label: 'Tüm Projeler', icon: Globe },
+    { id: 'web', label: 'Web Projeleri', icon: Globe },
+    { id: 'ui', label: 'UI/UX', icon: Code },
+    { id: 'security', label: 'Güvenlik', icon: Zap }
   ];
+
+  // Admin panelinden gelen projeler kullanılıyor
 
   // Featured projects removed as they're not being used
 

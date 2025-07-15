@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { 
   Mail, 
@@ -27,6 +27,27 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactData, setContactData] = useState({
+    email: "imehmetshn@hotmail.com",
+    phone: "0534 750 91 71",
+    website: "mehmetcn.com.tr",
+    location: "İstanbul, Türkiye",
+    github: "https://github.com/mehmetcn",
+    linkedin: "https://linkedin.com/in/emcshn"
+  });
+
+  // Admin panelinden verileri yükle
+  useEffect(() => {
+    const savedData = localStorage.getItem("contactData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setContactData(parsedData);
+      } catch (error) {
+        console.error("İletişim verileri yüklenirken hata:", error);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +56,32 @@ export default function Contact() {
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000));
     
+    // Mesajı admin paneline kaydet
+    const newMessage = {
+      id: Date.now(),
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || "Konu belirtilmemiş",
+      message: formData.message,
+      date: new Date().toISOString().split('T')[0],
+      read: false
+    };
+
+    // Mevcut mesajları al ve yeni mesajı ekle
+    const existingMessages = JSON.parse(localStorage.getItem("contactMessages") || "[]");
+    const updatedMessages = [newMessage, ...existingMessages];
+    localStorage.setItem("contactMessages", JSON.stringify(updatedMessages));
+    
     setIsSubmitting(false);
     setSubmitted(true);
+    
+    // Formu temizle
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,34 +95,34 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      value: "imehmetshn@hotmail.com",
+      value: contactData.email,
       description: "24 saat içinde yanıt",
-      href: "mailto:imehmetshn@hotmail.com",
+      href: `mailto:${contactData.email}`,
       color: "from-indigo-500 to-blue-500",
       bgPattern: "bg-indigo-50 dark:bg-indigo-900/20"
     },
     {
       icon: Phone,
       title: "Telefon",
-      value: "0534 750 91 71",
+      value: contactData.phone,
       description: "Hafta içi 09:00-18:00",
-      href: "tel:+905347509171",
+      href: `tel:${contactData.phone.replace(/\s/g, '')}`,
       color: "from-blue-500 to-cyan-500",
       bgPattern: "bg-blue-50 dark:bg-blue-900/20"
     },
     {
       icon: Globe,
       title: "Website",
-      value: "mehmetcn.com.tr",
+      value: contactData.website,
       description: "Portföyümü inceleyin",
-      href: "https://mehmetcn.com.tr",
+      href: `https://${contactData.website}`,
       color: "from-cyan-500 to-teal-500",
       bgPattern: "bg-cyan-50 dark:bg-cyan-900/20"
     },
     {
       icon: MapPin,
       title: "Konum",
-      value: "İstanbul, Türkiye",
+      value: contactData.location,
       description: "Uzaktan çalışmaya açığım",
       href: "#",
       color: "from-purple-500 to-pink-500",
@@ -88,19 +133,19 @@ export default function Contact() {
   const socialLinks = [
     { 
       icon: FileCode2, 
-      href: "https://github.com/mehmetcn", 
+      href: contactData.github, 
       label: "GitHub",
       color: "hover:text-gray-600 dark:hover:text-gray-400"
     },
     { 
       icon: MessagesSquare, 
-      href: "https://linkedin.com/in/emcshn", 
+      href: contactData.linkedin, 
       label: "LinkedIn",
       color: "hover:text-blue-600 dark:hover:text-blue-400"
     },
     { 
       icon: Globe, 
-      href: "https://mehmetcn.com.tr", 
+      href: `https://${contactData.website}`, 
       label: "Website",
       color: "hover:text-cyan-600 dark:hover:text-cyan-400"
     },

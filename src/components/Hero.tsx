@@ -1,11 +1,31 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Mail, Globe, Code, Palette, Github, Linkedin } from "lucide-react";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [heroData, setHeroData] = useState({
+    title: "Mehmet Can Şahin",
+    subtitle: "UI/UX Front-End Developer",
+    description: "Teknolojiye olan merakım ve tutkum nedeniyle web geliştirme alanında uzmanlaşıyor, kullanıcı odaklı ve görsel açıdan etkileyici dijital deneyimler tasarlıyorum.",
+    skills: ["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "UI/UX", "Figma"]
+  });
+
+  // Admin panelinden verileri yükle
+  useEffect(() => {
+    const savedData = localStorage.getItem("heroData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setHeroData(parsedData);
+      } catch (error) {
+        console.error("Hero verileri yüklenirken hata:", error);
+      }
+    }
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
@@ -21,6 +41,11 @@ export default function Hero() {
   const y = useTransform(smoothProgress, [0, 1], ["0%", "25%"]);
   const opacity = useTransform(smoothProgress, [0, 0.5, 0.8], [1, 0.6, 0]);
   const scale = useTransform(smoothProgress, [0, 1], [1, 0.95]);
+
+  // İsmi parçalara ayır
+  const nameParts = heroData.title.split(" ");
+  const firstName = nameParts.slice(0, -1).join(" ");
+  const lastName = nameParts[nameParts.length - 1];
 
   return (
     <motion.section
@@ -49,7 +74,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-4 py-2 rounded-full text-sm font-medium mb-8"
         >
-          <span>UI/UX Front-End Developer</span>
+          <span>{heroData.subtitle}</span>
         </motion.div>
 
         {/* Main Heading - Clean & Bold */}
@@ -59,8 +84,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-800 dark:text-white mb-6 tracking-tight"
         >
-          <span className="block mb-2">Mehmet Can</span>
-          <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">Şahin</span>
+          <span className="block mb-2">{firstName}</span>
+          <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">{lastName}</span>
         </motion.h1>
 
         {/* Professional Description */}
@@ -70,8 +95,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8"
         >
-          Teknolojiye olan merakım ve tutkum nedeniyle web geliştirme alanında uzmanlaşıyor,
-          kullanıcı odaklı ve görsel açıdan etkileyici dijital deneyimler tasarlıyorum.
+          {heroData.description}
         </motion.p>
 
         {/* Skills Tags */}
@@ -81,7 +105,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex flex-wrap gap-2 justify-center mb-8"
         >
-          {["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "UI/UX", "Figma"].map((skill) => (
+          {heroData.skills.map((skill) => (
             <span
               key={skill}
               className="px-3 py-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50"

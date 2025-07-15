@@ -9,27 +9,45 @@ import {
   Star, 
   TrendingUp, 
   Download, 
-  Play,
-  Pause,
-  ChevronLeft,
-  ChevronRight,
-  Target,
-  Coffee,
-  MapPin,
   Calendar,
+  MapPin,
   Globe,
   BookOpen,
   Lightbulb,
   Rocket,
-  Heart,
-  Brain
+  Brain,
+  Shield,
+  Monitor,
+  Server,
+  Mail,
+  Phone
 } from "lucide-react";
 
 export default function About() {
   const [activeTab, setActiveTab] = useState('overview');
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [aboutData, setAboutData] = useState({
+    title: "UI/UX ve Front-End Geliştirme",
+    description: "Teknolojiye olan merakım ve tutkum nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. Mezuniyet sonrası staj ve freelance Bilgi İşlem Personeli olarak iş deneyimimi kazandım.",
+    education: "Kepez Mesleki ve Teknik Anadolu Lisesi - Web Programcılığı (2018)",
+    experience: "8+",
+    projects: "20+",
+    clients: "15+",
+    successRate: "95%"
+  });
+
+  // Admin panelinden verileri yükle
+  useEffect(() => {
+    const savedData = localStorage.getItem("aboutData");
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setAboutData(parsedData);
+      } catch (error) {
+        console.error("Hakkımda verileri yüklenirken hata:", error);
+      }
+    }
+  }, []);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -39,175 +57,164 @@ export default function About() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
+  // CV'den alınan beceriler
   const skills = [
     { 
-      name: "React/Next.js", 
+      name: "HTML/CSS/JavaScript", 
       level: 95, 
+      color: "from-indigo-500 to-blue-500",
+      description: "Modern web standartları ve responsive tasarım"
+    },
+    { 
+      name: "React/Next.js", 
+      level: 90, 
       color: "from-blue-500 to-cyan-500",
-      description: "En yeni React ekosistemiyle modern web uygulamaları oluşturma"
+      description: "Modern frontend framework'leri ile SPA ve SSR uygulamaları"
     },
     { 
       name: "TypeScript", 
-      level: 92, 
-      color: "from-indigo-500 to-purple-500",
-      description: "Ölçeklenebilir uygulamalar için tip güvenli geliştirme"
-    },
-    { 
-      name: "Node.js", 
-      level: 88, 
-      color: "from-green-500 to-emerald-500",
-      description: "Arka uç geliştirme ve API tasarımı"
+      level: 85, 
+      color: "from-cyan-500 to-teal-500",
+      description: "Tip güvenli kod geliştirme ve daha iyi kod kalitesi"
     },
     { 
       name: "UI/UX Tasarımı", 
-      level: 85, 
+      level: 88, 
       color: "from-purple-500 to-pink-500",
-      description: "Sezgisel ve güzel kullanıcı deneyimleri oluşturma"
+      description: "Kullanıcı odaklı arayüz tasarımı ve deneyim optimizasyonu"
     },
     { 
-      name: "Python", 
-      level: 82, 
-      color: "from-yellow-500 to-orange-500",
-      description: "Veri işleme ve makine öğrenimi entegrasyonu"
-    },
-    { 
-      name: "Veritabanı Tasarımı", 
+      name: "Sistem Yönetimi", 
       level: 80, 
-      color: "from-cyan-500 to-blue-500",
-      description: "PostgreSQL, MongoDB ve Redis optimizasyonu"
+      color: "from-orange-500 to-red-500",
+      description: "Linux, sunucu yapılandırması ve ağ güvenliği"
     },
+    { 
+      name: "Figma/Adobe XD", 
+      level: 85, 
+      color: "from-pink-500 to-rose-500",
+      description: "Profesyonel tasarım araçları ile prototip oluşturma"
+    }
   ];
 
+  // CV'den alınan deneyimler
   const experiences = [
     {
-      title: "Kıdemli Full Stack Geliştirici",
-      company: "TechCorp Solutions",
-      period: "2022 - Günümüz",
+      title: "Operasyon",
+      company: "EmirTur Vip",
+      period: "2024",
       location: "İstanbul, Türkiye",
       type: "Tam Zamanlı",
-      description: "10 binden fazla kullanıcıya hizmet veren kurumsal SaaS uygulamalarının geliştirilmesine liderlik ediyorum. Ölçeklenebilir mikroservis mimarisi kurdum ve genç geliştiricilere mentorluk yaptım.",
+      description: "Şirket içerisinde araç takibi, bilgisayar bakımı yapılması ve operasyonel süreçlerin yönetimi.",
       achievements: [
-        "Optimizasyon sayesinde uygulama yükleme süresini %60 azalttım",
-        "Çevik bir ortamda 5 geliştiriciden oluşan bir ekibe liderlik ettim",
-        "Dağıtım süresini %80 azaltan CI/CD ardışık düzenini uyguladım"
+        "Şirket içerisinde araç takibi ve operasyonel süreçlerin yönetimi",
+        "Bilgisayar bakımı ve teknik destek sağlanması",
+        "Ofis teknolojilerinin verimli kullanımının sağlanması"
       ],
-      technologies: ["React", "Node.js", "TypeScript", "AWS", "Docker"]
+      technologies: ["Sistem Yönetimi", "Teknik Destek", "Operasyon Yönetimi"]
     },
     {
-      title: "Frontend Takım Lideri",
-      company: "Innovation Labs",
-      period: "2020 - 2022",
-      location: "Uzaktan",
-      type: "Tam Zamanlı",
-      description: "Birden fazla müşteri projesi için ön uç mimarisine öncülük ettim. Organizasyon genelinde kodlama standartları ve en iyi uygulamaları oluşturdum.",
-      achievements: [
-        "15'ten fazla başarılı projeyi zamanında ve bütçeye uygun olarak teslim ettim",
-        "Mentorluk yoluyla ekip verimliliğini %40 artırdım",
-        "Projeler arasında kullanılan yeniden kullanılabilir bir bileşen kütüphanesi oluşturdum"
-      ],
-      technologies: ["React", "Vue.js", "Angular", "TypeScript", "SASS"]
-    },
-    {
-      title: "Full Stack Geliştirici",
-      company: "WebStudio Pro",
-      period: "2018 - 2020",
+      title: "E-Ticaret Personeli",
+      company: "CarreFoursa",
+      period: "2021 - 2023",
       location: "İstanbul, Türkiye",
       type: "Tam Zamanlı",
-      description: "Özel e-ticaret çözümleri ve iş uygulamaları geliştirdim. Gereksinimleri anlamak ve özel çözümler sunmak için müşterilerle yakın çalıştım.",
+      description: "Şirket içinde sipariş hazırlama, müşteri kontrolü, sipariş takibi ve ofis işleri takibi.",
       achievements: [
-        "20'den fazla özel web uygulaması oluşturdum",
-        "%98 müşteri memnuniyeti oranına ulaştım",
-        "WebSocket kullanarak gerçek zamanlı özellikler uyguladım"
+        "Sipariş hazırlama ve müşteri kontrolü süreçlerinin yönetimi",
+        "Sipariş takibi ve raporlama işlemlerinin gerçekleştirilmesi",
+        "Ofis işlerinin takibi ve organizasyonu"
       ],
-      technologies: ["PHP", "Laravel", "MySQL", "JavaScript", "Bootstrap"]
+      technologies: ["E-Ticaret Sistemleri", "Müşteri İlişkileri", "Sipariş Yönetimi"]
+    },
+    {
+      title: "Ofis Personeli",
+      company: "Kamer Turizm LTD ŞTİ",
+      period: "2018",
+      location: "İstanbul, Türkiye",
+      type: "Tam Zamanlı",
+      description: "Dell markalı ürünlerin kurulumu ve satışı, web sayfası yenileme çalışmaları.",
+      achievements: [
+        "Dell markalı ürünlerin kurulumu ve satış süreçlerinin yönetimi",
+        "Web sayfası yenileme ve güncelleme çalışmaları",
+        "Müşteri ilişkileri ve teknik destek sağlanması"
+      ],
+      technologies: ["Web Geliştirme", "Donanım Kurulumu", "Satış"]
+    },
+    {
+      title: "Bilgi İşlem Destek",
+      company: "MarxKent Bilgisayar",
+      period: "2016 - 2017",
+      location: "İstanbul, Türkiye",
+      type: "Tam Zamanlı",
+      description: "Hastane bilgisayarlarına format atma, bozulan parçaların web terminal aracılığıyla değiştirilmesi.",
+      achievements: [
+        "Hastane bilgisayarlarının bakım ve onarımı",
+        "Bozulan parçaların web terminal aracılığıyla değiştirilmesi",
+        "Sistem kurulumu ve teknik destek sağlanması"
+      ],
+      technologies: ["Donanım", "Sistem Yönetimi", "Teknik Destek"]
     }
   ];
 
   const stats = [
     { 
-      number: "50+", 
+      number: aboutData.experience, 
+      label: "Yıl Deneyim", 
+      icon: Calendar,
+      description: "Teknoloji alanında",
+      color: "from-indigo-500 to-blue-500"
+    },
+    { 
+      number: aboutData.projects, 
       label: "Tamamlanan Proje", 
       icon: Briefcase,
-      description: "Başarıyla teslim edilen projeler",
+      description: "Web ve UI/UX tasarım",
       color: "from-blue-500 to-cyan-500"
     },
     { 
-      number: "5+", 
-      label: "Yıl Deneyim", 
-      icon: Calendar,
-      description: "Profesyonel gelişim",
-      color: "from-green-500 to-emerald-500"
-    },
-    { 
-      number: "25+", 
+      number: aboutData.clients, 
       label: "Mutlu Müşteri", 
-      icon: Heart,
-      description: "Dünya çapında memnun müşteriler",
+      icon: Code2,
+      description: "Frontend, UI/UX, Sistem",
       color: "from-purple-500 to-pink-500"
     },
     { 
-      number: "15+", 
-      label: "Teknolojiler", 
-      icon: Code2,
-      description: "Modern teknoloji yığınında ustalık",
+      number: aboutData.successRate, 
+      label: "Başarı Oranı", 
+      icon: Lightbulb,
+      description: "Yapay zeka, Güvenlik, UI/UX",
       color: "from-orange-500 to-red-500"
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Ürün Yöneticisi",
-      company: "TechStartup Inc",
-      image: "/api/placeholder/60/60",
-      rating: 5,
-      text: "Bu geliştiriciyle çalışmak olağanüstüydü. Kod kalitesi ve detaylara gösterilen özen beklentilerimizi aştı. Kesinlikle tavsiye ederim!"
-    },
-    {
-      name: "Mike Chen",
-      role: "CTO",
-      company: "Digital Solutions",
-      image: "/api/placeholder/60/60",
-      rating: 5,
-      text: "Olağanüstü teknik beceriler ve iletişim. Karmaşık SaaS platformumuzu zamanından önce ve dikkate değer bir kalitede teslim etti."
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Startup Kurucusu",
-      company: "InnovateLab",
-      image: "/api/placeholder/60/60",
-      rating: 5,
-      text: "Vizyonumuzu gerçeğe dönüştürdü. Modern teknolojilerdeki ve kullanıcı deneyimi tasarımındaki uzmanlığı tam da ihtiyacımız olan şeydi."
     }
   ];
 
   const personalInfo = [
     { icon: MapPin, label: "Konum", value: "İstanbul, Türkiye" },
-    { icon: Globe, label: "Diller", value: "Türkçe, İngilizce" },
-    { icon: Coffee, label: "Tüketilen Kahve", value: "2.847 fincan" },
-    { icon: BookOpen, label: "Okunan Kitap", value: "Bu yıl 24" }
+    { icon: Globe, label: "Website", value: "mehmetcn.com.tr" },
+    { icon: BookOpen, label: "Eğitim", value: "Web Programcılığı" },
+    { icon: Calendar, label: "Deneyim", value: "2016'dan beri" }
   ];
 
   const values = [
     {
       icon: Lightbulb,
-      title: "İnovasyon",
-      description: "Her zaman yeni teknolojileri ve yaratıcı çözümleri keşfetmek"
+      title: "Yaratıcılık",
+      description: "Tasarım odaklı düşünme ve kullanıcı deneyimini ön planda tutma"
     },
     {
-      icon: Target,
-      title: "Kalite",
-      description: "Her seferinde olağanüstü sonuçlar sunmaya adanmışlık"
+      icon: Shield,
+      title: "Güvenlik",
+      description: "Siber güvenlik ve güvenli uygulama geliştirme konusunda hassasiyet"
     },
     {
       icon: Rocket,
-      title: "Gelişim",
-      description: "Her projede sürekli öğrenme ve gelişim"
+      title: "Sürekli Öğrenme",
+      description: "Yeni teknolojileri takip etme ve kendini geliştirme"
     },
     {
       icon: Brain,
-      title: "Strateji",
-      description: "Gerçek iş problemlerini çözmek için kodun ötesinde düşünmek"
+      title: "Problem Çözme",
+      description: "Karmaşık sorunlara yaratıcı ve etkili çözümler üretme"
     }
   ];
 
@@ -215,41 +222,48 @@ export default function About() {
     { id: 'overview', label: 'Genel Bakış', icon: User },
     { id: 'experience', label: 'Deneyim', icon: Briefcase },
     { id: 'skills', label: 'Yetenekler', icon: Code2 },
-    { id: 'testimonials', label: 'Referanslar', icon: Star }
+    { id: 'interests', label: 'İlgi Alanları', icon: Star }
   ];
 
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-      }, 5000);
-      return () => clearInterval(interval);
+  // CV'den alınan ilgi alanları
+  const interests = [
+    {
+      icon: Brain,
+      title: "Yapay Zeka",
+      description: "Yapay sinir ağları, makine öğrenmesi, görüntü işleme gibi konularda başlangıç seviyesinde bilgiye sahibim."
+    },
+    {
+      icon: Shield,
+      title: "Siber Güvenlik",
+      description: "Siber güvenlik ve güvenlik uygulamaları geliştirme konusunda başlangıç seviyesinde bilgiye sahibim ve basit güvenlik testi yapabiliyorum."
+    },
+    {
+      icon: Monitor,
+      title: "UI/UX Tasarımı",
+      description: "Tasarım odaklı düşünme ve kullanıcı deneyimini ön planda tutarak, görünümün pazarlama açısından da kritik olduğunu düşünüyorum."
+    },
+    {
+      icon: Server,
+      title: "Sistem Yönetimi",
+      description: "Sistemlerin çalışma prensiplerini anlamak ve güvenlik açıklarını keşfetmek amacıyla backend sistemlere ilgi duyuyorum."
     }
-  }, [isPlaying, testimonials.length]);
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  ];
 
   return (
     <section 
       ref={containerRef}
       id="about" 
-      className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-slate-50 via-indigo-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden"
     >
       {/* Animated Background Elements */}
       <motion.div
         style={{ y: backgroundY }}
         className="absolute inset-0 overflow-hidden"
       >
-        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-60 right-32 w-24 h-24 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-purple-400/15 to-pink-400/15 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-28 h-28 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-indigo-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-60 right-32 w-24 h-24 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-purple-400/15 to-indigo-400/15 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-28 h-28 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full blur-2xl animate-bounce"></div>
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -267,7 +281,7 @@ export default function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
+            className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
           >
             <User size={16} />
             Beni Daha Yakından Tanıyın
@@ -278,7 +292,8 @@ export default function About() {
           </h2>
           
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-            Modern teknolojiler ve yaratıcı problem çözme ile yenilikçi dijital deneyimler yaratan tutkulu bir geliştirici
+            Teknolojiye olan merakım ve tutkum nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. 
+            Kullanıcı odaklı ve görsel açıdan etkileyici dijital deneyimler tasarlıyorum.
           </p>
         </motion.div>
 
@@ -326,7 +341,7 @@ export default function About() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-700/50'
                   }`}
                 >
@@ -353,31 +368,34 @@ export default function About() {
               <div className="lg:col-span-2 space-y-8">
                 <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-slate-700/50">
                   <h3 className="text-3xl font-bold text-slate-800 dark:text-white mb-6">
-                    Yaratıcı Çözümler, Modern Teknolojiler
+                    UI/UX ve Front-End Geliştirme
                   </h3>
                   <div className="space-y-6 text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
                     <p>
-                      5 yılı aşkın full-stack geliştirme deneyimimle, kullanıcı odaklı, yüksek performanslı web uygulamaları oluşturma konusunda uzmanım. 
-                      Uzmanlığım, özellikle sağlam SaaS çözümleri oluşturduğum React, Next.js ve TypeScript gibi modern JavaScript ekosisteminde yatmaktadır.
+                      Teknolojiye olan merakım ve tutkum nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. 
+                      Mezuniyet sonrası staj ve freelance Bilgi İşlem Personeli olarak iş deneyimimi kazandım.
                     </p>
                     <p>
-                      Temiz kod prensipleri ve sürekli öğrenme yoluyla olağanüstü kullanıcı deneyimleri sunma konusunda tutkuluyum. 
-                      Startup&apos;lardan kurumsal şirketlere kadar çeşitli sektörlerde, her zaman ölçeklenebilirlik ve sürdürülebilirliğe odaklanarak projeleri başarıyla teslim ettim.
+                      Bilgi işlem problemlerini çözmekte keyif alıyorum. Ayrıca, teknolojiler üzerinde çalışarak bilgi birikimimi artırıyorum ve 
+                      bildiklerimi paylaşarak birçok insana ücretsiz destek veriyorum. Eğitim sürecinde edindiğim bilgi ve deneyimlerle profesyonel becerilerimi 
+                      geliştirmeye ve farklı alanlara katkıda bulunmaya devam ediyorum.
                     </p>
                     <p>
-                      Amacım, insanların hayatını kolaylaştırmak için teknolojiden yararlanmak ve işletmelerin dijital dönüşüm yolculuklarında güvenilir bir ortak olmaktır. 
-                      Karmaşık sorunları çözmek için iş birliğinin ve yenilikçi düşüncenin gücüne inanıyorum.
+                      Tasarım odaklı düşünme ve kullanıcı deneyimini ön planda tutarak, görünümün pazarlama açısından da kritik olduğunu düşünüyorum. 
+                      Siber güvenlik ve güvenlik uygulamaları geliştirme konusunda da bilgi sahibim ve basit güvenlik testi yapabiliyorum.
                     </p>
                   </div>
                   
-                  <motion.button
+                  <motion.a
+                    href="/cv.pdf"
+                    download
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:shadow-xl transition-all duration-300"
+                    className="mt-8 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:shadow-xl transition-all duration-300"
                   >
                     <Download size={20} />
                     CV&apos;mi İndir
-                  </motion.button>
+                  </motion.a>
                 </div>
 
                 {/* Values */}
@@ -391,7 +409,7 @@ export default function About() {
                       viewport={{ once: true }}
                       className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300"
                     >
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center mb-4">
                         <value.icon className="text-white" size={20} />
                       </div>
                       <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-2">
@@ -413,8 +431,8 @@ export default function About() {
                   <div className="space-y-4">
                     {personalInfo.map((info) => (
                       <div key={info.label} className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                          <info.icon className="text-blue-600 dark:text-blue-400" size={16} />
+                        <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+                          <info.icon className="text-indigo-600 dark:text-indigo-400" size={16} />
                         </div>
                         <div>
                           <div className="text-sm text-slate-500 dark:text-slate-400">{info.label}</div>
@@ -425,21 +443,53 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Quick Stats */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
-                  <h4 className="text-lg font-semibold mb-4">Hızlı Bilgiler</h4>
+                {/* Education */}
+                <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50">
+                  <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Eğitim</h4>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mt-1">
+                        <BookOpen className="text-indigo-600 dark:text-indigo-400" size={16} />
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-800 dark:text-white">Kepez Mesleki ve Teknik Anadolu Lisesi</div>
+                        <div className="text-sm text-slate-600 dark:text-slate-300">Web Programcılığı</div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400">2018</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contact Info */}
+                <div className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl p-6 text-white">
+                  <h4 className="text-lg font-semibold mb-4">İletişim Bilgileri</h4>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="opacity-90">Yanıt Süresi</span>
-                      <span className="font-semibold">&lt; 24 saat</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                        <Mail size={16} className="text-white" />
+                      </div>
+                      <div>
+                        <div className="text-sm opacity-80">Email</div>
+                        <div className="font-medium">imehmetshn@hotmail.com</div>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="opacity-90">Saat Dilimi</span>
-                      <span className="font-semibold">GMT+3</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                        <Phone size={16} className="text-white" />
+                      </div>
+                      <div>
+                        <div className="text-sm opacity-80">Telefon</div>
+                        <div className="font-medium">0534 750 91 71</div>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="opacity-90">Müsaitlik</span>
-                      <span className="font-semibold">Pzt-Cum</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                        <Globe size={16} className="text-white" />
+                      </div>
+                      <div>
+                        <div className="text-sm opacity-80">Website</div>
+                        <div className="font-medium">mehmetcn.com.tr</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -471,10 +521,10 @@ export default function About() {
                         {exp.title}
                       </h3>
                       <div className="flex flex-wrap items-center gap-4 mb-4">
-                        <span className="text-blue-600 dark:text-blue-400 font-semibold text-lg">
+                        <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-lg">
                           {exp.company}
                         </span>
-                        <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium">
+                        <span className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-sm font-medium">
                           {exp.type}
                         </span>
                       </div>
@@ -496,11 +546,11 @@ export default function About() {
                   </div>
                   
                   <div className="mb-6">
-                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Temel Başarılar:</h4>
+                    <h4 className="font-semibold text-slate-800 dark:text-white mb-3">Sorumluluklar:</h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-slate-600 dark:text-slate-300">
-                          <TrendingUp className="text-green-500 mt-1 flex-shrink-0" size={16} />
+                          <TrendingUp className="text-indigo-500 mt-1 flex-shrink-0" size={16} />
                           {achievement}
                         </li>
                       ))}
@@ -572,94 +622,39 @@ export default function About() {
             </motion.div>
           )}
 
-          {activeTab === 'testimonials' && (
+          {activeTab === 'interests' && (
             <motion.div
-              key="testimonials"
+              key="interests"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
-              className="max-w-4xl mx-auto"
+              className="grid md:grid-cols-2 gap-8"
             >
-              <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-white/20 dark:border-slate-700/50">
-                <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-2xl font-bold text-slate-800 dark:text-white">
-                    Müşteri Yorumları
-                  </h3>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setIsPlaying(!isPlaying)}
-                      className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
-                    >
-                      {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-                    </button>
-                    <button
-                      onClick={prevTestimonial}
-                      className="p-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-                    >
-                      <ChevronLeft size={16} />
-                    </button>
-                    <button
-                      onClick={nextTestimonial}
-                      className="p-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-                    >
-                      <ChevronRight size={16} />
-                    </button>
+              {interests.map((interest, index) => (
+                <motion.div
+                  key={interest.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <interest.icon className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
+                        {interest.title}
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {interest.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentTestimonial}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center"
-                  >
-                    <div className="flex justify-center mb-4">
-                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                        <Star key={i} className="text-yellow-400 fill-current" size={20} />
-                      ))}
-                    </div>
-                    
-                    <blockquote className="text-xl text-slate-700 dark:text-slate-300 mb-8 leading-relaxed italic">
-                      &quot;{testimonials[currentTestimonial].text}&quot;
-                    </blockquote>
-                    
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-lg">
-                        {testimonials[currentTestimonial].name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div className="text-left">
-                        <div className="font-semibold text-slate-800 dark:text-white">
-                          {testimonials[currentTestimonial].name}
-                        </div>
-                        <div className="text-slate-600 dark:text-slate-400">
-                          {testimonials[currentTestimonial].role}
-                        </div>
-                        <div className="text-blue-600 dark:text-blue-400 font-medium">
-                          {testimonials[currentTestimonial].company}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                <div className="flex justify-center mt-8 gap-2">
-                  {testimonials.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentTestimonial(i)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        i === currentTestimonial
-                          ? 'bg-blue-600 w-8'
-                          : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400 dark:hover:bg-slate-500'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </motion.div>
           )}
         </AnimatePresence>
