@@ -12,7 +12,6 @@ import {
   FileText,
   Image,
   Mail,
-  Phone,
   Globe,
   Save,
   Edit3,
@@ -196,8 +195,8 @@ export default function AdminDashboard() {
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 ${activeTab === item.id
-                        ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/50"
+                      ? "bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700/50"
                       }`}
                   >
                     <item.icon size={18} />
@@ -967,8 +966,8 @@ function SettingsEditor() {
             key={tab.id}
             onClick={() => setActiveSettingsTab(tab.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${activeSettingsTab === tab.id
-                ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg'
-                : 'bg-white/40 dark:bg-slate-700/40 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+              ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-lg'
+              : 'bg-white/40 dark:bg-slate-700/40 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
               }`}
           >
             <tab.icon size={16} />
@@ -1138,8 +1137,8 @@ function SettingsEditor() {
                 <div
                   key={message.id}
                   className={`p-4 rounded-xl border transition-all duration-200 ${message.read
-                      ? 'bg-white/40 dark:bg-slate-700/40 border-slate-200/50 dark:border-slate-600/50'
-                      : 'bg-indigo-50/50 dark:bg-indigo-900/20 border-indigo-200/50 dark:border-indigo-700/50'
+                    ? 'bg-white/40 dark:bg-slate-700/40 border-slate-200/50 dark:border-slate-600/50'
+                    : 'bg-indigo-50/50 dark:bg-indigo-900/20 border-indigo-200/50 dark:border-indigo-700/50'
                     }`}
                 >
                   <div className="flex justify-between items-start mb-2">
