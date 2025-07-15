@@ -19,8 +19,8 @@ export default function PerformanceMonitor() {
       console.log(`${metric.name}: ${metric.value}`);
       
       // Analytics'e gönder (isteğe bağlı)
-      if (typeof window !== 'undefined' && (window as unknown as { gtag?: Function }).gtag) {
-        (window as unknown as { gtag: Function }).gtag('event', metric.name, {
+      if (typeof window !== 'undefined' && (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag) {
+        (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', metric.name, {
           value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
           event_category: 'Web Vitals',
           event_label: metric.id,

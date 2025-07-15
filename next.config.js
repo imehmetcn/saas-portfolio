@@ -43,9 +43,6 @@ const nextConfig = {
   
   // Gzip sıkıştırma
   compress: true,
-  
-  // PWA için
-  swcMinify: true,
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
