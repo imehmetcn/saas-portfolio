@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { 
   Mail, 
   Phone, 
@@ -173,67 +172,42 @@ export default function Contact() {
     return (
       <section id="contact" className="min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-slate-50 via-indigo-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
-            className="relative"
-          >
+          <div className="relative">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-3xl blur-xl transform -rotate-1"></div>
             <div className="absolute inset-0 bg-gradient-to-l from-cyan-500/10 to-indigo-500/10 rounded-3xl blur-xl transform rotate-1"></div>
             
             <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border border-white/20 dark:border-slate-700/50">
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-                className="w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg"
-              >
+              <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
                 <CheckCircle className="text-white" size={48} />
-              </motion.div>
+              </div>
               
-              <motion.h3 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4"
-              >
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-4">
                 Mesajınız Gönderildi!
-              </motion.h3>
+              </h3>
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed"
-              >
+              <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
                 İletişime geçtiğiniz için teşekkür ederim! En kısa sürede size dönüş yapacağım.
-              </motion.p>
+              </p>
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-              >
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="group bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-2"
                 >
                   Başka Mesaj Gönder
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={18} />
                 </button>
                 <button
                   onClick={() => window.open('mailto:imehmetshn@hotmail.com', '_blank')}
-                  className="group bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-8 py-4 rounded-full font-semibold border border-slate-200 dark:border-slate-600 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                  className="bg-white dark:bg-slate-700 text-slate-800 dark:text-white px-8 py-4 rounded-full font-semibold border border-slate-200 dark:border-slate-600 flex items-center justify-center gap-2"
                 >
                   <Mail size={18} />
                   Email Gönder
                 </button>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     );
@@ -247,23 +221,11 @@ export default function Contact() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-full text-sm font-semibold mb-6"
-          >
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-full text-sm font-semibold mb-6">
             <MessageSquare size={16} />
             Benimle İletişime Geçin
-          </motion.div>
+          </div>
           
           <h2 className="text-5xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 dark:from-white dark:via-slate-200 dark:to-white bg-clip-text text-transparent mb-6">
             İletişim
@@ -273,7 +235,7 @@ export default function Contact() {
             Projeleriniz, iş birliği fırsatları veya sorularınız için benimle iletişime geçebilirsiniz.
             En kısa sürede size dönüş yapacağım.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Contact Form */}
@@ -295,7 +257,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 backdrop-blur-sm"
                       placeholder="Adınız Soyadınız"
                     />
                   </div>
@@ -309,7 +271,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 backdrop-blur-sm"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 backdrop-blur-sm"
                       placeholder="email@adresiniz.com"
                     />
                   </div>
@@ -324,7 +286,7 @@ export default function Contact() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 backdrop-blur-sm"
                     placeholder="Mesajınızın konusu"
                   />
                 </div>
@@ -339,17 +301,15 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all duration-300 resize-none backdrop-blur-sm"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white/80 dark:bg-slate-700/80 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none backdrop-blur-sm"
                     placeholder="Mesajınızı buraya yazın..."
                   />
                 </div>
 
-                <motion.button
+                <button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -362,21 +322,17 @@ export default function Contact() {
                       Gönder
                     </>
                   )}
-                </motion.button>
+                </button>
               </form>
             </div>
           </div>
 
           {/* Features Sidebar */}
           <div className="lg:col-span-2 space-y-6">
-            {features.map((feature, index) => (
-              <motion.div
+            {features.map((feature) => (
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-slate-700/50 hover:shadow-lg transition-all duration-300"
+                className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-slate-700/50"
               >
                 <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl flex items-center justify-center mb-4">
                   <feature.icon className="text-white" size={20} />
@@ -387,23 +343,18 @@ export default function Contact() {
                 <p className="text-slate-600 dark:text-slate-400">
                   {feature.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
 
             {/* Contact Info Cards */}
             <div className="grid grid-cols-2 gap-4">
-              {contactInfo.slice(0, 2).map((info, index) => (
-                <motion.a
+              {contactInfo.slice(0, 2).map((info) => (
+                <a
                   key={info.title}
                   href={info.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className={`block p-4 rounded-2xl border border-white/20 dark:border-slate-700/50 hover:shadow-xl transition-all duration-300 group ${info.bgPattern} backdrop-blur-sm`}
+                  className={`block p-4 rounded-2xl border border-white/20 dark:border-slate-700/50 ${info.bgPattern} backdrop-blur-sm`}
                 >
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-r ${info.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-r ${info.color} flex items-center justify-center mb-3`}>
                     <info.icon className="text-white" size={18} />
                   </div>
                   <h3 className="text-base font-semibold text-slate-800 dark:text-white mb-1">
@@ -412,32 +363,21 @@ export default function Contact() {
                   <p className="text-sm text-slate-900 dark:text-slate-200 font-medium mb-1">
                     {info.value}
                   </p>
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
         </div>
 
         {/* Contact Info Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="grid md:grid-cols-4 gap-6 mt-12"
-        >
-          {contactInfo.map((info, index) => (
-            <motion.a
+        <div className="grid md:grid-cols-4 gap-6 mt-12">
+          {contactInfo.map((info) => (
+            <a
               key={info.title}
               href={info.href}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className={`block p-6 rounded-2xl border border-white/20 dark:border-slate-700/50 hover:shadow-xl transition-all duration-300 group ${info.bgPattern} backdrop-blur-sm`}
+              className={`block p-6 rounded-2xl border border-white/20 dark:border-slate-700/50 ${info.bgPattern} backdrop-blur-sm`}
             >
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${info.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${info.color} flex items-center justify-center mb-4`}>
                 <info.icon className="text-white" size={24} />
               </div>
               <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-2">
@@ -449,41 +389,29 @@ export default function Contact() {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 {info.description}
               </p>
-            </motion.a>
+            </a>
           ))}
-        </motion.div>
+        </div>
 
         {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center mt-20"
-        >
+        <div className="text-center mt-20">
           <h4 className="text-lg font-semibold text-slate-800 dark:text-white mb-6">
             Sosyal Medya
           </h4>
           <div className="flex justify-center gap-4">
-            {socialLinks.map((social, index) => (
-              <motion.a
+            {socialLinks.map((social) => (
+              <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                className={`w-14 h-14 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center text-slate-600 dark:text-slate-300 transition-all duration-300 border border-white/20 dark:border-slate-700/50 ${social.color}`}
+                className={`w-14 h-14 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center text-slate-600 dark:text-slate-300 border border-white/20 dark:border-slate-700/50 ${social.color}`}
               >
                 <social.icon size={24} />
-              </motion.a>
+              </a>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

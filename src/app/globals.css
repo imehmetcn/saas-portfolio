@@ -25,13 +25,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Ultra smooth scroll behavior */
+/* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
 }
 
-/* GPU acceleration for smooth animations */
+/* Font smoothing */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -82,54 +82,25 @@ body::-webkit-scrollbar {
   }
 }
 
-/* Ultra smooth transitions for all elements */
-*, *::before, *::after {
-  transition-property: transform, opacity, filter, background-color, border-color, color, fill, stroke, box-shadow;
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
-  transition-duration: 200ms;
-  will-change: auto;
-}
-/* Mobil Performans Optimizasyonları */
-
-/* GPU hızlandırması için transform3d kullan */
-.gpu-accelerated {
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+/* Basic transitions only for essential UI elements */
+button, a, input, textarea {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Mobilde animasyonları optimize et */
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch hedefleri büyüt */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobil viewport optimizasyonu */
 @media (max-width: 768px) {
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.3s !important;
-  }
-  
-  /* Blur efektlerini mobilde azalt */
-  .backdrop-blur-xl {
-    backdrop-filter: blur(8px) !important;
-  }
-  
-  .backdrop-blur-sm {
-    backdrop-filter: blur(4px) !important;
-  }
-  
-  /* Ağır transform'ları azalt */
-  .hover\:scale-110:hover {
-    transform: scale(1.02) !important;
-  }
-  
-  .hover\:scale-105:hover {
-    transform: scale(1.01) !important;
-  }
-  
-  /* Shadow'ları hafiflet */
-  .shadow-2xl {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
-  }
-  
-  .shadow-xl {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
   }
 }
 
@@ -142,43 +113,5 @@ body::-webkit-scrollbar {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Touch optimizasyonu */
-@media (hover: none) and (pointer: coarse) {
-  /* Touch cihazlarda hover efektlerini kaldır */
-  .hover\:scale-105:hover {
-    transform: none !important;
-  }
-  
-  .hover\:shadow-lg:hover {
-    box-shadow: none !important;
-  }
-  
-  /* Touch hedefleri büyüt */
-  button, a, [role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-}
-
-/* Scroll performansı */
-@media (max-width: 768px) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* Layout shift önleme */
-.prevent-layout-shift {
-  contain: layout style paint;
-}
-
-/* Mobil viewport optimizasyonu */
-@media (max-width: 768px) {
-  .min-h-screen {
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height */
   }
 }
