@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 
-import ScrollProgressIndicator from "@/components/ScrollProgressIndicator";
+
 import LazySection from "@/components/LazySection";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 
@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <PerformanceMonitor />
 
-      <ScrollProgressIndicator />
+
       <main id="top" className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 relative z-10">
         <Navbar />
         <Hero />
