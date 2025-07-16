@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Code, Mail } from "lucide-react";
+import { ThemeToggle } from "./ui/ThemeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +78,9 @@ export default function Navbar() {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-3">
+              {/* Theme Toggle */}
+              <ThemeToggle />
+              
               {/* CTA Button - Desktop */}
               <a
                 href="#contact"
@@ -138,6 +142,11 @@ export default function Navbar() {
                 ))}
               </div>
 
+              <div className="flex items-center justify-between mb-6 mt-8 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                <span className="text-sm text-gray-600 dark:text-gray-400">Tema</span>
+                <ThemeToggle />
+              </div>
+              
               <a
                 href="#contact"
                 onClick={(e) => {
