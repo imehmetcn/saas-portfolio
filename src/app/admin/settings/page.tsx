@@ -1,13 +1,80 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 import Sidebar from '@/components/admin/Sidebar';
 import Header from '@/components/admin/Header';
+import toast from 'react-hot-toast';
+
+interface SiteSettings {
+  siteTitle: string;
+  siteDescription: string;
+  darkTheme: boolean;
+  animationsEnabled: boolean;
+  performanceMonitor: boolean;
+}
 
 export default function SettingsPage() {
   const { refreshData } = useAdmin();
   const [activeTab, setActiveTab] = useState('general');
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>({
+    siteTitle: 'Modern SaaS Portfolio',
+    siteDescription: 'Yaratıcı dijital çözümler ve modern web uygulamaları',
+    darkTheme: true,
+    animationsEnabled: true,
+    performanceMonitor: true
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Load settings from localStorage on component mount
+  useEffect(() => {
+    const savedSettings = localStorage.getItem('siteSettings');
+    if (savedSettings) {
+      try {
+        const parsed = JSON.parse(savedSettings);
+        setSiteSettings(prev => ({ ...prev, ...parsed }));
+      } catch (error) {
+        console.error('Error loading site settings:', error);
+      }
+    }
+  }, []);
+
+  // Save settings to localStorage
+  const handleSaveSettings = async () => {
+    setIsLoading(true);
+    try {
+      localStorage.setItem('siteSettings', JSON.stringify(siteSettings));
+      
+      // Also update document title
+      document.title = siteSettings.siteTitle;
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', siteSettings.siteDescription);
+      }
+      
+      toast.success('Ayarlar başarıyla kaydedildi! 🎉', {
+        duration: 3000,
+        position: 'top-right',
+      });
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      toast.error('Ayarlar kaydedilirken bir hata oluştu! ❌', {
+        duration: 4000,
+        position: 'top-right',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (field: keyof SiteSettings, value: string | boolean) => {
+    setSiteSettings(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
 
   const handleExportData = () => {
     const data = {
@@ -51,12 +118,21 @@ export default function SettingsPage() {
           if (data.testimonials) localStorage.setItem('testimonialsData', data.testimonials);
           if (data.services) localStorage.setItem('servicesData', data.services);
           
-          alert('Veriler başarıyla içe aktarıldı! Sayfa yenileniyor...');
-          refreshData();
+          toast.success('Veriler başarıyla içe aktarıldı! Sayfa yenileniyor... 🔄', {
+            duration: 3000,
+            position: 'top-right',
+          });
+          
+          setTimeout(() => {
+            refreshData();
+          }, 1000);
         }
       } catch (error) {
         console.error('Import error:', error);
-        alert('Dosya formatı geçersiz!');
+        toast.error('Dosya formatı geçersiz! Lütfen doğru JSON dosyası seçin. ❌', {
+          duration: 4000,
+          position: 'top-right',
+        });
       }
     };
     reader.readAsText(file);
@@ -72,9 +148,16 @@ export default function SettingsPage() {
         localStorage.removeItem('blogData');
         localStorage.removeItem('testimonialsData');
         localStorage.removeItem('servicesData');
+        localStorage.removeItem('siteSettings');
         
-        alert('Tüm veriler silindi! Sayfa yenileniyor...');
-        refreshData();
+        toast.success('Tüm veriler silindi! Sayfa yenileniyor... 🔄', {
+          duration: 3000,
+          position: 'top-right',
+        });
+        
+        setTimeout(() => {
+          refreshData();
+        }, 1000);
       }
     }
   };
@@ -126,16 +209,20 @@ export default function SettingsPage() {
                       <label className="block text-sm font-medium text-slate-300 mb-2">Site Başlığı</label>
                       <input
                         type="text"
-                        defaultValue="Modern SaaS Portfolio"
-                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                        value={siteSettings.siteTitle}
+                        onChange={(e) => handleInputChange('siteTitle', e.target.value)}
+                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        placeholder="Site başlığını girin"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">Site Açıklaması</label>
                       <input
                         type="text"
-                        defaultValue="Yaratıcı dijital çözümler ve modern web uygulamaları"
-                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                        value={siteSettings.siteDescription}
+                        onChange={(e) => handleInputChange('siteDescription', e.target.value)}
+                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        placeholder="Site açıklamasını girin"
                       />
                     </div>
                   </div>
@@ -144,24 +231,52 @@ export default function SettingsPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Görünüm Ayarları</h3>
                   <div className="space-y-3">
-                    <label className="flex items-center">
-                      <input type="checkbox" defaultChecked className="mr-3" />
+                    <label className="flex items-center cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={siteSettings.darkTheme}
+                        onChange={(e) => handleInputChange('darkTheme', e.target.checked)}
+                        className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
+                      />
                       <span className="text-slate-300">Karanlık tema kullan</span>
                     </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" defaultChecked className="mr-3" />
+                    <label className="flex items-center cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={siteSettings.animationsEnabled}
+                        onChange={(e) => handleInputChange('animationsEnabled', e.target.checked)}
+                        className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
+                      />
                       <span className="text-slate-300">Animasyonları etkinleştir</span>
                     </label>
-                    <label className="flex items-center">
-                      <input type="checkbox" defaultChecked className="mr-3" />
+                    <label className="flex items-center cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        checked={siteSettings.performanceMonitor}
+                        onChange={(e) => handleInputChange('performanceMonitor', e.target.checked)}
+                        className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
+                      />
                       <span className="text-slate-300">Performans monitörünü göster</span>
                     </label>
                   </div>
                 </div>
 
                 <div className="flex justify-end">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                    Ayarları Kaydet
+                  <button 
+                    onClick={handleSaveSettings}
+                    disabled={isLoading}
+                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Kaydediliyor...
+                      </>
+                    ) : (
+                      <>
+                        💾 Ayarları Kaydet
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
