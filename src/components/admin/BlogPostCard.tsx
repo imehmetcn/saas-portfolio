@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { BlogPost } from '@/contexts/AdminContext';
 
 interface BlogPostCardProps {
@@ -16,9 +17,11 @@ export default function BlogPostCard({ post, onEdit, onDelete, onTogglePublished
       <div className="relative">
         <div className="h-40 bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center">
           {post.image ? (
-            <img 
+            <Image 
               src={post.image} 
               alt={post.title} 
+              width={400}
+              height={160}
               className="w-full h-full object-cover"
             />
           ) : (

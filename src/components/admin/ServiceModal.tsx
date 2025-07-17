@@ -111,29 +111,15 @@ export default function ServiceModal({ isOpen, onClose, onSave, service }: Servi
                 onChange={handleChange}
                 className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
               >
-                <option value="globe">🌐 Globe</option>
-                <option value="code">💻 Code</option>
-                <option value="design">🎨 Design</option>
+                <option value="globe">🌐 Web</option>
                 <option value="mobile">📱 Mobile</option>
-                <option value="analytics">📊 Analytics</option>
-                <option value="security">🔒 Security</option>
-                <option value="cloud">☁️ Cloud</option>
-                <option value="database">🗄️ Database</option>
-                <option value="api">🔌 API</option>
+                <option value="design">🎨 Tasarım</option>
+                <option value="code">💻 Kod</option>
+                <option value="analytics">📊 Analitik</option>
                 <option value="seo">🔍 SEO</option>
+                <option value="consulting">💡 Danışmanlık</option>
+                <option value="support">🛠️ Destek</option>
               </select>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Fiyat</label>
-              <input
-                type="text"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                placeholder="örn: 5000₺'den başlayan fiyatlar"
-                className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
-              />
             </div>
             
             <div>
@@ -144,6 +130,18 @@ export default function ServiceModal({ isOpen, onClose, onSave, service }: Servi
                 value={formData.duration}
                 onChange={handleChange}
                 placeholder="örn: 2-4 hafta"
+                className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-slate-300 mb-2">Fiyat</label>
+              <input
+                type="text"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                placeholder="örn: 5000₺'den başlayan fiyatlar"
                 className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
               />
             </div>

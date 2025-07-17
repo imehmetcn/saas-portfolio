@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { Project } from '@/contexts/AdminContext';
 
 interface ProjectCardProps {
@@ -16,9 +17,11 @@ export default function ProjectCard({ project, onEdit, onDelete, onToggleFeature
       <div className="relative">
         <div className="h-40 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
           {project.image ? (
-            <img 
+            <Image 
               src={project.image} 
               alt={project.title} 
+              width={400}
+              height={160}
               className="w-full h-full object-cover"
             />
           ) : (

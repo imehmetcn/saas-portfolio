@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -55,9 +56,11 @@ export function Avatar({
   return (
     <div className={avatarClasses}>
       {src ? (
-        <img 
+        <Image 
           src={src} 
           alt={alt || name} 
+          width={64}
+          height={64}
           className="w-full h-full object-cover"
         />
       ) : (

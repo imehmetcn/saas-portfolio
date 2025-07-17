@@ -8,7 +8,6 @@ import {
     ChevronLeft,
     ChevronRight,
     Users,
-    Award,
     ThumbsUp
 } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
@@ -29,7 +28,7 @@ export default function Testimonials() {
     useEffect(() => {
         const interval = setInterval(nextTestimonial, 5000);
         return () => clearInterval(interval);
-    }, [testimonials.length]);
+    }, [testimonials.length, nextTestimonial]);
 
     const stats = [
         { number: "30+", label: "Mutlu Müşteri", icon: Users },
@@ -121,7 +120,7 @@ export default function Testimonials() {
 
                                 {/* Content */}
                                 <blockquote className="text-xl lg:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
-                                    "{testimonials[currentIndex].content}"
+                                    &ldquo;{testimonials[currentIndex].content}&rdquo;
                                 </blockquote>
 
                                 {/* Author */}
@@ -202,7 +201,7 @@ export default function Testimonials() {
 
                                 {/* Content */}
                                 <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                                    "{testimonial.content}"
+                                    &ldquo;{testimonial.content}&rdquo;
                                 </p>
 
                                 {/* Author */}

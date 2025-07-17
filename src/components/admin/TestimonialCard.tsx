@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { Testimonial } from '@/contexts/AdminContext';
 
 interface TestimonialCardProps {
@@ -26,9 +27,11 @@ export default function TestimonialCard({ testimonial, onEdit, onDelete, onToggl
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
               {testimonial.image ? (
-                <img 
+                <Image 
                   src={testimonial.image} 
                   alt={testimonial.name} 
+                  width={48}
+                  height={48}
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (

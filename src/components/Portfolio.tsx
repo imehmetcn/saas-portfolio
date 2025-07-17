@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from 'next/image';
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -12,8 +12,7 @@ import {
   Globe,
   Sparkles,
   TrendingUp,
-  Award,
-  Zap
+  Award
 } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
 

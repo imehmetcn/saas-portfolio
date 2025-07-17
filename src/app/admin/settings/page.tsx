@@ -143,17 +143,17 @@ export default function SettingsPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Görünüm Ayarları</h3>
                   <div className="space-y-3">
-                    <label className="flex items-center gap-3">
-                      <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
+                    <label className="flex items-center">
+                      <input type="checkbox" defaultChecked className="mr-3" />
                       <span className="text-slate-300">Karanlık tema kullan</span>
                     </label>
-                    <label className="flex items-center gap-3">
-                      <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
+                    <label className="flex items-center">
+                      <input type="checkbox" defaultChecked className="mr-3" />
                       <span className="text-slate-300">Animasyonları etkinleştir</span>
                     </label>
-                    <label className="flex items-center gap-3">
-                      <input type="checkbox" className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
-                      <span className="text-slate-300">Performans modunu etkinleştir</span>
+                    <label className="flex items-center">
+                      <input type="checkbox" defaultChecked className="mr-3" />
+                      <span className="text-slate-300">Performans monitörünü göster</span>
                     </label>
                   </div>
                 </div>
@@ -175,29 +175,29 @@ export default function SettingsPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Veri İstatistikleri</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="bg-slate-700 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-blue-400">
+                    <div className="bg-slate-700 p-4 rounded-lg text-center">
+                      <p className="text-2xl font-bold text-blue-400">
                         {JSON.parse(localStorage.getItem('portfolioProjects') || '[]').length}
-                      </div>
-                      <div className="text-sm text-slate-400">Proje</div>
+                      </p>
+                      <p className="text-slate-400 text-sm">Proje</p>
                     </div>
-                    <div className="bg-slate-700 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-green-400">
+                    <div className="bg-slate-700 p-4 rounded-lg text-center">
+                      <p className="text-2xl font-bold text-green-400">
                         {JSON.parse(localStorage.getItem('blogData') || '[]').length}
-                      </div>
-                      <div className="text-sm text-slate-400">Blog</div>
+                      </p>
+                      <p className="text-slate-400 text-sm">Blog Yazısı</p>
                     </div>
-                    <div className="bg-slate-700 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-purple-400">
+                    <div className="bg-slate-700 p-4 rounded-lg text-center">
+                      <p className="text-2xl font-bold text-purple-400">
                         {JSON.parse(localStorage.getItem('testimonialsData') || '[]').length}
-                      </div>
-                      <div className="text-sm text-slate-400">Referans</div>
+                      </p>
+                      <p className="text-slate-400 text-sm">Referans</p>
                     </div>
-                    <div className="bg-slate-700 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-yellow-400">
+                    <div className="bg-slate-700 p-4 rounded-lg text-center">
+                      <p className="text-2xl font-bold text-yellow-400">
                         {JSON.parse(localStorage.getItem('servicesData') || '[]').length}
-                      </div>
-                      <div className="text-sm text-slate-400">Servis</div>
+                      </p>
+                      <p className="text-slate-400 text-sm">Servis</p>
                     </div>
                   </div>
                 </div>
@@ -207,13 +207,13 @@ export default function SettingsPage() {
                   <div className="space-y-3">
                     <button 
                       onClick={refreshData}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                     >
                       🔄 Verileri Yenile
                     </button>
                     <button 
                       onClick={handleClearAllData}
-                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
                     >
                       🗑️ Tüm Verileri Sil
                     </button>
@@ -231,11 +231,11 @@ export default function SettingsPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Veri Dışa Aktarma</h3>
                   <p className="text-slate-400 mb-4">
-                    Tüm verilerinizi JSON formatında dışa aktarın. Bu dosyayı güvenli bir yerde saklayın.
+                    Tüm verilerinizi JSON formatında bilgisayarınıza indirin.
                   </p>
                   <button 
                     onClick={handleExportData}
-                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center gap-2"
+                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors"
                   >
                     📥 Verileri Dışa Aktar
                   </button>
@@ -244,7 +244,7 @@ export default function SettingsPage() {
                 <div>
                   <h3 className="text-lg font-medium mb-3">Veri İçe Aktarma</h3>
                   <p className="text-slate-400 mb-4">
-                    Daha önce dışa aktardığınız JSON dosyasını seçerek verilerinizi geri yükleyin.
+                    Daha önce dışa aktardığınız JSON dosyasını yükleyerek verilerinizi geri yükleyin.
                   </p>
                   <div className="flex items-center gap-4">
                     <input
@@ -256,7 +256,7 @@ export default function SettingsPage() {
                     />
                     <label
                       htmlFor="import-file"
-                      className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-2"
+                      className="bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-lg font-medium transition-colors cursor-pointer"
                     >
                       📤 Dosya Seç ve İçe Aktar
                     </label>
@@ -264,16 +264,11 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4">
-                  <div className="flex items-start gap-3">
-                    <span className="text-yellow-400 text-xl">⚠️</span>
-                    <div>
-                      <h4 className="text-yellow-400 font-medium mb-1">Önemli Uyarı</h4>
-                      <p className="text-yellow-200 text-sm">
-                        Veri içe aktarma işlemi mevcut verilerinizi değiştirecektir. 
-                        İşlem öncesinde mutlaka yedek alın.
-                      </p>
-                    </div>
-                  </div>
+                  <h4 className="text-yellow-400 font-medium mb-2">⚠️ Önemli Uyarı</h4>
+                  <p className="text-yellow-200 text-sm">
+                    Veri içe aktarma işlemi mevcut verilerinizi değiştirecektir. 
+                    İşlem öncesinde mutlaka yedek alın.
+                  </p>
                 </div>
               </div>
             </div>

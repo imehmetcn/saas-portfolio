@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface CardProps {
   children: React.ReactNode;
@@ -91,9 +92,11 @@ interface CardImageProps {
 export function CardImage({ src, alt, className = '' }: CardImageProps) {
   return (
     <div className={`w-full aspect-video relative overflow-hidden ${className}`}>
-      <img 
+      <Image 
         src={src} 
         alt={alt} 
+        width={600}
+        height={400}
         className="w-full h-full object-cover"
       />
     </div>

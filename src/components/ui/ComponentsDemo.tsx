@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { Button } from './Button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
 import { Badge } from './Badge';
@@ -94,9 +95,11 @@ export function ComponentsDemo() {
           </Card>
           
           <Card>
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80" 
               alt="Laptop with code" 
+              width={600}
+              height={192}
               className="w-full h-48 object-cover"
             />
             <CardHeader>
