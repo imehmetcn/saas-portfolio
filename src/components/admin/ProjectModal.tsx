@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Project } from '@/contexts/AdminContext';
 
 interface ProjectModalProps {
@@ -250,10 +251,11 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
               {imagePreview && (
                 <div className="mb-4">
                   <div className="relative w-full h-48 bg-slate-700 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={imagePreview}
                       alt="Proje önizleme"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       onError={() => setImagePreview('')}
                     />
                     <button
