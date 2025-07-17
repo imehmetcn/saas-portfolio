@@ -431,10 +431,9 @@ export default function Contact() {
             <motion.div 
               className="bg-gradient-to-br from-blue-600 via-purple-600 to-blue-700 rounded-2xl p-8 text-white shadow-2xl relative overflow-hidden"
               whileHover={{ scale: 1.03, y: -5 }}
-              transition={{ duration: 0.3 }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ duration: 0.3, delay: 0.6 }}
             >
               {/* Background Effects */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
@@ -454,10 +453,9 @@ export default function Contact() {
                       key={info.title} 
                       className="flex items-center gap-4 group cursor-pointer"
                       whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 + 0.7 }}
+                      transition={{ duration: 0.2, delay: index * 0.1 + 0.7 }}
                     >
                       <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
                         <info.icon size={18} className="group-hover:scale-110 transition-transform" />

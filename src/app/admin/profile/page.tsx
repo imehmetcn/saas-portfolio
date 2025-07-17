@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useAdmin } from '@/contexts/AdminContext';
 import Sidebar from '@/components/admin/Sidebar';
 import Header from '@/components/admin/Header';
@@ -29,7 +30,7 @@ export default function ProfilePage() {
     alert('Değişiklikler kaydedildi!');
   };
 
-  const updateFormData = (section: 'profile' | 'hero' | 'contact', field: string, value: any) => {
+  const updateFormData = (section: 'profile' | 'hero' | 'contact', field: string, value: string | string[]) => {
     setFormData(prev => ({
       ...prev,
       [section]: {
@@ -153,9 +154,11 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center">
                   {formData.profile.avatar && (
-                    <img 
+                    <Image 
                       src={formData.profile.avatar} 
                       alt="Avatar önizleme" 
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover mr-4"
                     />
                   )}

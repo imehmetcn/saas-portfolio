@@ -55,6 +55,7 @@ export default function SettingsPage() {
           refreshData();
         }
       } catch (error) {
+        console.error('Import error:', error);
         alert('Dosya formatı geçersiz!');
       }
     };

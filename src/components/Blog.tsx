@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
   Calendar, 
   Clock, 
-  User, 
   Tag, 
   Search,
   BookOpen,
@@ -38,7 +37,6 @@ export default function Blog() {
   });
 
   const featuredPosts = blogPosts.filter(post => post.published);
-  const recentPosts = blogPosts.filter(post => post.published).slice(0, 3);
 
   const stats = [
     { number: `${blogPosts.length}+`, label: "Yazı", icon: BookOpen },

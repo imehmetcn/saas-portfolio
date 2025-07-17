@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { useAdmin } from '@/contexts/AdminContext';
 import Sidebar from '@/components/admin/Sidebar';
 import Header from '@/components/admin/Header';
@@ -201,9 +202,11 @@ export default function AnalyticsPage() {
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
                         {testimonial.image ? (
-                          <img 
+                          <Image 
                             src={testimonial.image} 
                             alt={testimonial.name} 
+                            width={40}
+                            height={40}
                             className="w-full h-full rounded-full object-cover"
                           />
                         ) : (
