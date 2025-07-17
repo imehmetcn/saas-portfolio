@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from 'next/image';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   ExternalLink, 
   FileCode2, 
@@ -42,7 +42,7 @@ export default function Portfolio() {
     { number: "95%", label: "Başarı", icon: Sparkles }
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -53,19 +53,19 @@ export default function Portfolio() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8, y: 20 },
     visible: {
       opacity: 1,
@@ -73,7 +73,7 @@ export default function Portfolio() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
@@ -290,7 +290,7 @@ export default function Portfolio() {
                       <div className="flex items-center gap-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg">
                         <Star className="text-yellow-400 fill-current" size={16} />
                         <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                          {project.rating}
+                          {project.views}
                         </span>
                       </div>
                     </motion.div>
@@ -302,9 +302,9 @@ export default function Portfolio() {
                       whileInView={{ y: 0 }}
                       transition={{ delay: index * 0.1 + 0.5 }}
                     >
-                      {project.url && (
+                      {project.liveUrl && (
                         <motion.a
-                          href={project.url}
+                          href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-12 h-12 bg-white/90 backdrop-blur-sm text-gray-900 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300"
@@ -336,7 +336,7 @@ export default function Portfolio() {
                         {project.title}
                       </motion.h3>
                       <span className="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
-                        {project.year}
+                        {new Date(project.date).getFullYear()}
                       </span>
                     </div>
 
