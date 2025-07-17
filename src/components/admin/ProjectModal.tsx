@@ -77,7 +77,7 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
 
     // Dosya boyutu kontrolü (5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('Dosya boyutu 5MB\'dan küçük olmalıdır.');
+      alert('Dosya boyutu 5MB&apos;dan küçük olmalıdır.');
       return;
     }
 
@@ -308,7 +308,7 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
                       <>
                         <div className="text-3xl mb-2">📸</div>
                         <div className="text-sm text-slate-300 mb-1">Otomatik Screenshot</div>
-                        <div className="text-xs text-slate-500">Canlı URL'den</div>
+                        <div className="text-xs text-slate-500">Canlı URL&apos;den</div>
                       </>
                     )}
                   </button>
@@ -336,7 +336,7 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
 
               {/* Yardım Metni */}
               <div className="mt-3 text-xs text-slate-500">
-                💡 İpucu: Canlı URL girildikten sonra "Otomatik Screenshot" butonuna tıklayarak sitenizin görselini otomatik oluşturabilirsiniz.
+                💡 İpucu: Canlı URL girildikten sonra &quot;Otomatik Screenshot&quot; butonuna tıklayarak sitenizin görselini otomatik oluşturabilirsiniz.
               </div>
             </div>
             
