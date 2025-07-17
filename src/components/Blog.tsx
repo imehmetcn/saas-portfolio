@@ -53,6 +53,15 @@ export default function Blog() {
     });
   };
 
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+      .trim();
+  };
+
   return (
     <section id="blog" className="py-20 bg-white dark:bg-gray-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +106,7 @@ export default function Blog() {
             
             <div className="grid md:grid-cols-2 gap-8">
               {featuredPosts.slice(0, 2).map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`}>
+                <Link key={post.id} href={`/blog/${generateSlug(post.title)}`}>
                   <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
                     <div className="relative">
                       <Image
@@ -189,7 +198,7 @@ export default function Blog() {
         {/* Blog Posts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post) => (
-            <Link key={post.id} href={`/blog/${post.slug}`}>
+            <Link key={post.id} href={`/blog/${generateSlug(post.title)}`}>
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
                 <div className="relative">
                   <Image
