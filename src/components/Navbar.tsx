@@ -39,8 +39,8 @@ export default function Navbar() {
     <>
       <motion.nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
-            ? 'backdrop-blur-xl bg-black/10'
-            : 'bg-transparent'
+          ? 'backdrop-blur-xl bg-black/10'
+          : 'bg-transparent'
           }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -78,8 +78,8 @@ export default function Navbar() {
                     handleNavClick(item.href);
                   }}
                   className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${scrolled
-                      ? 'text-white/90 hover:text-white'
-                      : 'text-white/80 hover:text-white'
+                    ? 'text-white/90 hover:text-white'
+                    : 'text-white/80 hover:text-white'
                     }`}
                   whileHover={{ y: -2 }}
                 >
