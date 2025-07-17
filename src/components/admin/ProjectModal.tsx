@@ -30,9 +30,13 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
     views: 0
   });
 
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [isLoadingScreenshot, setIsLoadingScreenshot] = useState(false);
+
   useEffect(() => {
     if (project) {
       setFormData(project);
+      setImagePreview(project.image);
     } else {
       // Yeni proje için ID oluştur
       setFormData(prev => ({
@@ -40,8 +44,59 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
         id: Date.now(),
         date: new Date().toISOString().split('T')[0]
       }));
+      setImagePreview('');
     }
   }, [project, isOpen]);
+
+  // URL'den otomatik screenshot alma fonksiyonu
+  const generateScreenshot = async (url: string) => {
+    if (!url) return;
+    
+    setIsLoadingScreenshot(true);
+    try {
+      // Screenshot API kullanarak görsel oluştur
+      const screenshotUrl = `https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(url)}&dimension=1024x768&format=png`;
+      
+      setFormData(prev => ({
+        ...prev,
+        image: screenshotUrl
+      }));
+      setImagePreview(screenshotUrl);
+    } catch (error) {
+      console.error('Screenshot oluşturulamadı:', error);
+    } finally {
+      setIsLoadingScreenshot(false);
+    }
+  };
+
+  // Dosya yükleme fonksiyonu
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Dosya boyutu kontrolü (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Dosya boyutu 5MB\'dan küçük olmalıdır.');
+      return;
+    }
+
+    // Dosya tipini kontrol et
+    if (!file.type.startsWith('image/')) {
+      alert('Lütfen bir resim dosyası seçin.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      setFormData(prev => ({
+        ...prev,
+        image: result
+      }));
+      setImagePreview(result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -187,15 +242,100 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Görsel URL</label>
-              <input
-                type="text"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
-                className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
-              />
+            {/* Gelişmiş Görsel Yükleme Bölümü */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-slate-300 mb-4">Proje Görseli</label>
+              
+              {/* Görsel Önizleme */}
+              {imagePreview && (
+                <div className="mb-4">
+                  <div className="relative w-full h-48 bg-slate-700 rounded-lg overflow-hidden">
+                    <img
+                      src={imagePreview}
+                      alt="Proje önizleme"
+                      className="w-full h-full object-cover"
+                      onError={() => setImagePreview('')}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImagePreview('');
+                        setFormData(prev => ({ ...prev, image: '' }));
+                      }}
+                      className="absolute top-2 right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition-colors"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Görsel Yükleme Seçenekleri */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Dosya Yükleme */}
+                <div>
+                  <label className="block w-full">
+                    <div className="border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-lg p-6 text-center cursor-pointer transition-colors">
+                      <div className="text-3xl mb-2">📁</div>
+                      <div className="text-sm text-slate-300 mb-1">Dosya Yükle</div>
+                      <div className="text-xs text-slate-500">PNG, JPG (Max 5MB)</div>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+
+                {/* URL'den Screenshot */}
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => generateScreenshot(formData.liveUrl)}
+                    disabled={!formData.liveUrl || isLoadingScreenshot}
+                    className="w-full border-2 border-dashed border-slate-600 hover:border-green-500 disabled:border-slate-700 disabled:cursor-not-allowed rounded-lg p-6 text-center transition-colors"
+                  >
+                    {isLoadingScreenshot ? (
+                      <>
+                        <div className="text-3xl mb-2">⏳</div>
+                        <div className="text-sm text-slate-300 mb-1">Oluşturuluyor...</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="text-3xl mb-2">📸</div>
+                        <div className="text-sm text-slate-300 mb-1">Otomatik Screenshot</div>
+                        <div className="text-xs text-slate-500">Canlı URL'den</div>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Manuel URL */}
+                <div>
+                  <div className="border-2 border-dashed border-slate-600 rounded-lg p-4">
+                    <div className="text-3xl mb-2 text-center">🔗</div>
+                    <div className="text-sm text-slate-300 mb-2 text-center">Manuel URL</div>
+                    <input
+                      type="url"
+                      name="image"
+                      value={formData.image}
+                      onChange={(e) => {
+                        handleChange(e);
+                        setImagePreview(e.target.value);
+                      }}
+                      placeholder="https://..."
+                      className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white text-xs focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Yardım Metni */}
+              <div className="mt-3 text-xs text-slate-500">
+                💡 İpucu: Canlı URL girildikten sonra "Otomatik Screenshot" butonuna tıklayarak sitenizin görselini otomatik oluşturabilirsiniz.
+              </div>
             </div>
             
             <div>
