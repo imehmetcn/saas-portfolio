@@ -11,7 +11,7 @@ interface StatsCardProps {
   change?: string;
   changeType?: 'positive' | 'negative';
   color: string;
-  icon: LucideIcon | string;
+  icon: LucideIcon;
   link: string;
 }
 
@@ -21,11 +21,9 @@ export default function StatsCard({
   change, 
   changeType = 'positive', 
   color, 
-  icon, 
+  icon: IconComponent, 
   link 
 }: StatsCardProps) {
-  const IconComponent = typeof icon === 'string' ? null : icon;
-
   return (
     <Link href={link}>
       <motion.div 
@@ -35,11 +33,7 @@ export default function StatsCard({
       >
         <div className="flex items-center justify-between mb-4">
           <div className={`w-12 h-12 bg-gradient-to-r ${color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-            {IconComponent ? (
-              <IconComponent size={20} className="text-white" />
-            ) : (
-              <span className="text-xl">{icon}</span>
-            )}
+            <IconComponent size={20} className="text-white" />
           </div>
           {change && (
             <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${

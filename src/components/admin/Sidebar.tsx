@@ -26,9 +26,9 @@ interface SidebarProps {
   userName?: string;
 }
 
-export default function Sidebar({ userName = "Mehmet Can Şahin" }: SidebarProps) {
+export default function Sidebar({}: SidebarProps) {
   const pathname = usePathname();
-  const { profileData, projects, blogPosts } = useAdmin();
+  const { projects, blogPosts } = useAdmin();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -245,5 +245,6 @@ export default function Sidebar({ userName = "Mehmet Can Şahin" }: SidebarProps
         </Link>
       </div>
     </motion.div>
+    </>
   );
 }

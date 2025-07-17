@@ -6,13 +6,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Sidebar from '@/components/admin/Sidebar';
-import Header from '@/components/admin/Header';
-import StatsCard from '@/components/admin/StatsCard';
+
 import ProjectModal from '@/components/admin/ProjectModal';
 import { Project } from '@/contexts/AdminContext';
 import { 
   TrendingUp, 
-  Users, 
   Eye, 
   Calendar,
   ArrowUpRight,
@@ -20,21 +18,17 @@ import {
   Clock,
   Star,
   MessageSquare,
-  Zap,
-  Menu,
-  X
+  Zap
 } from 'lucide-react';
 
 export default function AdminDashboard() {
-  const { projects, blogPosts, testimonials, updateProjects } = useAdmin();
+  const { projects, blogPosts, updateProjects } = useAdmin();
   const [showAddModal, setShowAddModal] = useState(false);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
 
   // Enhanced stats with better calculations
   const totalViews = projects.reduce((total, project) => total + project.views, 0);
-  const completedProjects = projects.filter(p => p.status === 'completed').length;
   const activeProjects = projects.filter(p => p.status === 'active').length;
-  const featuredProjects = projects.filter(p => p.featured);
   const recentProjects = projects.slice(0, 3);
 
   const stats = [
@@ -121,13 +115,6 @@ export default function AdminDashboard() {
   const handleEditProject = (project: Project) => {
     setCurrentProject(project);
     setShowAddModal(true);
-  };
-
-  const handleToggleFeatured = (id: number) => {
-    const updatedProjects = projects.map(p =>
-      p.id === id ? { ...p, featured: !p.featured } : p
-    );
-    updateProjects(updatedProjects);
   };
 
 
