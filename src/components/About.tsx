@@ -80,7 +80,7 @@ export default function About() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut" as const
+        ease: "easeOut"
       }
     }
   };
