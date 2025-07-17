@@ -85,6 +85,14 @@ export interface Service {
   featured: boolean;
 }
 
+export interface SiteSettings {
+  siteTitle: string;
+  siteDescription: string;
+  darkTheme: boolean;
+  animationsEnabled: boolean;
+  performanceMonitor: boolean;
+}
+
 // Context tipi
 interface AdminContextType {
   // Data
@@ -95,6 +103,7 @@ interface AdminContextType {
   blogPosts: BlogPost[];
   testimonials: Testimonial[];
   services: Service[];
+  siteSettings: SiteSettings;
   
   // Loading states
   isLoading: boolean;
@@ -107,6 +116,7 @@ interface AdminContextType {
   updateBlogPosts: (posts: BlogPost[]) => void;
   updateTestimonials: (testimonials: Testimonial[]) => void;
   updateServices: (services: Service[]) => void;
+  updateSiteSettings: (settings: SiteSettings) => void;
   
   // Utility functions
   refreshData: () => void;
@@ -205,6 +215,14 @@ const defaultServices: Service[] = [
   }
 ];
 
+const defaultSiteSettings: SiteSettings = {
+  siteTitle: "Mehmet Can Şahin - Portfolio",
+  siteDescription: "Senior UI/UX & Frontend Developer - Yaratıcı dijital çözümler ve modern web uygulamaları",
+  darkTheme: true,
+  animationsEnabled: true,
+  performanceMonitor: false
+};
+
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [profileData, setProfileData] = useState<ProfileData>(defaultProfileData);
   const [heroData, setHeroData] = useState<HeroData>(defaultHeroData);
@@ -213,6 +231,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>(defaultBlogPosts);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const [services, setServices] = useState<Service[]>(defaultServices);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
   const [isLoading, setIsLoading] = useState(true);
 
   // Load data from localStorage
@@ -261,6 +280,12 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           setServices(JSON.parse(savedServices));
         }
 
+        // Site Settings
+        const savedSiteSettings = localStorage.getItem('siteSettings');
+        if (savedSiteSettings) {
+          setSiteSettings(JSON.parse(savedSiteSettings));
+        }
+
       } catch (error) {
         console.error('Error loading admin data:', error);
       } finally {
@@ -307,6 +332,11 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('servicesData', JSON.stringify(newServices));
   };
 
+  const updateSiteSettings = (settings: SiteSettings) => {
+    setSiteSettings(settings);
+    localStorage.setItem('siteSettings', JSON.stringify(settings));
+  };
+
   const refreshData = () => {
     setIsLoading(true);
     // Reload all data
@@ -324,6 +354,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     blogPosts,
     testimonials,
     services,
+    siteSettings,
     
     // Loading
     isLoading,
@@ -336,6 +367,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     updateBlogPosts,
     updateTestimonials,
     updateServices,
+    updateSiteSettings,
     
     // Utility
     refreshData

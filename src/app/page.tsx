@@ -1,8 +1,7 @@
 import { Suspense, lazy } from "react";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-
-
+import DynamicHead from "@/components/DynamicHead";
 import LazySection from "@/components/LazySection";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 
@@ -18,8 +17,8 @@ const Footer = lazy(() => import("@/components/Footer"));
 export default function Home() {
   return (
     <>
+      <DynamicHead />
       <PerformanceMonitor />
-
 
       <main id="top" className="min-h-screen bg-white dark:bg-gray-900">
         <Navbar />

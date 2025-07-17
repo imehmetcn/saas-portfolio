@@ -15,43 +15,30 @@ interface SiteSettings {
 }
 
 export default function SettingsPage() {
-  const { refreshData } = useAdmin();
+  const { refreshData, siteSettings, updateSiteSettings } = useAdmin();
   const [activeTab, setActiveTab] = useState('general');
-  const [siteSettings, setSiteSettings] = useState<SiteSettings>({
-    siteTitle: 'Modern SaaS Portfolio',
-    siteDescription: 'Yaratıcı dijital çözümler ve modern web uygulamaları',
-    darkTheme: true,
-    animationsEnabled: true,
-    performanceMonitor: true
-  });
+  const [localSettings, setLocalSettings] = useState<SiteSettings>(siteSettings);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Load settings from localStorage on component mount
+  // Update local settings when context changes
   useEffect(() => {
-    const savedSettings = localStorage.getItem('siteSettings');
-    if (savedSettings) {
-      try {
-        const parsed = JSON.parse(savedSettings);
-        setSiteSettings(prev => ({ ...prev, ...parsed }));
-      } catch (error) {
-        console.error('Error loading site settings:', error);
-      }
-    }
-  }, []);
+    setLocalSettings(siteSettings);
+  }, [siteSettings]);
 
-  // Save settings to localStorage
+  // Save settings to localStorage and context
   const handleSaveSettings = async () => {
     setIsLoading(true);
     try {
-      localStorage.setItem('siteSettings', JSON.stringify(siteSettings));
+      // Update context (which also updates localStorage)
+      updateSiteSettings(localSettings);
       
-      // Also update document title
-      document.title = siteSettings.siteTitle;
+      // Also update document title immediately
+      document.title = localSettings.siteTitle;
       
       // Update meta description
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
-        metaDescription.setAttribute('content', siteSettings.siteDescription);
+        metaDescription.setAttribute('content', localSettings.siteDescription);
       }
       
       toast.success('Ayarlar başarıyla kaydedildi! 🎉', {
@@ -70,7 +57,7 @@ export default function SettingsPage() {
   };
 
   const handleInputChange = (field: keyof SiteSettings, value: string | boolean) => {
-    setSiteSettings(prev => ({
+    setLocalSettings(prev => ({
       ...prev,
       [field]: value
     }));
@@ -209,7 +196,7 @@ export default function SettingsPage() {
                       <label className="block text-sm font-medium text-slate-300 mb-2">Site Başlığı</label>
                       <input
                         type="text"
-                        value={siteSettings.siteTitle}
+                        value={localSettings.siteTitle}
                         onChange={(e) => handleInputChange('siteTitle', e.target.value)}
                         className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                         placeholder="Site başlığını girin"
@@ -219,7 +206,7 @@ export default function SettingsPage() {
                       <label className="block text-sm font-medium text-slate-300 mb-2">Site Açıklaması</label>
                       <input
                         type="text"
-                        value={siteSettings.siteDescription}
+                        value={localSettings.siteDescription}
                         onChange={(e) => handleInputChange('siteDescription', e.target.value)}
                         className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                         placeholder="Site açıklamasını girin"
@@ -234,7 +221,7 @@ export default function SettingsPage() {
                     <label className="flex items-center cursor-pointer">
                       <input 
                         type="checkbox" 
-                        checked={siteSettings.darkTheme}
+                        checked={localSettings.darkTheme}
                         onChange={(e) => handleInputChange('darkTheme', e.target.checked)}
                         className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
                       />
@@ -243,7 +230,7 @@ export default function SettingsPage() {
                     <label className="flex items-center cursor-pointer">
                       <input 
                         type="checkbox" 
-                        checked={siteSettings.animationsEnabled}
+                        checked={localSettings.animationsEnabled}
                         onChange={(e) => handleInputChange('animationsEnabled', e.target.checked)}
                         className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
                       />
@@ -252,7 +239,7 @@ export default function SettingsPage() {
                     <label className="flex items-center cursor-pointer">
                       <input 
                         type="checkbox" 
-                        checked={siteSettings.performanceMonitor}
+                        checked={localSettings.performanceMonitor}
                         onChange={(e) => handleInputChange('performanceMonitor', e.target.checked)}
                         className="mr-3 w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2" 
                       />
