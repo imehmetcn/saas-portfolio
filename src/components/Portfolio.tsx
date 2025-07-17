@@ -15,54 +15,13 @@ import {
   Award,
   Zap
 } from "lucide-react";
+import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
-  const [projects, setProjects] = useState([
-    {
-      id: 1,
-      title: "Anatolyadan-transfer.com",
-      description: "Transfer hizmeti sunan bir web sitesi. Kullanıcılar için kolay rezervasyon sistemi ve yönetim paneli içerir.",
-      image: "/file.svg",
-      category: "web",
-      tags: ["HTML", "CSS", "JavaScript", "PHP"],
-      features: ["Rezervasyon Sistemi", "Yönetim Paneli", "Responsive Tasarım"],
-      client: "Anatolyadan Transfer",
-      year: 2023,
-      status: "Live",
-      rating: 5.0,
-      url: "https://anatolyadan-transfer.com"
-    },
-    {
-      id: 2,
-      title: "Sultantekyap.com.tr",
-      description: "İnşaat firması için kurumsal web sitesi. Proje portföyü, hizmetler ve iletişim bilgileri içerir.",
-      image: "/file.svg",
-      category: "web",
-      tags: ["HTML", "CSS", "JavaScript", "WordPress"],
-      features: ["Proje Galerisi", "İletişim Formu", "Responsive Tasarım"],
-      client: "Sultan Tekyap",
-      year: 2023,
-      status: "Live",
-      rating: 4.9,
-      url: "https://sultantekyap.com.tr"
-    }
-  ]);
-
-  // Admin panelinden verileri yükle
-  useEffect(() => {
-    const savedData = localStorage.getItem("portfolioData");
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setProjects(parsedData);
-      } catch (error) {
-        console.error("Portfolio verileri yüklenirken hata:", error);
-      }
-    }
-  }, []);
+  const { projects } = useAdmin();
 
   const categories = [
     { id: 'all', label: 'Tümü', icon: Globe },

@@ -1,270 +1,278 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { 
-  BarChart3, 
-  Users, 
-  FileText, 
-  MessageSquare, 
-  Settings,
-  Eye,
-  TrendingUp,
-  Calendar,
-  Star,
-  Activity
-} from "lucide-react";
+import React, { useState } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
+import Link from 'next/link';
+import Sidebar from '@/components/admin/Sidebar';
+import Header from '@/components/admin/Header';
+import StatsCard from '@/components/admin/StatsCard';
+import ProjectModal from '@/components/admin/ProjectModal';
+import { Project } from '@/contexts/AdminContext';
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({
-    totalProjects: 0,
-    totalMessages: 0,
-    totalBlogPosts: 0,
-    totalTestimonials: 0,
-    monthlyViews: 0,
-    conversionRate: 0
-  });
+  const { projects, blogPosts, testimonials, services, updateProjects } = useAdmin();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
 
-  const [recentMessages, setRecentMessages] = useState([]);
-  const [recentActivity, setRecentActivity] = useState([]);
-
-  useEffect(() => {
-    // İstatistikleri yükle
-    const projects = JSON.parse(localStorage.getItem("portfolioData") || "[]");
-    const messages = JSON.parse(localStorage.getItem("contactMessages") || "[]");
-    const blogPosts = JSON.parse(localStorage.getItem("blogData") || "[]");
-    const testimonials = JSON.parse(localStorage.getItem("testimonialsData") || "[]");
-
-    setStats({
-      totalProjects: projects.length,
-      totalMessages: messages.length,
-      totalBlogPosts: blogPosts.length,
-      totalTestimonials: testimonials.length,
-      monthlyViews: 12500,
-      conversionRate: 3.2
-    });
-
-    setRecentMessages(messages.slice(0, 5));
-
-    // Son aktiviteleri oluştur
-    const activities = [
-      { id: 1, type: "message", text: "Yeni mesaj alındı", time: "2 saat önce" },
-      { id: 2, type: "project", text: "Proje güncellendi", time: "5 saat önce" },
-      { id: 3, type: "blog", text: "Yeni blog yazısı yayınlandı", time: "1 gün önce" },
-      { id: 4, type: "testimonial", text: "Yeni testimonial eklendi", time: "2 gün önce" }
-    ];
-    setRecentActivity(activities);
-  }, []);
-
-  const dashboardCards = [
+  const stats = [
     {
-      title: "Toplam Proje",
-      value: stats.totalProjects,
-      icon: FileText,
-      color: "bg-blue-500",
-      change: "+2 bu ay"
+      title: 'Projeler',
+      count: projects.length,
+      color: 'bg-blue-600',
+      icon: '�',
+      link: '/admin/projects'
     },
     {
-      title: "Mesajlar",
-      value: stats.totalMessages,
-      icon: MessageSquare,
-      color: "bg-green-500",
-      change: "+5 bu hafta"
+      title: 'Blog Yazıları', 
+      count: blogPosts.length,
+      color: 'bg-green-600',
+      icon: '📝',
+      link: '/admin/blog'
     },
     {
-      title: "Blog Yazıları",
-      value: stats.totalBlogPosts,
-      icon: FileText,
-      color: "bg-purple-500",
-      change: "+1 bu ay"
+      title: 'Referanslar',
+      count: testimonials.length,
+      color: 'bg-purple-600', 
+      icon: '⭐',
+      link: '/admin/testimonials'
     },
     {
-      title: "Testimonials",
-      value: stats.totalTestimonials,
-      icon: Star,
-      color: "bg-yellow-500",
-      change: "+3 bu ay"
-    },
-    {
-      title: "Aylık Görüntüleme",
-      value: stats.monthlyViews.toLocaleString(),
-      icon: Eye,
-      color: "bg-indigo-500",
-      change: "+15% bu ay"
-    },
-    {
-      title: "Dönüşüm Oranı",
-      value: `${stats.conversionRate}%`,
-      icon: TrendingUp,
-      color: "bg-red-500",
-      change: "+0.5% bu ay"
+      title: 'Toplam Görüntülenme',
+      count: projects.reduce((total, project) => total + project.views, 0),
+      color: 'bg-red-600',
+      icon: '👁️',
+      link: '/admin/analytics'
     }
   ];
 
-  const quickActions = [
-    { title: "Yeni Proje Ekle", href: "/admin/projects", icon: FileText, color: "bg-blue-500" },
-    { title: "Blog Yazısı Yaz", href: "/admin/blog", icon: FileText, color: "bg-purple-500" },
-    { title: "Mesajları Görüntüle", href: "/admin/messages", icon: MessageSquare, color: "bg-green-500" },
-    { title: "Ayarlar", href: "/admin/settings", icon: Settings, color: "bg-gray-500" }
-  ];
+  const featuredProjects = projects.filter(p => p.featured).slice(0, 2);
+
+  const handleSaveProject = (project: Project) => {
+    if (currentProject) {
+      // Mevcut projeyi güncelle
+      const updatedProjects = projects.map(p => 
+        p.id === project.id ? project : p
+      );
+      updateProjects(updatedProjects);
+    } else {
+      // Yeni proje ekle
+      updateProjects([...projects, project]);
+    }
+    setShowAddModal(false);
+    setCurrentProject(undefined);
+  };
+
+  const handleEditProject = (project: Project) => {
+    setCurrentProject(project);
+    setShowAddModal(true);
+  };
+
+  const handleToggleFeatured = (id: number) => {
+    const updatedProjects = projects.map(p => 
+      p.id === id ? { ...p, featured: !p.featured } : p
+    );
+    updateProjects(updatedProjects);
+  };
+
+  const filteredProjects = projects.filter(project => {
+    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         project.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
+    const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
+    
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Admin Dashboard
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Portfolio yönetim paneline hoş geldiniz
-          </p>
-        </div>
+    <div className="min-h-screen bg-slate-900 text-white flex">
+      <Sidebar />
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {dashboardCards.map((card) => (
-            <div key={card.title} className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                    {card.title}
-                  </p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {card.value}
-                  </p>
-                  <p className="text-sm text-green-600 dark:text-green-400 mt-1">
-                    {card.change}
-                  </p>
-                </div>
-                <div className={`w-12 h-12 ${card.color} rounded-lg flex items-center justify-center`}>
-                  <card.icon className="text-white" size={24} />
-                </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        <Header 
+          title="Proje Yönetimi" 
+          description="Portföy projelerinizi buradan yönetebilirsiniz"
+          actionButton={{
+            label: "+ Yeni Proje",
+            onClick: () => {
+              setCurrentProject(undefined);
+              setShowAddModal(true);
+            }
+          }}
+        />
+
+        {/* Content */}
+        <div className="flex-1 p-6 overflow-auto">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {stats.map((stat, index) => (
+              <StatsCard 
+                key={index}
+                title={stat.title}
+                count={stat.count}
+                color={stat.color}
+                icon={stat.icon}
+                link={stat.link}
+              />
+            ))}
+          </div>
+
+          {/* Search and Filters */}
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                placeholder="Proje ara..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 pl-10 text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+                🔍
               </div>
             </div>
-          ))}
-        </div>
+            <select 
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="all">Tüm Kategoriler</option>
+              <option value="web">Web</option>
+              <option value="mobile">Mobile</option>
+              <option value="desktop">Desktop</option>
+              <option value="design">Design</option>
+              <option value="other">Diğer</option>
+            </select>
+            <select 
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="all">Tüm Durumlar</option>
+              <option value="active">Aktif</option>
+              <option value="completed">Tamamlandı</option>
+              <option value="maintenance">Bakım</option>
+            </select>
+          </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Quick Actions */}
-          <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Hızlı İşlemler
-              </h3>
-              <div className="space-y-3">
-                {quickActions.map((action) => (
-                  <a
-                    key={action.title}
-                    href={action.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    <div className={`w-10 h-10 ${action.color} rounded-lg flex items-center justify-center`}>
-                      <action.icon className="text-white" size={18} />
-                    </div>
-                    <span className="text-gray-900 dark:text-white font-medium">
-                      {action.title}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Son Aktiviteler
-              </h3>
-              <div className="space-y-3">
-                {recentActivity.map((activity) => (
-                  <div key={activity.id} className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-900 dark:text-white">
-                        {activity.text}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {activity.time}
-                      </p>
-                    </div>
+          {/* Featured Projects */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {featuredProjects.map((project) => (
+              <div key={project.id} className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden hover:border-slate-600 transition-all group">
+                <div className="relative">
+                  <div className="h-48 bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 flex items-center justify-center">
+                    {project.image ? (
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-6xl opacity-80">📦</div>
+                    )}
                   </div>
-                ))}
+                  <div className="absolute top-4 left-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      project.status === 'completed' ? 'bg-green-500 text-white' : 
+                      project.status === 'active' ? 'bg-blue-500 text-white' : 'bg-yellow-500 text-black'
+                    }`}>
+                      {project.status === 'completed' ? 'Tamamlandı' : 
+                       project.status === 'active' ? 'Aktif' : 'Bakım'}
+                    </span>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <button 
+                      onClick={() => handleToggleFeatured(project.id)}
+                      className="text-yellow-400 hover:text-yellow-300 text-xl transition-colors"
+                    >
+                      ⭐
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                  <p className="text-slate-400 mb-4 line-clamp-2">{project.description}</p>
+                  
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.slice(0, 4).map((tech, index) => (
+                      <span key={index} className="bg-slate-700 text-slate-300 px-3 py-1 rounded-full text-xs font-medium">
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="bg-slate-700 text-slate-300 px-3 py-1 rounded-full text-xs font-medium">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-sm text-slate-400 mb-4">
+                    <span className="flex items-center gap-1">
+                      <span>👁️</span>
+                      {project.views.toLocaleString()}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span>📅</span>
+                      {new Date(project.date).toLocaleDateString('tr-TR')}
+                    </span>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => handleEditProject(project)}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Düzenle
+                    </button>
+                    <Link href={project.liveUrl} target="_blank" className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition-colors">
+                      👁️
+                    </Link>
+                    <Link href={project.githubUrl} target="_blank" className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition-colors">
+                      🔗
+                    </Link>
+                    <Link href={`/admin/analytics?project=${project.id}`} className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700 transition-colors">
+                      📊
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
 
-          {/* Recent Messages */}
-          <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Son Mesajlar
-                </h3>
-                <a
-                  href="/admin/messages"
-                  className="text-blue-600 dark:text-blue-400 text-sm hover:underline"
-                >
-                  Tümünü Görüntüle
-                </a>
-              </div>
-              
-              {recentMessages.length > 0 ? (
-                <div className="space-y-4">
-                  {recentMessages.map((message: any) => (
-                    <div key={message.id} className="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-b-0">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h4 className="font-medium text-gray-900 dark:text-white">
-                              {message.name}
-                            </h4>
-                            {!message.read && (
-                              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                            )}
-                          </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                            {message.email}
-                          </p>
-                          <p className="text-sm text-gray-900 dark:text-white mb-2">
-                            {message.subject}
-                          </p>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                            {message.message}
-                          </p>
-                        </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 ml-4">
-                          {message.date}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <MessageSquare className="mx-auto text-gray-400 mb-4" size={48} />
-                  <p className="text-gray-500 dark:text-gray-400">
-                    Henüz mesaj bulunmuyor
-                  </p>
-                </div>
-              )}
+          {/* Empty State */}
+          {featuredProjects.length === 0 && (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📁</div>
+              <h3 className="text-xl font-semibold text-slate-300 mb-2">Henüz öne çıkan proje yok</h3>
+              <p className="text-slate-400 mb-6">İlk projenizi ekleyerek başlayın</p>
+              <button 
+                onClick={() => {
+                  setCurrentProject(undefined);
+                  setShowAddModal(true);
+                }}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                + İlk Projeyi Ekle
+              </button>
             </div>
-          </div>
-        </div>
-
-        {/* Performance Chart Placeholder */}
-        <div className="mt-8 bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Site Performansı
-          </h3>
-          <div className="h-64 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <BarChart3 className="mx-auto text-gray-400 mb-4" size={48} />
-              <p className="text-gray-500 dark:text-gray-400">
-                Grafik verileri yükleniyor...
-              </p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal 
+        isOpen={showAddModal}
+        onClose={() => {
+          setShowAddModal(false);
+          setCurrentProject(undefined);
+        }}
+        onSave={handleSaveProject}
+        project={currentProject}
+      />
     </div>
   );
 }

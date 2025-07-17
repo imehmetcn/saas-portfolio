@@ -1,28 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, ArrowRight, Download, Play, Award, Users, Briefcase, Sparkles, Zap, Star, Code, Rocket } from "lucide-react";
+import { Mail, Github, Linkedin, Download, Award, Star, Rocket, Sparkles } from "lucide-react";
+import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Hero() {
-  const [heroData, setHeroData] = useState({
-    title: "Mehmet Can Şahin",
-    subtitle: "Senior UI/UX & Frontend Developer",
-    description: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum. Kullanıcı odaklı tasarım ve cutting-edge teknolojilerle işinizi dijital dünyada zirveye taşıyorum.",
-    skills: ["React", "Next.js", "TypeScript", "UI/UX Design", "Node.js", "Figma"]
-  });
-
-  useEffect(() => {
-    const savedData = localStorage.getItem("heroData");
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setHeroData(parsedData);
-      } catch (error) {
-        console.error("Hero verileri yüklenirken hata:", error);
-      }
-    }
-  }, []);
+  const { heroData, profileData } = useAdmin();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -116,7 +99,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  Mehmet Can
+                  {heroData.title}
                 </motion.span>
               </motion.h1>
               
@@ -128,7 +111,7 @@ export default function Hero() {
               >
                 <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
                 <p className="text-xl lg:text-3xl text-gray-300 font-light">
-                  UI/UX & Frontend Developer
+                  {heroData.subtitle}
                 </p>
                 <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full"></div>
               </motion.div>
@@ -141,11 +124,7 @@ export default function Hero() {
             variants={itemVariants}
           >
             <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed font-light">
-              <span className="text-white font-medium">8+ yıllık deneyimimle</span> Fortune 500 şirketlerinden startup'lara kadar 
-              geniş bir yelpazede <span className="text-blue-400 font-medium">dijital çözümler</span> üretiyorum. 
-              <br className="hidden lg:block" />
-              Kullanıcı odaklı tasarım ve <span className="text-purple-400 font-medium">modern teknolojilerle</span> 
-              işinizi dijital dünyada zirveye taşıyorum.
+              {heroData.description}
             </p>
           </motion.div>
 
@@ -237,7 +216,7 @@ export default function Hero() {
               {[
                 { icon: Github, href: "https://github.com/mehmetcn", label: "GitHub" },
                 { icon: Linkedin, href: "https://linkedin.com/in/emcshn", label: "LinkedIn" },
-                { icon: Mail, href: "mailto:imehmetshn@hotmail.com", label: "Email" }
+                { icon: Mail, href: `mailto:${profileData.email}`, label: "Email" }
               ].map((social) => (
                 <motion.a
                   key={social.label}

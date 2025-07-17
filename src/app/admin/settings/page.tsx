@@ -1,419 +1,283 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Globe,
-  Save,
-  Upload,
-  Eye,
-  EyeOff,
-  Settings as SettingsIcon,
-  Palette,
-  Shield,
-  Bell
-} from "lucide-react";
+import React, { useState } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
+import Sidebar from '@/components/admin/Sidebar';
+import Header from '@/components/admin/Header';
 
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState('profile');
-  const [isSaving, setIsSaving] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const { refreshData } = useAdmin();
+  const [activeTab, setActiveTab] = useState('general');
 
-  // Profile Settings
-  const [profileData, setProfileData] = useState({
-    name: "Mehmet Can Şahin",
-    title: "Senior UI/UX & Frontend Developer",
-    email: "imehmetshn@hotmail.com",
-    phone: "0534 750 91 71",
-    location: "İstanbul, Türkiye",
-    website: "mehmetcn.com.tr",
-    bio: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum.",
-    avatar: "/file.svg"
-  });
-
-  // Hero Settings
-  const [heroData, setHeroData] = useState({
-    title: "Mehmet Can Şahin",
-    subtitle: "Senior UI/UX & Frontend Developer",
-    description: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum. Kullanıcı odaklı tasarım ve cutting-edge teknolojilerle işinizi dijital dünyada zirveye taşıyorum.",
-    skills: ["React", "Next.js", "TypeScript", "UI/UX Design", "Node.js", "Figma"]
-  });
-
-  // Contact Settings
-  const [contactData, setContactData] = useState({
-    email: "imehmetshn@hotmail.com",
-    phone: "0534 750 91 71",
-    website: "mehmetcn.com.tr",
-    location: "İstanbul, Türkiye"
-  });
-
-  // About Settings
-  const [aboutData, setAboutData] = useState({
-    title: "UI/UX ve Front-End Geliştirme",
-    description: "Teknolojiye olan merakım ve tutkum nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. Mezuniyet sonrası staj ve freelance Bilgi İşlem Personeli olarak iş deneyimimi kazandım.",
-    education: "Kepez Mesleki ve Teknik Anadolu Lisesi - Web Programcılığı (2018)",
-    experience: "8+",
-    projects: "20+",
-    clients: "15+",
-    successRate: "95%"
-  });
-
-  // Security Settings
-  const [securityData, setSecurityData] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: ""
-  });
-
-  // Load data from localStorage
-  useEffect(() => {
-    const loadData = (key: string, setter: Function) => {
-      const saved = localStorage.getItem(key);
-      if (saved) {
-        try {
-          setter(JSON.parse(saved));
-        } catch (error) {
-          console.error(`Error loading ${key}:`, error);
-        }
-      }
+  const handleExportData = () => {
+    const data = {
+      profileData: localStorage.getItem('profileData'),
+      heroData: localStorage.getItem('heroData'),
+      contactData: localStorage.getItem('contactData'),
+      projects: localStorage.getItem('portfolioProjects'),
+      blogPosts: localStorage.getItem('blogData'),
+      testimonials: localStorage.getItem('testimonialsData'),
+      services: localStorage.getItem('servicesData'),
+      exportDate: new Date().toISOString()
     };
 
-    loadData("profileData", setProfileData);
-    loadData("heroData", setHeroData);
-    loadData("contactData", setContactData);
-    loadData("aboutData", setAboutData);
-  }, []);
-
-  const saveSettings = async (dataKey: string, data: any) => {
-    setIsSaving(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    localStorage.setItem(dataKey, JSON.stringify(data));
-    setIsSaving(false);
-    
-    // Show success message (you can implement a toast notification here)
-    alert('Ayarlar başarıyla kaydedildi!');
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `portfolio-backup-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
-  const tabs = [
-    { id: 'profile', label: 'Profil', icon: User },
-    { id: 'hero', label: 'Ana Sayfa', icon: Globe },
-    { id: 'about', label: 'Hakkımda', icon: User },
-    { id: 'contact', label: 'İletişim', icon: Mail },
-    { id: 'security', label: 'Güvenlik', icon: Shield },
-    { id: 'notifications', label: 'Bildirimler', icon: Bell }
-  ];
+  const handleImportData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target?.result as string);
+        
+        if (confirm('Bu işlem mevcut verilerinizi değiştirecek. Devam etmek istediğinizden emin misiniz?')) {
+          // Verileri localStorage'a kaydet
+          if (data.profileData) localStorage.setItem('profileData', data.profileData);
+          if (data.heroData) localStorage.setItem('heroData', data.heroData);
+          if (data.contactData) localStorage.setItem('contactData', data.contactData);
+          if (data.projects) localStorage.setItem('portfolioProjects', data.projects);
+          if (data.blogPosts) localStorage.setItem('blogData', data.blogPosts);
+          if (data.testimonials) localStorage.setItem('testimonialsData', data.testimonials);
+          if (data.services) localStorage.setItem('servicesData', data.services);
+          
+          alert('Veriler başarıyla içe aktarıldı! Sayfa yenileniyor...');
+          refreshData();
+        }
+      } catch (error) {
+        alert('Dosya formatı geçersiz!');
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const handleClearAllData = () => {
+    if (confirm('Bu işlem tüm verilerinizi silecek ve geri alınamaz! Devam etmek istediğinizden emin misiniz?')) {
+      if (confirm('Son kez soruyorum: Tüm verileriniz silinecek. Emin misiniz?')) {
+        localStorage.removeItem('profileData');
+        localStorage.removeItem('heroData');
+        localStorage.removeItem('contactData');
+        localStorage.removeItem('portfolioProjects');
+        localStorage.removeItem('blogData');
+        localStorage.removeItem('testimonialsData');
+        localStorage.removeItem('servicesData');
+        
+        alert('Tüm veriler silindi! Sayfa yenileniyor...');
+        refreshData();
+      }
+    }
+  };
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          Ayarlar
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Site ayarlarınızı buradan yönetebilirsiniz
-        </p>
-      </div>
+    <div className="min-h-screen bg-slate-900 text-white flex">
+      <Sidebar />
 
-      <div className="grid lg:grid-cols-4 gap-6">
-        {/* Tabs */}
-        <div className="lg:col-span-1">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
-            <nav className="space-y-1">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                  }`}
-                >
-                  <tab.icon size={18} />
-                  {tab.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        <Header 
+          title="Ayarlar" 
+          description="Sistem ayarlarınızı yönetin"
+        />
 
         {/* Content */}
-        <div className="lg:col-span-3">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-            {/* Profile Tab */}
-            {activeTab === 'profile' && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Profil Bilgileri
-                </h2>
-                
-                <form onSubmit={(e) => { e.preventDefault(); saveSettings('profileData', profileData); }}>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Ad Soyad
-                      </label>
-                      <input
-                        type="text"
-                        value={profileData.name}
-                        onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Ünvan
-                      </label>
-                      <input
-                        type="text"
-                        value={profileData.title}
-                        onChange={(e) => setProfileData({...profileData, title: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        E-posta
-                      </label>
-                      <input
-                        type="email"
-                        value={profileData.email}
-                        onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Telefon
-                      </label>
-                      <input
-                        type="tel"
-                        value={profileData.phone}
-                        onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Konum
-                      </label>
-                      <input
-                        type="text"
-                        value={profileData.location}
-                        onChange={(e) => setProfileData({...profileData, location: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Website
-                      </label>
-                      <input
-                        type="url"
-                        value={profileData.website}
-                        onChange={(e) => setProfileData({...profileData, website: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Biyografi
-                    </label>
-                    <textarea
-                      rows={4}
-                      value={profileData.bio}
-                      onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      type="submit"
-                      disabled={isSaving}
-                      className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
-                    >
-                      {isSaving ? (
-                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                      ) : (
-                        <Save size={16} />
-                      )}
-                      {isSaving ? 'Kaydediliyor...' : 'Kaydet'}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Hero Tab */}
-            {activeTab === 'hero' && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Ana Sayfa Ayarları
-                </h2>
-                
-                <form onSubmit={(e) => { e.preventDefault(); saveSettings('heroData', heroData); }}>
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Ana Başlık
-                      </label>
-                      <input
-                        type="text"
-                        value={heroData.title}
-                        onChange={(e) => setHeroData({...heroData, title: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Alt Başlık
-                      </label>
-                      <input
-                        type="text"
-                        value={heroData.subtitle}
-                        onChange={(e) => setHeroData({...heroData, subtitle: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Açıklama
-                      </label>
-                      <textarea
-                        rows={4}
-                        value={heroData.description}
-                        onChange={(e) => setHeroData({...heroData, description: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Yetenekler (virgülle ayırın)
-                      </label>
-                      <input
-                        type="text"
-                        value={heroData.skills.join(', ')}
-                        onChange={(e) => setHeroData({...heroData, skills: e.target.value.split(', ').filter(s => s.trim())})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      type="submit"
-                      disabled={isSaving}
-                      className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
-                    >
-                      {isSaving ? (
-                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                      ) : (
-                        <Save size={16} />
-                      )}
-                      {isSaving ? 'Kaydediliyor...' : 'Kaydet'}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Security Tab */}
-            {activeTab === 'security' && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Güvenlik Ayarları
-                </h2>
-                
-                <form onSubmit={(e) => { e.preventDefault(); alert('Şifre değiştirildi!'); }}>
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Mevcut Şifre
-                      </label>
-                      <div className="relative">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          value={securityData.currentPassword}
-                          onChange={(e) => setSecurityData({...securityData, currentPassword: e.target.value})}
-                          className="w-full px-4 py-2 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                        >
-                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Yeni Şifre
-                      </label>
-                      <input
-                        type="password"
-                        value={securityData.newPassword}
-                        onChange={(e) => setSecurityData({...securityData, newPassword: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Yeni Şifre (Tekrar)
-                      </label>
-                      <input
-                        type="password"
-                        value={securityData.confirmPassword}
-                        onChange={(e) => setSecurityData({...securityData, confirmPassword: e.target.value})}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      type="submit"
-                      className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      <Shield size={16} />
-                      Şifreyi Değiştir
-                    </button>
-                  </div>
-                </form>
-              </div>
-            )}
-
-            {/* Other tabs can be implemented similarly */}
-            {activeTab === 'notifications' && (
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Bildirim Ayarları
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Bildirim ayarları yakında eklenecek...
-                </p>
-              </div>
-            )}
+        <div className="flex-1 p-6 overflow-auto">
+          {/* Tabs */}
+          <div className="flex space-x-1 mb-6 bg-slate-800 p-1 rounded-lg">
+            {[
+              { id: 'general', name: 'Genel', icon: '⚙️' },
+              { id: 'data', name: 'Veri Yönetimi', icon: '💾' },
+              { id: 'backup', name: 'Yedekleme', icon: '🔄' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-700'
+                }`}
+              >
+                <span>{tab.icon}</span>
+                {tab.name}
+              </button>
+            ))}
           </div>
+
+          {/* General Tab */}
+          {activeTab === 'general' && (
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h2 className="text-xl font-bold mb-6">Genel Ayarlar</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Site Bilgileri</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">Site Başlığı</label>
+                      <input
+                        type="text"
+                        defaultValue="Modern SaaS Portfolio"
+                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-2">Site Açıklaması</label>
+                      <input
+                        type="text"
+                        defaultValue="Yaratıcı dijital çözümler ve modern web uygulamaları"
+                        className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Görünüm Ayarları</h3>
+                  <div className="space-y-3">
+                    <label className="flex items-center gap-3">
+                      <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
+                      <span className="text-slate-300">Karanlık tema kullan</span>
+                    </label>
+                    <label className="flex items-center gap-3">
+                      <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
+                      <span className="text-slate-300">Animasyonları etkinleştir</span>
+                    </label>
+                    <label className="flex items-center gap-3">
+                      <input type="checkbox" className="w-4 h-4 text-blue-600 bg-slate-700 border-slate-600 rounded focus:ring-blue-500" />
+                      <span className="text-slate-300">Performans modunu etkinleştir</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Ayarları Kaydet
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Data Management Tab */}
+          {activeTab === 'data' && (
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h2 className="text-xl font-bold mb-6">Veri Yönetimi</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Veri İstatistikleri</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-slate-700 rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold text-blue-400">
+                        {JSON.parse(localStorage.getItem('portfolioProjects') || '[]').length}
+                      </div>
+                      <div className="text-sm text-slate-400">Proje</div>
+                    </div>
+                    <div className="bg-slate-700 rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold text-green-400">
+                        {JSON.parse(localStorage.getItem('blogData') || '[]').length}
+                      </div>
+                      <div className="text-sm text-slate-400">Blog</div>
+                    </div>
+                    <div className="bg-slate-700 rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold text-purple-400">
+                        {JSON.parse(localStorage.getItem('testimonialsData') || '[]').length}
+                      </div>
+                      <div className="text-sm text-slate-400">Referans</div>
+                    </div>
+                    <div className="bg-slate-700 rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold text-yellow-400">
+                        {JSON.parse(localStorage.getItem('servicesData') || '[]').length}
+                      </div>
+                      <div className="text-sm text-slate-400">Servis</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Veri İşlemleri</h3>
+                  <div className="space-y-3">
+                    <button 
+                      onClick={refreshData}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                    >
+                      🔄 Verileri Yenile
+                    </button>
+                    <button 
+                      onClick={handleClearAllData}
+                      className="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                    >
+                      🗑️ Tüm Verileri Sil
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Backup Tab */}
+          {activeTab === 'backup' && (
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h2 className="text-xl font-bold mb-6">Yedekleme ve Geri Yükleme</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Veri Dışa Aktarma</h3>
+                  <p className="text-slate-400 mb-4">
+                    Tüm verilerinizi JSON formatında dışa aktarın. Bu dosyayı güvenli bir yerde saklayın.
+                  </p>
+                  <button 
+                    onClick={handleExportData}
+                    className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center gap-2"
+                  >
+                    📥 Verileri Dışa Aktar
+                  </button>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Veri İçe Aktarma</h3>
+                  <p className="text-slate-400 mb-4">
+                    Daha önce dışa aktardığınız JSON dosyasını seçerek verilerinizi geri yükleyin.
+                  </p>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="file"
+                      accept=".json"
+                      onChange={handleImportData}
+                      className="hidden"
+                      id="import-file"
+                    />
+                    <label
+                      htmlFor="import-file"
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-2"
+                    >
+                      📤 Dosya Seç ve İçe Aktar
+                    </label>
+                  </div>
+                </div>
+
+                <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-yellow-400 text-xl">⚠️</span>
+                    <div>
+                      <h4 className="text-yellow-400 font-medium mb-1">Önemli Uyarı</h4>
+                      <p className="text-yellow-200 text-sm">
+                        Veri içe aktarma işlemi mevcut verilerinizi değiştirecektir. 
+                        İşlem öncesinde mutlaka yedek alın.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

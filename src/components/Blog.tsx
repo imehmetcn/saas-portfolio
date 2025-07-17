@@ -13,79 +13,12 @@ import {
   TrendingUp,
   Eye
 } from "lucide-react";
+import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Blog() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [blogPosts, setBlogPosts] = useState([
-    {
-      id: 1,
-      title: "Modern Web Geliştirme Trendleri 2024",
-      slug: "modern-web-geliştirme-trendleri-2024",
-      excerpt: "2024 yılında web geliştirme dünyasında öne çıkan teknolojiler ve trendler hakkında detaylı bir inceleme.",
-      content: "Web geliştirme dünyası sürekli evrim geçiriyor...",
-      coverImage: "/file.svg",
-      author: {
-        name: "Mehmet Can Şahin",
-        avatar: "/file.svg"
-      },
-      tags: ["Web Development", "JavaScript", "React", "Next.js"],
-      category: "teknoloji",
-      publishedAt: "2024-01-15",
-      readTime: 8,
-      views: 1250,
-      featured: true
-    },
-    {
-      id: 2,
-      title: "UI/UX Tasarımında Renk Psikolojisi",
-      slug: "ui-ux-tasariminda-renk-psikolojisi",
-      excerpt: "Renklerin kullanıcı deneyimi üzerindeki etkisi ve doğru renk seçiminin önemi.",
-      content: "Renkler sadece estetik değil, psikolojik etki de yaratır...",
-      coverImage: "/file.svg",
-      author: {
-        name: "Mehmet Can Şahin",
-        avatar: "/file.svg"
-      },
-      tags: ["UI/UX", "Design", "Psychology"],
-      category: "tasarim",
-      publishedAt: "2024-01-10",
-      readTime: 6,
-      views: 890,
-      featured: false
-    },
-    {
-      id: 3,
-      title: "TypeScript ile Daha Güvenli Kod Yazma",
-      slug: "typescript-ile-daha-guvenli-kod-yazma",
-      excerpt: "TypeScript'in avantajları ve JavaScript projelerinizde nasıl kullanabileceğiniz.",
-      content: "TypeScript, JavaScript'e tip güvenliği getiren...",
-      coverImage: "/file.svg",
-      author: {
-        name: "Mehmet Can Şahin",
-        avatar: "/file.svg"
-      },
-      tags: ["TypeScript", "JavaScript", "Programming"],
-      category: "programlama",
-      publishedAt: "2024-01-05",
-      readTime: 10,
-      views: 1450,
-      featured: true
-    }
-  ]);
-
-  // Admin panelinden verileri yükle
-  useEffect(() => {
-    const savedData = localStorage.getItem("blogData");
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setBlogPosts(parsedData);
-      } catch (error) {
-        console.error("Blog verileri yüklenirken hata:", error);
-      }
-    }
-  }, []);
+  const { blogPosts } = useAdmin();
 
   const categories = [
     { id: 'all', label: 'Tümü' },
@@ -100,11 +33,12 @@ export default function Blog() {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesCategory && matchesSearch;
+    const isPublished = post.published; // Sadece yayınlanan yazıları göster
+    return matchesCategory && matchesSearch && isPublished;
   });
 
-  const featuredPosts = blogPosts.filter(post => post.featured);
-  const recentPosts = blogPosts.slice(0, 3);
+  const featuredPosts = blogPosts.filter(post => post.published);
+  const recentPosts = blogPosts.filter(post => post.published).slice(0, 3);
 
   const stats = [
     { number: `${blogPosts.length}+`, label: "Yazı", icon: BookOpen },
@@ -169,7 +103,7 @@ export default function Blog() {
                   <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
                     <div className="relative">
                       <Image
-                        src={post.coverImage}
+                        src={post.image}
                         alt={post.title}
                         width={600}
                         height={300}
@@ -186,11 +120,11 @@ export default function Blog() {
                       <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar size={14} />
-                          {formatDate(post.publishedAt)}
+                          {formatDate(post.date)}
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock size={14} />
-                          {post.readTime} dk
+                          {post.readTime}
                         </div>
                         <div className="flex items-center gap-1">
                           <Eye size={14} />
@@ -261,7 +195,7 @@ export default function Blog() {
               <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
                 <div className="relative">
                   <Image
-                    src={post.coverImage}
+                    src={post.image}
                     alt={post.title}
                     width={400}
                     height={200}
@@ -278,11 +212,11 @@ export default function Blog() {
                   <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
                     <div className="flex items-center gap-1">
                       <Calendar size={12} />
-                      {formatDate(post.publishedAt)}
+                      {formatDate(post.date)}
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock size={12} />
-                      {post.readTime} dk
+                      {post.readTime}
                     </div>
                   </div>
                   

@@ -11,79 +11,11 @@ import {
     Award,
     ThumbsUp
 } from "lucide-react";
+import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Testimonials() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [testimonials, setTestimonials] = useState([
-        {
-            id: 1,
-            name: "Ahmet Yılmaz",
-            position: "CEO",
-            company: "TechStart",
-            avatar: "/file.svg",
-            content: "Mehmet Can ile çalışmak harika bir deneyimdi. Projemizi zamanında ve beklentilerimizin üzerinde teslim etti. Teknik bilgisi ve yaratıcılığı etkileyici.",
-            rating: 5,
-            project: "E-ticaret Platformu",
-            featured: true
-        },
-        {
-            id: 2,
-            name: "Zeynep Kaya",
-            position: "Pazarlama Müdürü",
-            company: "Digital Agency",
-            avatar: "/file.svg",
-            content: "UI/UX tasarım konusundaki uzmanlığı sayesinde kullanıcı deneyimimiz %40 arttı. Profesyonel yaklaşımı ve detaylara verdiği önem takdire şayan.",
-            rating: 5,
-            project: "Kurumsal Website",
-            featured: true
-        },
-        {
-            id: 3,
-            name: "Can Özdemir",
-            position: "Kurucu",
-            company: "StartupCo",
-            avatar: "/file.svg",
-            content: "Mobil uyumlu tasarım konusunda gerçekten uzman. Responsive tasarımı sayesinde mobil trafiğimiz %60 arttı. Kesinlikle tavsiye ederim.",
-            rating: 5,
-            project: "Mobil Uygulama",
-            featured: false
-        },
-        {
-            id: 4,
-            name: "Elif Demir",
-            position: "Proje Yöneticisi",
-            company: "WebSolutions",
-            avatar: "/file.svg",
-            content: "Performans optimizasyonu konusundaki bilgisi sayesinde site hızımız 3 kat arttı. Teknik sorunları hızla çözme yeteneği mükemmel.",
-            rating: 5,
-            project: "Performance Optimization",
-            featured: false
-        },
-        {
-            id: 5,
-            name: "Murat Şen",
-            position: "IT Müdürü",
-            company: "Corporate Inc",
-            avatar: "/file.svg",
-            content: "Güvenlik konusundaki titizliği ve modern teknolojileri kullanma becerisi projemizi başarıya ulaştırdı. Çok memnun kaldık.",
-            rating: 5,
-            project: "Kurumsal Portal",
-            featured: false
-        }
-    ]);
-
-    // Admin panelinden verileri yükle
-    useEffect(() => {
-        const savedData = localStorage.getItem("testimonialsData");
-        if (savedData) {
-            try {
-                const parsedData = JSON.parse(savedData);
-                setTestimonials(parsedData);
-            } catch (error) {
-                console.error("Testimonials verileri yüklenirken hata:", error);
-            }
-        }
-    }, []);
+    const { testimonials } = useAdmin();
 
     const nextTestimonial = () => {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -207,7 +139,7 @@ export default function Testimonials() {
                                             {testimonials[currentIndex].position} • {testimonials[currentIndex].company}
                                         </div>
                                         <div className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                                            {testimonials[currentIndex].project}
+                                            {new Date(testimonials[currentIndex].date).toLocaleDateString('tr-TR')}
                                         </div>
                                     </div>
                                 </div>
@@ -290,10 +222,10 @@ export default function Testimonials() {
                                     </div>
                                 </div>
 
-                                {/* Project */}
+                                {/* Date */}
                                 <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                                     <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
-                                        {testimonial.project}
+                                        {new Date(testimonial.date).toLocaleDateString('tr-TR')}
                                     </span>
                                 </div>
                             </motion.div>
