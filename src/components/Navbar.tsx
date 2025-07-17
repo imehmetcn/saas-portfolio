@@ -26,7 +26,7 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    
+
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
@@ -38,11 +38,10 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          scrolled 
-            ? 'backdrop-blur-xl bg-black/10' 
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
+            ? 'backdrop-blur-xl bg-black/10'
             : 'bg-transparent'
-        }`}
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -62,9 +61,8 @@ export default function Navbar() {
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
                 <Code className="text-white" size={20} />
               </div>
-              <span className={`font-bold text-xl transition-colors duration-300 ${
-                scrolled ? 'text-white' : 'text-white'
-              }`}>
+              <span className={`font-bold text-xl transition-colors duration-300 ${scrolled ? 'text-white' : 'text-white'
+                }`}>
                 Portfolio
               </span>
             </motion.a>
@@ -79,11 +77,10 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${
-                    scrolled 
-                      ? 'text-white/90 hover:text-white' 
+                  className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${scrolled
+                      ? 'text-white/90 hover:text-white'
                       : 'text-white/80 hover:text-white'
-                  }`}
+                    }`}
                   whileHover={{ y: -2 }}
                 >
                   {item.name}
@@ -136,7 +133,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-[60] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -145,9 +142,9 @@ export default function Navbar() {
               className="absolute inset-0 bg-black/50 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
-            
+
             <motion.div
-              className="absolute top-0 right-0 h-full w-80 bg-black/30 backdrop-blur-xl border-l border-white/20"
+              className="absolute top-0 right-0 h-full w-full max-w-sm bg-black/90 backdrop-blur-xl border-l border-white/20 shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
