@@ -234,56 +234,83 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load data from localStorage
+  // Load data from API and localStorage fallback
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
       try {
-        // Profile data
+        // Load projects from API
+        try {
+          const projectsResponse = await fetch('/api/projects');
+          if (projectsResponse.ok) {
+            const projectsData = await projectsResponse.json();
+            setProjects(projectsData);
+          } else {
+            // Fallback to localStorage
+            const savedProjects = localStorage.getItem('portfolioProjects');
+            if (savedProjects) {
+              setProjects(JSON.parse(savedProjects));
+            }
+          }
+        } catch (error) {
+          console.error('Error loading projects from API:', error);
+          // Fallback to localStorage
+          const savedProjects = localStorage.getItem('portfolioProjects');
+          if (savedProjects) {
+            setProjects(JSON.parse(savedProjects));
+          }
+        }
+
+        // Load site settings from API
+        try {
+          const settingsResponse = await fetch('/api/settings');
+          if (settingsResponse.ok) {
+            const settingsData = await settingsResponse.json();
+            setSiteSettings(settingsData);
+          } else {
+            // Fallback to localStorage
+            const savedSiteSettings = localStorage.getItem('siteSettings');
+            if (savedSiteSettings) {
+              setSiteSettings(JSON.parse(savedSiteSettings));
+            }
+          }
+        } catch (error) {
+          console.error('Error loading settings from API:', error);
+          // Fallback to localStorage
+          const savedSiteSettings = localStorage.getItem('siteSettings');
+          if (savedSiteSettings) {
+            setSiteSettings(JSON.parse(savedSiteSettings));
+          }
+        }
+
+        // Load other data from localStorage (will be migrated to API later)
         const savedProfile = localStorage.getItem('profileData');
         if (savedProfile) {
           setProfileData(JSON.parse(savedProfile));
         }
 
-        // Hero data
         const savedHero = localStorage.getItem('heroData');
         if (savedHero) {
           setHeroData(JSON.parse(savedHero));
         }
 
-        // Contact data
         const savedContact = localStorage.getItem('contactData');
         if (savedContact) {
           setContactData(JSON.parse(savedContact));
         }
 
-        // Projects
-        const savedProjects = localStorage.getItem('portfolioProjects');
-        if (savedProjects) {
-          setProjects(JSON.parse(savedProjects));
-        }
-
-        // Blog posts
         const savedBlog = localStorage.getItem('blogData');
         if (savedBlog) {
           setBlogPosts(JSON.parse(savedBlog));
         }
 
-        // Testimonials
         const savedTestimonials = localStorage.getItem('testimonialsData');
         if (savedTestimonials) {
           setTestimonials(JSON.parse(savedTestimonials));
         }
 
-        // Services
         const savedServices = localStorage.getItem('servicesData');
         if (savedServices) {
           setServices(JSON.parse(savedServices));
-        }
-
-        // Site Settings
-        const savedSiteSettings = localStorage.getItem('siteSettings');
-        if (savedSiteSettings) {
-          setSiteSettings(JSON.parse(savedSiteSettings));
         }
 
       } catch (error) {
@@ -332,9 +359,30 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('servicesData', JSON.stringify(newServices));
   };
 
-  const updateSiteSettings = (settings: SiteSettings) => {
-    setSiteSettings(settings);
-    localStorage.setItem('siteSettings', JSON.stringify(settings));
+  const updateSiteSettings = async (settings: SiteSettings) => {
+    try {
+      const response = await fetch('/api/settings', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settings),
+      });
+
+      if (response.ok) {
+        const updatedSettings = await response.json();
+        setSiteSettings(updatedSettings);
+        // Keep localStorage as backup
+        localStorage.setItem('siteSettings', JSON.stringify(updatedSettings));
+      } else {
+        throw new Error('Failed to update settings');
+      }
+    } catch (error) {
+      console.error('Error updating settings:', error);
+      // Fallback to localStorage only
+      setSiteSettings(settings);
+      localStorage.setItem('siteSettings', JSON.stringify(settings));
+    }
   };
 
   const refreshData = () => {
