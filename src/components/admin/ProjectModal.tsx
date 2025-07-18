@@ -55,16 +55,36 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
     
     setIsLoadingScreenshot(true);
     try {
-      // Screenshot API kullanarak görsel oluştur
-      const screenshotUrl = `https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(url)}&dimension=1024x768&format=png`;
-      
-      setFormData(prev => ({
-        ...prev,
-        image: screenshotUrl
-      }));
-      setImagePreview(screenshotUrl);
+      // Kendi API'mizi kullan
+      const response = await fetch('/api/screenshot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const screenshotUrl = data.imageUrl;
+        
+        setFormData(prev => ({
+          ...prev,
+          image: screenshotUrl
+        }));
+        setImagePreview(screenshotUrl);
+      } else {
+        throw new Error('Screenshot API failed');
+      }
     } catch (error) {
       console.error('Screenshot oluşturulamadı:', error);
+      // Fallback olarak placeholder kullan
+      const fallbackUrl = `https://via.placeholder.com/1200x800/334155/ffffff?text=${encodeURIComponent('🖼️ Website Preview')}`;
+      setFormData(prev => ({
+        ...prev,
+        image: fallbackUrl
+      }));
+      setImagePreview(fallbackUrl);
     } finally {
       setIsLoadingScreenshot(false);
     }
@@ -307,8 +327,8 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
                     ) : (
                       <>
                         <div className="text-3xl mb-2">📸</div>
-                        <div className="text-sm text-slate-300 mb-1">Otomatik Screenshot</div>
-                        <div className="text-xs text-slate-500">Canlı URL&apos;den</div>
+                        <div className="text-sm text-slate-300 mb-1">Otomatik Görsel</div>
+                        <div className="text-xs text-slate-500">Site adından oluştur</div>
                       </>
                     )}
                   </button>
@@ -336,7 +356,7 @@ export default function ProjectModal({ isOpen, onClose, onSave, project }: Proje
 
               {/* Yardım Metni */}
               <div className="mt-3 text-xs text-slate-500">
-                💡 İpucu: Canlı URL girildikten sonra &quot;Otomatik Screenshot&quot; butonuna tıklayarak sitenizin görselini otomatik oluşturabilirsiniz.
+                💡 İpucu: Canlı URL girildikten sonra &quot;Otomatik Görsel&quot; butonuna tıklayarak site adından placeholder görsel oluşturabilirsiniz.
               </div>
             </div>
             
