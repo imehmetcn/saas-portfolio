@@ -1,7 +1,9 @@
 "use client";
 
 import React from 'react';
-import { AdminProvider } from '@/contexts/AdminContext';
+import { SessionProvider } from 'next-auth/react';
+import AdminAuthGuard from '@/components/admin/AdminAuthGuard';
+import { Toaster } from 'react-hot-toast';
 
 export default function AdminLayout({
   children,
@@ -9,8 +11,11 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AdminProvider>
-      {children}
-    </AdminProvider>
+    <SessionProvider>
+      <AdminAuthGuard>
+        {children}
+      </AdminAuthGuard>
+      <Toaster />
+    </SessionProvider>
   );
 }
