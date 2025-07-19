@@ -1,4 +1,5 @@
 // İlk admin kullanıcısını oluşturmak için güvenli script
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const readline = require('readline');
 
 const rl = readline.createInterface({

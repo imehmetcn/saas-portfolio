@@ -1,11 +1,11 @@
-import NextAuth from 'next-auth';
+import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-const handler = NextAuth({
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -58,20 +58,22 @@ const handler = NextAuth({
     })
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
     maxAge: 24 * 60 * 60, // 24 saat
   },
   jwt: {
     maxAge: 24 * 60 * 60, // 24 saat
   },
   callbacks: {
-    async jwt({ token, user }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async jwt({ token, user }: any) {
       if (user) {
         token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session({ session, token }: any) {
       if (token) {
         session.user.id = token.sub;
         session.user.role = token.role;
@@ -83,6 +85,7 @@ const handler = NextAuth({
     signIn: '/admin/login',
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

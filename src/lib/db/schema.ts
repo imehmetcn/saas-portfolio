@@ -114,6 +114,19 @@ export const siteSettings = pgTable('site_settings', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
+// Users tablosu (Admin authentication için)
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
+  name: text('name').notNull(),
+  role: text('role').notNull().default('admin'),
+  isActive: boolean('is_active').default(true),
+  lastLogin: timestamp('last_login'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
 export type BlogPost = typeof blogPosts.$inferSelect;
@@ -122,3 +135,5 @@ export type Testimonial = typeof testimonials.$inferSelect;
 export type NewTestimonial = typeof testimonials.$inferInsert;
 export type Service = typeof services.$inferSelect;
 export type NewService = typeof services.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
