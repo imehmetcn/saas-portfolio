@@ -232,26 +232,30 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           }
         }
 
-        // Load site settings from API
+        // Load site settings from localStorage first, then API
+        const savedSiteSettings = localStorage.getItem('siteSettings');
+        if (savedSiteSettings) {
+          try {
+            const parsedSettings = JSON.parse(savedSiteSettings);
+            setSiteSettings(parsedSettings);
+            console.log('Site settings loaded from localStorage:', parsedSettings);
+          } catch (error) {
+            console.error('Error parsing site settings from localStorage:', error);
+          }
+        }
+
+        // Then try to load from API
         try {
           const settingsResponse = await fetch('/api/settings');
           if (settingsResponse.ok) {
             const settingsData = await settingsResponse.json();
             setSiteSettings(settingsData);
-          } else {
-            // Fallback to localStorage
-            const savedSiteSettings = localStorage.getItem('siteSettings');
-            if (savedSiteSettings) {
-              setSiteSettings(JSON.parse(savedSiteSettings));
-            }
+            // Update localStorage with API data
+            localStorage.setItem('siteSettings', JSON.stringify(settingsData));
+            console.log('Site settings loaded from API:', settingsData);
           }
         } catch (error) {
           console.error('Error loading settings from API:', error);
-          // Fallback to localStorage
-          const savedSiteSettings = localStorage.getItem('siteSettings');
-          if (savedSiteSettings) {
-            setSiteSettings(JSON.parse(savedSiteSettings));
-          }
         }
 
         // Load other data from localStorage (will be migrated to API later)
@@ -326,6 +330,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   };
 
   const updateSiteSettings = async (settings: SiteSettings) => {
+    console.log('updateSiteSettings called with:', settings);
+    
     try {
       const response = await fetch('/api/settings', {
         method: 'PUT',
@@ -337,15 +343,18 @@ export function AdminProvider({ children }: { children: ReactNode }) {
 
       if (response.ok) {
         const updatedSettings = await response.json();
+        console.log('Settings updated via API:', updatedSettings);
         setSiteSettings(updatedSettings);
         // Keep localStorage as backup
         localStorage.setItem('siteSettings', JSON.stringify(updatedSettings));
+        console.log('Settings saved to localStorage');
       } else {
         throw new Error('Failed to update settings');
       }
     } catch (error) {
-      console.error('Error updating settings:', error);
+      console.error('Error updating settings via API:', error);
       // Fallback to localStorage only
+      console.log('Falling back to localStorage only');
       setSiteSettings(settings);
       localStorage.setItem('siteSettings', JSON.stringify(settings));
     }

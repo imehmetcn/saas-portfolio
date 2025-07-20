@@ -247,22 +247,35 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="flex justify-end">
-                  <button 
-                    onClick={handleSaveSettings}
-                    disabled={isLoading}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
-                  >
-                    {isLoading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        Kaydediliyor...
-                      </>
-                    ) : (
-                      <>
-                        💾 Ayarları Kaydet
-                      </>
-                    )}
-                  </button>
+                  <div className="flex gap-3">
+                    <button 
+                      onClick={handleSaveSettings}
+                      disabled={isLoading}
+                      className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Kaydediliyor...
+                        </>
+                      ) : (
+                        <>
+                          💾 Ayarları Kaydet
+                        </>
+                      )}
+                    </button>
+                    <button 
+                      onClick={() => {
+                        console.log('Current localSettings:', localSettings);
+                        console.log('Current siteSettings from context:', siteSettings);
+                        console.log('LocalStorage siteSettings:', localStorage.getItem('siteSettings'));
+                        alert('Debug bilgileri console\'da. F12 ile kontrol edin.');
+                      }}
+                      className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-3 rounded-lg font-medium transition-colors"
+                    >
+                      🐛 Debug
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

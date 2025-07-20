@@ -15,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Modern SaaS Portfolio | Yaratıcı Dijital Çözümler",
-  description: "Modern SaaS uygulamaları ve web çözümleri geliştiren yazılım geliştiricisi. Next.js, React, TypeScript ile profesyonel projeler.",
-  keywords: ["SaaS", "web development", "Next.js", "React", "TypeScript", "portfolio"],
-  authors: [{ name: "Portfolio" }],
+  title: "Mehmet Can Şahin - Portfolio",
+  description: "Senior UI/UX & Frontend Developer - Yaratıcı dijital çözümler ve modern web uygulamaları",
+  keywords: ["UI/UX", "Frontend", "React", "Next.js", "TypeScript", "portfolio", "web development"],
+  authors: [{ name: "Mehmet Can Şahin" }],
   openGraph: {
-    title: "Modern SaaS Portfolio",
-    description: "Yaratıcı dijital çözümler ve modern web uygulamaları",
+    title: "Mehmet Can Şahin - Portfolio",
+    description: "Senior UI/UX & Frontend Developer - Yaratıcı dijital çözümler ve modern web uygulamaları",
     type: "website",
   },
 };
