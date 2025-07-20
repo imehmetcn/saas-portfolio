@@ -21,11 +21,18 @@ html {
   scroll-padding-top: 4rem;
 }
 
-/* Font smoothing */
+/* Font smoothing - Improved for better readability */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Better text rendering for different screen densities */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  * {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
 }
 
 /* Custom scrollbar - Hidden but functional */
@@ -103,5 +110,40 @@ button, a, input, textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}/* Access
+ibility and Readability Improvements */
+.text-high-contrast {
+  color: var(--foreground) !important;
+}
+
+.text-medium-contrast {
+  color: var(--neutral-700) !important;
+}
+
+[data-theme="dark"] .text-medium-contrast {
+  color: var(--neutral-300) !important;
+}
+
+/* Focus improvements for better accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ensure minimum touch target size */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

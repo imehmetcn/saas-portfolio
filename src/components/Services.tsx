@@ -12,11 +12,11 @@ import {
   Star
 } from "lucide-react";
 
-export default function MyServices() {
+export default function Services() {
   const { services } = useAdmin();
   
   const getIcon = (iconName: string) => {
-    const icons: { [key: string]: React.ComponentType<{ size?: number; className?: string }> } = {
+    const icons: { [key: string]: any } = {
       'code': Code2,
       'smartphone': Smartphone,
       'palette': Palette,
@@ -59,7 +59,7 @@ export default function MyServices() {
                 )}
 
                 <motion.div 
-                  className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg"
+                  className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <IconComponent className="text-white" size={28} />
@@ -90,14 +90,14 @@ export default function MyServices() {
                     {service.price}
                   </div>
                   {service.duration && (
-                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
                       {service.duration}
                     </div>
                   )}
                 </div>
 
                 <motion.button
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-blue-500/25"
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

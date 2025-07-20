@@ -193,7 +193,7 @@ export default function Portfolio() {
                 className={`relative flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                   selectedCategory === category.id
                     ? 'text-white shadow-lg'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50'
+                    : 'text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50'
                 }`}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -216,7 +216,7 @@ export default function Portfolio() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400" size={20} />
             <input
               type="text"
               placeholder="Projelerde ara..."
@@ -335,7 +335,7 @@ export default function Portfolio() {
                       >
                         {project.title}
                       </motion.h3>
-                      <span className="text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
                         {new Date(project.date).getFullYear()}
                       </span>
                     </div>
@@ -348,7 +348,7 @@ export default function Portfolio() {
                       {project.tags.slice(0, 3).map((tag, tagIndex) => (
                         <motion.span
                           key={tag}
-                          className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-600 dark:text-purple-400 rounded-full text-xs font-semibold"
+                          className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-800/50 dark:to-pink-800/50 text-purple-800 dark:text-purple-200 rounded-full text-xs font-semibold border border-purple-200 dark:border-purple-700"
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.1 + tagIndex * 0.05 + 0.6 }}
@@ -360,7 +360,7 @@ export default function Portfolio() {
                     </div>
 
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400 font-medium">
+                      <span className="text-gray-700 dark:text-gray-300 font-medium">
                         {project.client}
                       </span>
                       <span className="text-green-600 dark:text-green-400 font-semibold bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded-full">
@@ -398,7 +398,7 @@ export default function Portfolio() {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Proje bulunamadı
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-lg">
+            <p className="text-gray-700 dark:text-gray-300 text-lg">
               Arama kriterlerinizi değiştirmeyi deneyin
             </p>
           </motion.div>

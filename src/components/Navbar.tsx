@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Mail } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 100);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -31,17 +32,23 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
-          ? 'backdrop-blur-xl bg-black/10'
-          : 'bg-transparent'
+      {/* Modern Pill-shaped Navbar */}
+      <motion.div
+        className={`fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${scrolled ? 'top-4' : 'top-6'
           }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
+        <motion.nav
+          className={`backdrop-blur-xl rounded-full px-6 shadow-2xl border transition-all duration-500 ${scrolled
+              ? 'bg-black/40 border-white/30 py-3'
+              : 'bg-black/20 border-white/20 py-4'
+            }`}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="flex items-center gap-8">
             {/* Logo */}
             <motion.a
               href="#top"
@@ -49,21 +56,16 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick('#top');
               }}
-              className="flex items-center gap-3"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Code className="text-white" size={20} />
-              </div>
-              <span className={`font-bold text-xl transition-colors duration-300 ${scrolled ? 'text-white' : 'text-white'
-                }`}>
-                {navbarData.logo}
-              </span>
+              <Code className="text-black" size={18} />
             </motion.a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              {navbarData.menuItems.filter(item => item.isActive).map((item) => (
+            <div className="hidden lg:flex items-center gap-8">
+              {navbarData.menuItems.filter(item => item.isActive).map((item, index) => (
                 <motion.a
                   key={item.label}
                   href={item.href}
@@ -71,59 +73,64 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${scrolled
-                    ? 'text-white/90 hover:text-white'
-                    : 'text-white/80 hover:text-white'
-                    }`}
+                  className="text-white/80 hover:text-white font-medium text-sm transition-all duration-300 relative"
                   whileHover={{ y: -2 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
                 >
                   {item.label}
+                  <motion.div
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white rounded-full"
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </motion.a>
               ))}
             </div>
 
-            {/* Right Side */}
-            <div className="flex items-center gap-4">
-              {/* Contact Button */}
-              {navbarData.ctaButton.visible && (
-                <motion.a
-                  href={navbarData.ctaButton.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(navbarData.ctaButton.href);
-                  }}
-                  className="hidden md:flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/30 transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Mail size={16} />
-                  {navbarData.ctaButton.text}
-                </motion.a>
-              )}
-
-              {/* Mobile Menu Button */}
-              <motion.button
-                onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden w-12 h-12 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white"
+            {/* Contact Button */}
+            {navbarData.ctaButton.visible && (
+              <motion.a
+                href={navbarData.ctaButton.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(navbarData.ctaButton.href);
+                }}
+                className="hidden md:flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-all duration-300 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isOpen ? 'close' : 'open'}
-                    initial={{ rotate: 0, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isOpen ? <X size={20} /> : <Menu size={20} />}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
-            </div>
+                <Mail size={16} />
+                {navbarData.ctaButton.text}
+              </motion.a>
+            )}
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={isOpen ? 'close' : 'open'}
+                  initial={{ rotate: 0, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isOpen ? <X size={18} /> : <Menu size={18} />}
+                </motion.div>
+              </AnimatePresence>
+            </motion.button>
           </div>
-        </div>
-      </motion.nav>
+        </motion.nav>
+      </motion.div>
 
       {/* Mobile Navigation */}
       <AnimatePresence>
@@ -140,31 +147,15 @@ export default function Navbar() {
             />
 
             <motion.div
-              className="absolute top-0 right-0 h-full w-full max-w-sm bg-black/90 backdrop-blur-xl border-l border-white/20 shadow-2xl"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", damping: 30 }}
+              className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 bg-black/30 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20"
+              initial={{ y: -50, opacity: 0, scale: 0.9 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -50, opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
-              <div className="p-8 h-full flex flex-col">
-                {/* Mobile Header */}
-                <div className="flex items-center justify-between mb-12">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Code className="text-white" size={16} />
-                    </div>
-                    <span className="font-bold text-white text-lg">Menu</span>
-                  </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-
+              <div className="p-6">
                 {/* Mobile Navigation Items */}
-                <div className="space-y-2 flex-1">
+                <div className="space-y-2">
                   {navbarData.menuItems.filter(item => item.isActive).map((item, index) => (
                     <motion.a
                       key={item.label}
@@ -173,11 +164,12 @@ export default function Navbar() {
                         e.preventDefault();
                         handleNavClick(item.href);
                       }}
-                      className="block px-6 py-4 text-white/90 hover:text-white hover:bg-white/10 rounded-xl font-medium transition-all duration-300"
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ x: 10 }}
+                      className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-xl font-medium transition-all duration-300 text-center"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 + 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       {item.label}
                     </motion.a>
@@ -192,13 +184,14 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(navbarData.ctaButton.href);
                     }}
-                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl"
-                    initial={{ opacity: 0, y: 30 }}
+                    className="flex items-center justify-center gap-2 w-full bg-white text-black py-3 rounded-xl font-semibold text-sm mt-4 hover:bg-gray-100 transition-all duration-300"
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    whileTap={{ scale: 0.95 }}
+                    transition={{ delay: 0.4 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <Mail size={20} />
+                    <Mail size={16} />
                     {navbarData.ctaButton.text}
                   </motion.a>
                 )}

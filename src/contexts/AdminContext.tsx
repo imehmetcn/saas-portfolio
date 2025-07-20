@@ -274,8 +274,7 @@ const defaultNavbarData: NavbarData = {
     { label: "Hakkımda", href: "#about", isActive: true },
     { label: "Projeler", href: "#portfolio", isActive: true },
     { label: "Servisler", href: "#services", isActive: true },
-    { label: "Referanslar", href: "#testimonials", isActive: true },
-    { label: "İletişim", href: "#contact", isActive: true }
+    { label: "Referanslar", href: "#testimonials", isActive: true }
   ],
   ctaButton: {
     text: "İletişime Geç",

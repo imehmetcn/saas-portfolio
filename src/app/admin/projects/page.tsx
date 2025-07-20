@@ -18,17 +18,17 @@ export default function ProjectsPage() {
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase());
+      project.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
     const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
-    
+
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
   const handleSaveProject = (project: Project) => {
     if (currentProject) {
       // Mevcut projeyi güncelle
-      const updatedProjects = projects.map(p => 
+      const updatedProjects = projects.map(p =>
         p.id === project.id ? project : p
       );
       updateProjects(updatedProjects);
@@ -53,7 +53,7 @@ export default function ProjectsPage() {
   };
 
   const handleToggleFeatured = (id: number) => {
-    const updatedProjects = projects.map(p => 
+    const updatedProjects = projects.map(p =>
       p.id === id ? { ...p, featured: !p.featured } : p
     );
     updateProjects(updatedProjects);
@@ -65,8 +65,8 @@ export default function ProjectsPage() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        <Header 
-          title="Projeler" 
+        <Header
+          title="Projeler"
           description="Tüm projelerinizi yönetin"
           actionButton={{
             label: "+ Yeni Proje Ekle",
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
               />
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</div>
             </div>
-            <select 
+            <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
@@ -103,7 +103,7 @@ export default function ProjectsPage() {
               <option value="design">Design</option>
               <option value="other">Diğer</option>
             </select>
-            <select 
+            <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500"
@@ -118,7 +118,7 @@ export default function ProjectsPage() {
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
-              <ProjectCard 
+              <ProjectCard
                 key={project.id}
                 project={project}
                 onEdit={handleEditProject}
@@ -134,7 +134,7 @@ export default function ProjectsPage() {
               <div className="text-6xl mb-4">📁</div>
               <h3 className="text-xl font-semibold text-slate-300 mb-2">Proje bulunamadı</h3>
               <p className="text-slate-400 mb-6">Arama kriterlerinizi değiştirin veya yeni proje ekleyin</p>
-              <button 
+              <button
                 onClick={() => {
                   setCurrentProject(undefined);
                   setShowAddModal(true);
@@ -149,7 +149,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Project Modal */}
-      <ProjectModal 
+      <ProjectModal
         isOpen={showAddModal}
         onClose={() => {
           setShowAddModal(false);

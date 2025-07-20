@@ -50,10 +50,10 @@ export default function Footer() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent mb-4">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-300 to-blue-400 bg-clip-text text-transparent mb-4">
                   {footerData.companyName}
                 </h3>
-                <p className="text-slate-300 leading-relaxed mb-6">
+                <p className="text-slate-200 leading-relaxed mb-6">
                   {footerData.description}
                 </p>
                 
@@ -71,7 +71,7 @@ export default function Footer() {
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 bg-slate-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center border border-slate-700/50 transition-all duration-300 hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      className="w-12 h-12 bg-slate-700/70 backdrop-blur-sm rounded-xl flex items-center justify-center border border-slate-600/70 transition-all duration-300 hover:text-blue-300 hover:bg-blue-900/30 text-slate-300"
                     >
                       {social.icon === 'github' && <FileCode2 size={20} />}
                       {social.icon === 'linkedin' && <MessagesSquare size={20} />}
@@ -105,9 +105,9 @@ export default function Footer() {
                       >
                         <a
                           href={link.href}
-                          className="text-slate-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                          className="text-slate-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                         >
-                          <span className="w-1 h-1 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                          <span className="w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                           {link.label}
                         </a>
                       </motion.li>
@@ -137,14 +137,14 @@ export default function Footer() {
                   >
                     <a
                       href={`mailto:${contactData.email}`}
-                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group"
+                      className="flex items-center gap-3 text-slate-200 hover:text-white transition-colors duration-300 group"
                     >
-                      <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
-                        <Mail size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
+                      <div className="w-10 h-10 bg-slate-700/70 rounded-xl flex items-center justify-center group-hover:bg-blue-600/30 transition-colors duration-300">
+                        <Mail size={18} className="group-hover:text-blue-300 transition-colors duration-300 text-slate-300" />
                       </div>
                       <div>
-                        <div className="text-sm text-slate-400">Email</div>
-                        <div className="font-medium">{contactData.email}</div>
+                        <div className="text-sm text-slate-300">Email</div>
+                        <div className="font-medium text-slate-100">{contactData.email}</div>
                       </div>
                     </a>
                   </motion.li>
@@ -217,13 +217,13 @@ export default function Footer() {
                 viewport={{ once: true }}
               >
                 <h4 className="text-lg font-semibold text-white mb-4">Hakkımda</h4>
-                <p className="text-slate-300 text-sm mb-4">
+                <p className="text-slate-200 text-sm mb-4">
                   {profileData.bio}
                 </p>
                 
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 bg-slate-800/50 rounded-lg flex items-center justify-center">
-                    <Zap size={16} className="text-indigo-400" />
+                  <div className="w-8 h-8 bg-slate-700/70 rounded-lg flex items-center justify-center">
+                    <Zap size={16} className="text-blue-400" />
                   </div>
                   <div className="text-sm">
                     <div className="font-medium text-white">Teknoloji Tutkunu</div>

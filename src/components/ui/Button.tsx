@@ -34,13 +34,13 @@ export function Button({
     lg: 'text-base px-6 py-3 h-12',
   };
   
-  // Variant classes
+  // Variant classes - Improved contrast
   const variantClasses = {
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/95',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/90',
-    outline: 'border border-input bg-background hover:bg-muted hover:text-foreground',
-    ghost: 'hover:bg-muted hover:text-foreground',
-    link: 'text-primary underline-offset-4 hover:underline',
+    primary: 'bg-primary text-white hover:bg-primary/90 active:bg-primary/95 shadow-lg',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/90 shadow-md',
+    outline: 'border-2 border-primary bg-background text-primary hover:bg-primary hover:text-white transition-all duration-200',
+    ghost: 'text-foreground hover:bg-muted hover:text-foreground',
+    link: 'text-primary underline-offset-4 hover:underline font-medium',
   };
   
   // Width classes

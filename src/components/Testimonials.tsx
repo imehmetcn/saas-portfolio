@@ -89,7 +89,7 @@ export default function Testimonials() {
                             <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                                 {stat.number}
                             </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <div className="text-sm text-gray-700 dark:text-gray-300">
                                 {stat.label}
                             </div>
                         </motion.div>
@@ -134,7 +134,7 @@ export default function Testimonials() {
                                         <div className="font-semibold text-gray-900 dark:text-white text-lg">
                                             {testimonials[currentIndex].name}
                                         </div>
-                                        <div className="text-gray-600 dark:text-gray-400">
+                                        <div className="text-gray-700 dark:text-gray-300">
                                             {testimonials[currentIndex].position} • {testimonials[currentIndex].company}
                                         </div>
                                         <div className="text-sm text-blue-600 dark:text-blue-400 font-medium">
@@ -215,7 +215,7 @@ export default function Testimonials() {
                                         <div className="font-medium text-gray-900 dark:text-white text-sm">
                                             {testimonial.name}
                                         </div>
-                                        <div className="text-gray-500 dark:text-gray-400 text-xs">
+                                        <div className="text-gray-600 dark:text-gray-300 text-xs">
                                             {testimonial.position} • {testimonial.company}
                                         </div>
                                     </div>

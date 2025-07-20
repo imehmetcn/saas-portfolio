@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Mail, Github, Linkedin, Download, Award, Star, Rocket, Sparkles } from "lucide-react";
+import { Mail, Github, Linkedin, Download, Award, Star, Rocket } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Hero() {
@@ -55,28 +55,14 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/3 rounded-full blur-3xl animate-pulse" style={{animationDelay: '6s'}}></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen">
         <motion.div 
           className="text-center space-y-12"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          {/* Status Badge */}
-          <motion.div 
-            className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-xl border border-white/10 text-emerald-400 px-6 py-3 rounded-full text-sm font-semibold shadow-2xl"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05, y: -2 }}
-          >
-            <motion.div 
-              className="w-2 h-2 bg-emerald-400 rounded-full"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <Star className="w-4 h-4" />
-            <span>Freelance İçin Müsait</span>
-            <Sparkles className="w-4 h-4 text-yellow-400" />
-          </motion.div>
+
 
           {/* Main Title */}
           <motion.div className="space-y-8" variants={titleVariants}>
@@ -91,13 +77,15 @@ export default function Hero() {
                   className="block text-white drop-shadow-2xl"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
+                  style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}
                 >
                   Merhaba, Ben
                 </motion.span>
                 <motion.span 
-                  className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 drop-shadow-2xl"
+                  className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-400 to-cyan-300 drop-shadow-2xl"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
+                  style={{ textShadow: '0 0 30px rgba(59,130,246,0.8)' }}
                 >
                   {heroData.title}
                 </motion.span>
@@ -109,11 +97,11 @@ export default function Hero() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
               >
-                <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                <p className="text-xl lg:text-3xl text-gray-300 font-light">
+                <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full shadow-lg shadow-blue-500/50"></div>
+                <p className="text-xl lg:text-3xl text-white font-light" style={{ textShadow: '0 0 15px rgba(255,255,255,0.3)' }}>
                   {heroData.subtitle}
                 </p>
-                <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full"></div>
+                <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full shadow-lg shadow-cyan-500/50"></div>
               </motion.div>
             </div>
           </motion.div>
@@ -123,7 +111,7 @@ export default function Hero() {
             className="max-w-4xl mx-auto"
             variants={itemVariants}
           >
-            <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed font-light">
+            <p className="text-xl lg:text-2xl text-white leading-relaxed font-light" style={{ textShadow: '0 0 10px rgba(255,255,255,0.2)' }}>
               {heroData.description}
             </p>
           </motion.div>
@@ -146,11 +134,11 @@ export default function Hero() {
                 transition={{ duration: 0.3 }}
               >
                 <motion.div 
-                  className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl group-hover:shadow-blue-500/25"
+                  className="w-16 h-16 bg-gradient-to-br from-blue-600/40 to-blue-800/40 backdrop-blur-xl border border-blue-400/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl group-hover:shadow-blue-500/50"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <stat.icon className="text-blue-400" size={24} />
+                  <stat.icon className="text-blue-300" size={24} />
                 </motion.div>
                 <motion.div 
                   className="text-4xl lg:text-5xl font-black text-white mb-2"
@@ -160,38 +148,14 @@ export default function Hero() {
                 >
                   {stat.number}
                 </motion.div>
-                <div className="text-sm lg:text-base text-gray-400 font-medium uppercase tracking-wider">
+                <div className="text-sm lg:text-base text-gray-200 font-medium uppercase tracking-wider">
                   {stat.label}
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Skills */}
-          <motion.div 
-            className="max-w-4xl mx-auto"
-            variants={itemVariants}
-          >
-            <div className="flex flex-wrap justify-center gap-3 lg:gap-4">
-              {heroData.skills.map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 text-gray-300 px-4 py-2 lg:px-6 lg:py-3 rounded-full text-sm lg:text-base font-medium shadow-xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 + 1.5 }}
-                  whileHover={{ 
-                    scale: 1.1, 
-                    backgroundColor: "rgba(59, 130, 246, 0.1)",
-                    color: "#60a5fa",
-                    y: -2
-                  }}
-                >
-                  {skill}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+
 
 
 
@@ -203,14 +167,15 @@ export default function Hero() {
             <motion.a
               href="/cv.pdf"
               download
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 text-sm lg:text-base"
+              className="inline-flex items-center gap-2 text-gray-200 hover:text-white transition-colors duration-300 text-sm lg:text-base font-medium"
               whileHover={{ scale: 1.05, y: -2 }}
+              style={{ textShadow: '0 0 8px rgba(255,255,255,0.3)' }}
             >
               <Download className="w-4 h-4" />
               <span>CV İndir</span>
             </motion.a>
             
-            <div className="w-px h-6 bg-gray-600"></div>
+            <div className="w-px h-6 bg-gray-400"></div>
             
             <div className="flex gap-4">
               {[
@@ -223,7 +188,7 @@ export default function Hero() {
                   href={social.href}
                   target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
                   rel={social.href.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                  className="w-12 h-12 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-300 shadow-xl"
+                  className="w-12 h-12 bg-white/15 backdrop-blur-xl border border-white/20 rounded-xl flex items-center justify-center text-gray-200 hover:text-white hover:bg-white/25 transition-all duration-300 shadow-xl"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -240,14 +205,14 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 2.5 }}
           >
-            <div className="flex flex-col items-center gap-4 text-gray-500">
+            <div className="flex flex-col items-center gap-4 text-gray-300">
               <span className="text-sm font-medium">Keşfetmeye devam edin</span>
               <motion.div 
-                className="w-6 h-10 border-2 border-gray-500 rounded-full flex justify-center relative"
+                className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center relative"
                 whileHover={{ scale: 1.1 }}
               >
                 <motion.div 
-                  className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+                  className="w-1 h-3 bg-gray-200 rounded-full mt-2"
                   animate={{ y: [0, 8, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />

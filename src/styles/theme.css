@@ -36,7 +36,7 @@
   --background: var(--neutral-50);
   --foreground: var(--neutral-950);
   --muted: var(--neutral-200);
-  --muted-foreground: var(--neutral-600);
+  --muted-foreground: var(--neutral-700); /* Daha koyu, daha okunabilir */
   --card: var(--neutral-100);
   --card-foreground: var(--neutral-950);
   --popover: var(--neutral-50);
@@ -129,7 +129,7 @@
   --background: var(--neutral-950);
   --foreground: var(--neutral-50);
   --muted: var(--neutral-800);
-  --muted-foreground: var(--neutral-400);
+  --muted-foreground: var(--neutral-300); /* Daha açık, daha okunabilir */
   --card: var(--neutral-900);
   --card-foreground: var(--neutral-50);
   --popover: var(--neutral-900);

@@ -127,6 +127,19 @@ p, .body-text {
   color: var(--muted-foreground);
 }
 
+/* Improved text contrast classes */
+.text-readable {
+  color: var(--foreground);
+}
+
+.text-readable-muted {
+  color: var(--neutral-700);
+}
+
+[data-theme="dark"] .text-readable-muted {
+  color: var(--neutral-300);
+}
+
 /* Link Styles */
 a, .link {
   color: var(--primary);

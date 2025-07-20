@@ -37,16 +37,6 @@ export default function Home() {
       <PerformanceMonitor />
 
       <main id="top" className="min-h-screen bg-white dark:bg-gray-900">
-        {/* Debug Button - Remove in production */}
-        <div className="fixed top-4 right-4 z-50">
-          <a 
-            href="/test-settings" 
-            className="bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700 transition-colors"
-          >
-            🐛 Test Settings
-          </a>
-        </div>
-        
         <Navbar />
         <Hero />
         
