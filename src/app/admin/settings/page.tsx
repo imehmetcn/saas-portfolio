@@ -69,7 +69,6 @@ export default function SettingsPage() {
       heroData: localStorage.getItem('heroData'),
       contactData: localStorage.getItem('contactData'),
       projects: localStorage.getItem('portfolioProjects'),
-      blogPosts: localStorage.getItem('blogData'),
       testimonials: localStorage.getItem('testimonialsData'),
       services: localStorage.getItem('servicesData'),
       exportDate: new Date().toISOString()
@@ -101,7 +100,6 @@ export default function SettingsPage() {
           if (data.heroData) localStorage.setItem('heroData', data.heroData);
           if (data.contactData) localStorage.setItem('contactData', data.contactData);
           if (data.projects) localStorage.setItem('portfolioProjects', data.projects);
-          if (data.blogPosts) localStorage.setItem('blogData', data.blogPosts);
           if (data.testimonials) localStorage.setItem('testimonialsData', data.testimonials);
           if (data.services) localStorage.setItem('servicesData', data.services);
           
@@ -132,7 +130,6 @@ export default function SettingsPage() {
         localStorage.removeItem('heroData');
         localStorage.removeItem('contactData');
         localStorage.removeItem('portfolioProjects');
-        localStorage.removeItem('blogData');
         localStorage.removeItem('testimonialsData');
         localStorage.removeItem('servicesData');
         localStorage.removeItem('siteSettings');
@@ -277,19 +274,14 @@ export default function SettingsPage() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-3">Veri İstatistikleri</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-slate-700 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-blue-400">
                         {JSON.parse(localStorage.getItem('portfolioProjects') || '[]').length}
                       </p>
                       <p className="text-slate-400 text-sm">Proje</p>
                     </div>
-                    <div className="bg-slate-700 p-4 rounded-lg text-center">
-                      <p className="text-2xl font-bold text-green-400">
-                        {JSON.parse(localStorage.getItem('blogData') || '[]').length}
-                      </p>
-                      <p className="text-slate-400 text-sm">Blog Yazısı</p>
-                    </div>
+
                     <div className="bg-slate-700 p-4 rounded-lg text-center">
                       <p className="text-2xl font-bold text-purple-400">
                         {JSON.parse(localStorage.getItem('testimonialsData') || '[]').length}

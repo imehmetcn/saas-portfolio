@@ -17,12 +17,11 @@ import {
   Activity,
   Clock,
   Star,
-  MessageSquare,
   Zap
 } from 'lucide-react';
 
 export default function AdminDashboard() {
-  const { projects, blogPosts, updateProjects } = useAdmin();
+  const { projects, updateProjects } = useAdmin();
   const [showAddModal, setShowAddModal] = useState(false);
   const [currentProject, setCurrentProject] = useState<Project | undefined>(undefined);
 
@@ -58,15 +57,6 @@ export default function AdminDashboard() {
       icon: Eye,
       color: 'from-purple-500 to-purple-600',
       link: '/admin/analytics'
-    },
-    {
-      title: 'Blog Yazıları',
-      count: blogPosts.length,
-      change: '+8%',
-      changeType: 'positive' as const,
-      icon: MessageSquare,
-      color: 'from-orange-500 to-orange-600',
-      link: '/admin/blog'
     }
   ];
 
@@ -80,13 +70,6 @@ export default function AdminDashboard() {
         setCurrentProject(undefined);
         setShowAddModal(true);
       }
-    },
-    {
-      title: 'Blog Yazısı Yaz',
-      description: 'Yeni bir blog yazısı oluşturun',
-      icon: MessageSquare,
-      color: 'from-green-500 to-teal-600',
-      action: () => window.location.href = '/admin/blog'
     },
     {
       title: 'Analitikleri Görüntüle',
@@ -288,7 +271,7 @@ export default function AdminDashboard() {
                 Son kullanım: {new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
               {quickActions.map((action, index) => (
                 <motion.div
                   key={index}

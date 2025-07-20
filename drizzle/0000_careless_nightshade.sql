@@ -1,20 +1,4 @@
-CREATE TABLE "blog_posts" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"title" text NOT NULL,
-	"excerpt" text NOT NULL,
-	"content" text NOT NULL,
-	"image" text,
-	"category" text NOT NULL,
-	"tags" jsonb DEFAULT '[]'::jsonb,
-	"author" text NOT NULL,
-	"date" text NOT NULL,
-	"read_time" text,
-	"published" boolean DEFAULT false,
-	"views" integer DEFAULT 0,
-	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now()
-);
---> statement-breakpoint
+
 CREATE TABLE "contact_data" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" text NOT NULL,

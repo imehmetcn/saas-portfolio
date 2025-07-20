@@ -47,20 +47,7 @@ export interface Project {
   views: number;
 }
 
-export interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  category: string;
-  tags: string[];
-  author: string;
-  date: string;
-  readTime: string;
-  published: boolean;
-  views: number;
-}
+
 
 export interface Testimonial {
   id: number;
@@ -100,7 +87,7 @@ interface AdminContextType {
   heroData: HeroData;
   contactData: ContactData;
   projects: Project[];
-  blogPosts: BlogPost[];
+
   testimonials: Testimonial[];
   services: Service[];
   siteSettings: SiteSettings;
@@ -113,7 +100,7 @@ interface AdminContextType {
   updateHeroData: (data: HeroData) => void;
   updateContactData: (data: ContactData) => void;
   updateProjects: (projects: Project[]) => void;
-  updateBlogPosts: (posts: BlogPost[]) => void;
+
   updateTestimonials: (testimonials: Testimonial[]) => void;
   updateServices: (services: Service[]) => void;
   updateSiteSettings: (settings: SiteSettings) => void;
@@ -171,22 +158,7 @@ const defaultProjects: Project[] = [
   }
 ];
 
-const defaultBlogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: "Modern Web Geliştirme Trendleri 2024",
-    excerpt: "2024 yılında web geliştirme dünyasında öne çıkan teknolojiler ve trendler",
-    content: "Web geliştirme dünyası sürekli evrim geçiriyor...",
-    image: "/api/placeholder/600/400",
-    category: "teknoloji",
-    tags: ["Web Development", "React", "Next.js"],
-    author: "Mehmet Can Şahin",
-    date: "2024-01-15",
-    readTime: "5 dk",
-    published: true,
-    views: 850
-  }
-];
+
 
 const defaultTestimonials: Testimonial[] = [
   {
@@ -228,7 +200,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [heroData, setHeroData] = useState<HeroData>(defaultHeroData);
   const [contactData, setContactData] = useState<ContactData>(defaultContactData);
   const [projects, setProjects] = useState<Project[]>(defaultProjects);
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(defaultBlogPosts);
+
   const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const [services, setServices] = useState<Service[]>(defaultServices);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
@@ -298,10 +270,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           setContactData(JSON.parse(savedContact));
         }
 
-        const savedBlog = localStorage.getItem('blogData');
-        if (savedBlog) {
-          setBlogPosts(JSON.parse(savedBlog));
-        }
+
 
         const savedTestimonials = localStorage.getItem('testimonialsData');
         if (savedTestimonials) {
@@ -344,10 +313,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('portfolioProjects', JSON.stringify(newProjects));
   };
 
-  const updateBlogPosts = (posts: BlogPost[]) => {
-    setBlogPosts(posts);
-    localStorage.setItem('blogData', JSON.stringify(posts));
-  };
+
 
   const updateTestimonials = (newTestimonials: Testimonial[]) => {
     setTestimonials(newTestimonials);
@@ -399,7 +365,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     heroData,
     contactData,
     projects,
-    blogPosts,
+
     testimonials,
     services,
     siteSettings,
@@ -412,7 +378,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     updateHeroData,
     updateContactData,
     updateProjects,
-    updateBlogPosts,
+
     updateTestimonials,
     updateServices,
     updateSiteSettings,

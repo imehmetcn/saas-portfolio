@@ -22,23 +22,6 @@ export const projects = pgTable('projects', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
-// Blog Posts tablosu
-export const blogPosts = pgTable('blog_posts', {
-  id: serial('id').primaryKey(),
-  title: text('title').notNull(),
-  excerpt: text('excerpt').notNull(),
-  content: text('content').notNull(),
-  image: text('image'),
-  category: text('category').notNull(),
-  tags: jsonb('tags').$type<string[]>().default([]),
-  author: text('author').notNull(),
-  date: text('date').notNull(),
-  readTime: text('read_time'),
-  published: boolean('published').default(false),
-  views: integer('views').default(0),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
-});
 
 // Testimonials tablosu
 export const testimonials = pgTable('testimonials', {
@@ -129,8 +112,7 @@ export const users = pgTable('users', {
 
 export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
-export type BlogPost = typeof blogPosts.$inferSelect;
-export type NewBlogPost = typeof blogPosts.$inferInsert;
+
 export type Testimonial = typeof testimonials.$inferSelect;
 export type NewTestimonial = typeof testimonials.$inferInsert;
 export type Service = typeof services.$inferSelect;

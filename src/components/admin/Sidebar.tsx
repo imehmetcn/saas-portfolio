@@ -9,7 +9,6 @@ import {
   LayoutDashboard, 
   User, 
   FolderOpen, 
-  FileText, 
   Star, 
   Settings, 
   BarChart3, 
@@ -28,7 +27,7 @@ interface SidebarProps {
 
 export default function Sidebar({}: SidebarProps) {
   const pathname = usePathname();
-  const { projects, blogPosts } = useAdmin();
+  const { projects } = useAdmin();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -41,7 +40,7 @@ export default function Sidebar({}: SidebarProps) {
     { name: 'Dashboard', icon: LayoutDashboard, link: '/admin', match: ['/admin'], badge: null },
     { name: 'Profil', icon: User, link: '/admin/profile', match: ['/admin/profile'], badge: null },
     { name: 'Projeler', icon: FolderOpen, link: '/admin/projects', match: ['/admin/projects'], badge: projects.length },
-    { name: 'Blog Yazıları', icon: FileText, link: '/admin/blog', match: ['/admin/blog'], badge: blogPosts.length },
+
     { name: 'Referanslar', icon: Star, link: '/admin/testimonials', match: ['/admin/testimonials'], badge: null },
     { name: 'Servisler', icon: Wrench, link: '/admin/services', match: ['/admin/services'], badge: null },
     { name: 'Analitik', icon: BarChart3, link: '/admin/analytics', match: ['/admin/analytics'], badge: null },

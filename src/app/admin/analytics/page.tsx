@@ -7,11 +7,10 @@ import Sidebar from '@/components/admin/Sidebar';
 import Header from '@/components/admin/Header';
 
 export default function AnalyticsPage() {
-  const { projects, blogPosts, testimonials, services } = useAdmin();
+  const { projects, testimonials, services } = useAdmin();
 
   // İstatistikleri hesapla
-  const totalViews = projects.reduce((sum, project) => sum + project.views, 0) + 
-                    blogPosts.reduce((sum, post) => sum + post.views, 0);
+  const totalViews = projects.reduce((sum, project) => sum + project.views, 0);
   
   const avgRating = testimonials.length > 0 
     ? testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length 
@@ -31,9 +30,7 @@ export default function AnalyticsPage() {
     .sort((a, b) => b.views - a.views)
     .slice(0, 5);
 
-  const topBlogPosts = [...blogPosts]
-    .sort((a, b) => b.views - a.views)
-    .slice(0, 5);
+
 
   const recentTestimonials = [...testimonials]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -57,12 +54,6 @@ export default function AnalyticsPage() {
       value: projects.length.toString(),
       icon: '📁',
       color: 'bg-green-600'
-    },
-    {
-      title: 'Blog Yazısı',
-      value: blogPosts.length.toString(),
-      icon: '📝',
-      color: 'bg-purple-600'
     },
     {
       title: 'Referans',
@@ -175,26 +166,10 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            {/* En Çok Okunan Blog Yazıları */}
-            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
-              <h3 className="text-xl font-bold mb-4">En Çok Okunan Blog Yazıları</h3>
-              <div className="space-y-3">
-                {topBlogPosts.map((post, index) => (
-                  <div key={post.id} className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-sm font-bold">
-                      {index + 1}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-white font-medium">{post.title}</p>
-                      <p className="text-slate-400 text-sm">{post.views.toLocaleString()} görüntülenme</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+
 
             {/* Son Referanslar */}
-            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 lg:col-span-2">
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
               <h3 className="text-xl font-bold mb-4">Son Referanslar</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 {recentTestimonials.map((testimonial) => (
