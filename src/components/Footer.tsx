@@ -29,12 +29,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-gradient-to-br from-slate-900 via-indigo-900/90 to-slate-900 text-white relative overflow-hidden">
-      {/* Background Elements */}
+      {/* Background Elements - Optimized for mobile */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-cyan-500/5 to-indigo-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute top-20 left-10 w-16 h-16 md:w-32 md:h-32 bg-gradient-to-r from-indigo-500/5 to-blue-500/5 md:from-indigo-500/10 md:to-blue-500/10 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>
+        <div className="hidden md:block absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute bottom-40 left-1/4 w-20 h-20 md:w-40 md:h-40 bg-gradient-to-r from-cyan-500/3 to-indigo-500/3 md:from-cyan-500/5 md:to-indigo-500/5 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>
+        <div className="hidden md:block absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-full blur-2xl animate-bounce"></div>
       </div>
 
       {/* Main Footer Content */}

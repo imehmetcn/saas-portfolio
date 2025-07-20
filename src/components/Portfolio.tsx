@@ -84,11 +84,11 @@ export default function Portfolio() {
       id="portfolio" 
       className="relative py-20 bg-gradient-to-br from-white via-gray-50 to-purple-50/30 dark:from-gray-800 dark:via-gray-900 dark:to-purple-900/10 overflow-hidden"
     >
-      {/* Background Elements */}
+      {/* Background Elements - Optimized for mobile */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-indigo-400/5 to-purple-400/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+        <div className="absolute top-20 right-10 w-36 h-36 md:w-72 md:h-72 bg-gradient-to-r from-purple-400/5 to-pink-400/5 md:from-purple-400/10 md:to-pink-400/10 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>
+        <div className="hidden md:block absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-64 md:h-64 bg-gradient-to-r from-indigo-400/3 to-purple-400/3 md:from-indigo-400/5 md:to-purple-400/5 rounded-full blur-2xl md:blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
