@@ -71,12 +71,7 @@ export default function About() {
 
   return (
     <section id="about" className="relative py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/10 overflow-hidden">
-      {/* Background Elements - Optimized for mobile */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-36 h-36 md:w-72 md:h-72 bg-gradient-to-r from-blue-400/5 to-purple-400/5 md:from-blue-400/10 md:to-purple-400/10 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>
-        <div className="hidden md:block absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-64 md:h-64 bg-gradient-to-r from-cyan-400/3 to-blue-400/3 md:from-cyan-400/5 md:to-blue-400/5 rounded-full blur-2xl md:blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
-      </div>
+
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Animated Header */}

@@ -41,9 +41,9 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.nav
-          className={`backdrop-blur-xl rounded-full px-4 md:px-6 shadow-2xl border transition-all duration-500 ${scrolled
-            ? 'bg-black/40 border-white/30 py-2 md:py-3'
-            : 'bg-black/20 border-white/20 py-3 md:py-4'
+          className={`bg-white dark:bg-gray-900 rounded-full px-4 md:px-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-500 ${scrolled
+            ? 'py-2 md:py-3'
+            : 'py-3 md:py-4'
             }`}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
@@ -56,11 +56,11 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick('#top');
               }}
-              className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg"
+              className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-full shadow-lg"
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Code className="text-black" size={16} />
+              <Code className="text-white" size={16} />
             </motion.a>
 
             {/* Desktop Navigation */}
@@ -73,7 +73,7 @@ export default function Navbar() {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className="text-white/80 hover:text-white font-medium text-sm transition-all duration-300 relative"
+                  className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-all duration-300 relative"
                   whileHover={{ y: -2 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function Navbar() {
                 >
                   {item.label}
                   <motion.div
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white rounded-full"
+                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"
                     whileHover={{ width: "100%" }}
                     transition={{ duration: 0.3 }}
                   />
@@ -97,7 +97,7 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick(navbarData.ctaButton.href);
                 }}
-                className="hidden md:flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-all duration-300 shadow-lg"
+                className="hidden md:flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-blue-700 transition-all duration-300 shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -112,7 +112,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all duration-300"
+              className="lg:hidden w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center text-gray-700 dark:text-gray-200 transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -147,7 +147,7 @@ export default function Navbar() {
             />
 
             <motion.div
-              className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 bg-black/30 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20"
+              className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700"
               initial={{ y: -50, opacity: 0, scale: 0.9 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -50, opacity: 0, scale: 0.9 }}
@@ -164,7 +164,7 @@ export default function Navbar() {
                         e.preventDefault();
                         handleNavClick(item.href);
                       }}
-                      className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-xl font-medium transition-all duration-300 text-center"
+                      className="block px-4 py-3 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl font-medium transition-all duration-300 text-center"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 + 0.1 }}
@@ -184,7 +184,7 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(navbarData.ctaButton.href);
                     }}
-                    className="flex items-center justify-center gap-2 w-full bg-white text-black py-3 rounded-xl font-semibold text-sm mt-4 hover:bg-gray-100 transition-all duration-300"
+                    className="flex items-center justify-center gap-2 w-full bg-blue-600 text-white py-3 rounded-xl font-semibold text-sm mt-4 hover:bg-blue-700 transition-all duration-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}

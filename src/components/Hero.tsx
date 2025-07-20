@@ -44,16 +44,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-white overflow-hidden pt-20 md:pt-0">
-      {/* Enhanced Background - Optimized for mobile */}
-      <div className="absolute inset-0">
-        {/* Subtle Grid Pattern - Hidden on mobile */}
-        <div className="hidden md:block absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-        
-        {/* Floating Orbs - Reduced on mobile */}
-        <div className="absolute top-20 left-20 w-32 h-32 md:w-64 md:h-64 bg-blue-500/3 md:bg-blue-500/5 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>
-        <div className="hidden md:block absolute bottom-20 right-20 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '3s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-96 md:h-96 bg-cyan-500/2 md:bg-cyan-500/3 rounded-full blur-2xl md:blur-3xl animate-pulse" style={{animationDelay: '6s'}}></div>
-      </div>
+
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen">
         <motion.div 
