@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useAdmin } from "@/contexts/AdminContext";
 import { 
   User, 
   Code2, 
@@ -18,28 +19,7 @@ import {
 
 export default function About() {
   const [activeTab, setActiveTab] = useState('overview');
-  const [aboutData, setAboutData] = useState({
-    title: "UI/UX ve Front-End Geliştirme",
-    description: "Teknolojiye olan merakım ve tutkum nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. Mezuniyet sonrası staj ve freelance Bilgi İşlem Personeli olarak iş deneyimimi kazandım.",
-    education: "Kepez Mesleki ve Teknik Anadolu Lisesi - Web Programcılığı (2018)",
-    experience: "8+",
-    projects: "20+",
-    clients: "15+",
-    successRate: "95%"
-  });
-
-  // Admin panelinden verileri yükle
-  useEffect(() => {
-    const savedData = localStorage.getItem("aboutData");
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setAboutData(parsedData);
-      } catch (error) {
-        console.error("Hakkımda verileri yüklenirken hata:", error);
-      }
-    }
-  }, []);
+  const { aboutData, profileData, contactData } = useAdmin();
 
   const skills = [
     { name: "HTML/CSS/JavaScript", level: 95 },
@@ -51,10 +31,10 @@ export default function About() {
   ];
 
   const stats = [
-    { number: aboutData.experience, label: "Yıl Deneyim", icon: Calendar },
-    { number: aboutData.projects, label: "Tamamlanan Proje", icon: Briefcase },
-    { number: aboutData.clients, label: "Mutlu Müşteri", icon: Code2 },
-    { number: aboutData.successRate, label: "Başarı Oranı", icon: User }
+    { number: aboutData.stats.experience, label: "Yıl Deneyim", icon: Calendar },
+    { number: aboutData.stats.projects, label: "Tamamlanan Proje", icon: Briefcase },
+    { number: aboutData.stats.clients, label: "Mutlu Müşteri", icon: Code2 },
+    { number: aboutData.stats.awards, label: "Ödül", icon: User }
   ];
 
   const tabs = [
@@ -123,10 +103,10 @@ export default function About() {
             className="text-4xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 mb-8 leading-tight"
             variants={itemVariants}
           >
-            Dijital Dünyada
+            {aboutData.title}
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-              Yaratıcı Çözümler
+              {aboutData.subtitle}
             </span>
           </motion.h2>
           
@@ -134,9 +114,7 @@ export default function About() {
             className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Web geliştirme ve tasarım alanında deneyimli bir profesyonel olarak, 
-            <span className="text-blue-600 dark:text-blue-400 font-semibold"> kullanıcı odaklı çözümler</span> üretiyorum.
-            Her proje, teknoloji ve yaratıcılığın mükemmel birleşimi.
+            {aboutData.description}
           </motion.p>
         </motion.div>
 
@@ -244,7 +222,7 @@ export default function About() {
                       <Target className="text-white" size={24} />
                     </div>
                     <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-600 dark:from-white dark:to-blue-400">
-                      UI/UX ve Front-End Geliştirme
+                      {profileData.title}
                     </h3>
                   </div>
                   
@@ -254,25 +232,30 @@ export default function About() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                     >
-                      <span className="text-blue-600 dark:text-blue-400 font-semibold">Teknolojiye olan merakım ve tutkum</span> nedeniyle 2018 yılında Web Programcılığı bölümünü seçtim. 
-                      Mezuniyet sonrası staj ve freelance Bilgi İşlem Personeli olarak iş deneyimimi kazandım.
+                      {profileData.bio}
                     </motion.p>
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      Bilgi işlem problemlerini çözmekte keyif alıyorum. Teknolojiler üzerinde çalışarak bilgi birikimimi artırıyor 
-                      ve bildiklerimi paylaşarak <span className="text-purple-600 dark:text-purple-400 font-semibold">birçok insana ücretsiz destek</span> veriyorum.
-                    </motion.p>
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                    >
-                      <span className="text-green-600 dark:text-green-400 font-semibold">Tasarım odaklı düşünme</span> ve kullanıcı deneyimini ön planda tutarak, görünümün pazarlama açısından 
-                      da kritik olduğunu düşünüyorum.
-                    </motion.p>
+                    
+                    {aboutData.features.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="grid grid-cols-2 gap-3 mt-6"
+                      >
+                        {aboutData.features.map((feature, index) => (
+                          <motion.div
+                            key={index}
+                            className="flex items-center gap-2 text-sm"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 + index * 0.1 }}
+                          >
+                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span>{feature}</span>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -298,9 +281,9 @@ export default function About() {
                   </div>
                   <div className="space-y-4">
                     {[
-                      { icon: MapPin, text: "İstanbul, Türkiye", color: "text-red-500" },
-                      { icon: Globe, text: "mehmetcn.com.tr", color: "text-blue-500" },
-                      { icon: BookOpen, text: "Web Programcılığı", color: "text-purple-500" }
+                      { icon: MapPin, text: profileData.location, color: "text-red-500" },
+                      { icon: Globe, text: profileData.website, color: "text-blue-500" },
+                      { icon: BookOpen, text: profileData.title, color: "text-purple-500" }
                     ].map((item, index) => (
                       <motion.div 
                         key={index}
@@ -339,14 +322,14 @@ export default function About() {
                         whileHover={{ x: 5 }}
                       >
                         <Mail size={16} className="group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-medium">imehmetshn@hotmail.com</span>
+                        <span className="text-sm font-medium">{contactData.email}</span>
                       </motion.div>
                       <motion.div 
                         className="flex items-center gap-3 group cursor-pointer"
                         whileHover={{ x: 5 }}
                       >
                         <Phone size={16} className="group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-medium">0534 750 91 71</span>
+                        <span className="text-sm font-medium">{contactData.phone}</span>
                       </motion.div>
                     </div>
                   </div>

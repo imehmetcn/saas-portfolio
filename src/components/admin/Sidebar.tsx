@@ -39,8 +39,8 @@ export default function Sidebar({}: SidebarProps) {
   const sidebarItems = [
     { name: 'Dashboard', icon: LayoutDashboard, link: '/admin', match: ['/admin'], badge: null },
     { name: 'Profil', icon: User, link: '/admin/profile', match: ['/admin/profile'], badge: null },
+    { name: 'İçerik Yönetimi', icon: FolderOpen, link: '/admin/content', match: ['/admin/content'], badge: null },
     { name: 'Projeler', icon: FolderOpen, link: '/admin/projects', match: ['/admin/projects'], badge: projects.length },
-
     { name: 'Referanslar', icon: Star, link: '/admin/testimonials', match: ['/admin/testimonials'], badge: null },
     { name: 'Servisler', icon: Wrench, link: '/admin/services', match: ['/admin/services'], badge: null },
     { name: 'Analitik', icon: BarChart3, link: '/admin/analytics', match: ['/admin/analytics'], badge: null },

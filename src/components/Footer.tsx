@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useAdmin } from "@/contexts/AdminContext";
 import { 
   FileCode2, 
   MessagesSquare, 
@@ -18,6 +19,8 @@ import {
 } from "lucide-react";
 
 export default function Footer() {
+  const { footerData, profileData, contactData } = useAdmin();
+  
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -122,18 +125,17 @@ export default function Footer() {
                 viewport={{ once: true }}
               >
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent mb-4">
-                  Mehmet Can Şahin
+                  {footerData.companyName}
                 </h3>
                 <p className="text-slate-300 leading-relaxed mb-6">
-                  UI/UX Front-End Developer olarak modern ve kullanıcı odaklı web uygulamaları geliştiriyorum.
-                  Teknolojiye olan tutkum ve sürekli öğrenme isteğimle projelerinize değer katmak için buradayım.
+                  {footerData.description}
                 </p>
                 
                 {/* Social Links */}
                 <div className="flex gap-3">
-                  {socialLinks.map((social, index) => (
+                  {footerData.socialLinks.map((social, index) => (
                     <motion.a
-                      key={social.name}
+                      key={social.platform}
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -143,9 +145,12 @@ export default function Footer() {
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`w-12 h-12 bg-slate-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center border border-slate-700/50 transition-all duration-300 ${social.color} ${social.bgColor}`}
+                      className="w-12 h-12 bg-slate-800/50 backdrop-blur-sm rounded-xl flex items-center justify-center border border-slate-700/50 transition-all duration-300 hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                     >
-                      <social.icon size={20} />
+                      {social.icon === 'github' && <FileCode2 size={20} />}
+                      {social.icon === 'linkedin' && <MessagesSquare size={20} />}
+                      {social.icon === 'twitter' && <MessagesSquare size={20} />}
+                      {social.icon === 'instagram' && <MessagesSquare size={20} />}
                     </motion.a>
                   ))}
                 </div>
@@ -154,33 +159,36 @@ export default function Footer() {
 
             {/* Quick Links */}
             <div className="space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <h4 className="text-lg font-semibold text-white mb-4">Hızlı Linkler</h4>
-                <ul className="space-y-3">
-                  {quickLinks.map((link, index) => (
-                    <motion.li
-                      key={link.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.05 }}
-                      viewport={{ once: true }}
-                    >
-                      <a
-                        href={link.href}
-                        className="text-slate-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+              {footerData.quickLinks.map((section, sectionIndex) => (
+                <motion.div
+                  key={section.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 + sectionIndex * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <h4 className="text-lg font-semibold text-white mb-4">{section.title}</h4>
+                  <ul className="space-y-3">
+                    {section.links.map((link, index) => (
+                      <motion.li
+                        key={link.label}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                        viewport={{ once: true }}
                       >
-                        <span className="w-1 h-1 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                        {link.name}
-                      </a>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
+                        <a
+                          href={link.href}
+                          className="text-slate-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                        >
+                          <span className="w-1 h-1 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                          {link.label}
+                        </a>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
 
               {/* Services */}
               <motion.div
@@ -220,28 +228,81 @@ export default function Footer() {
               >
                 <h4 className="text-lg font-semibold text-white mb-4">İletişim Bilgileri</h4>
                 <ul className="space-y-4">
-                  {contactInfo.map((contact, index) => (
-                    <motion.li
-                      key={contact.label}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.05 }}
-                      viewport={{ once: true }}
+                  <motion.li
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0 * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <a
+                      href={`mailto:${contactData.email}`}
+                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group"
                     >
-                      <a
-                        href={contact.link}
-                        className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group"
-                      >
-                        <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
-                          <contact.icon size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
-                        </div>
-                        <div>
-                          <div className="text-sm text-slate-400">{contact.label}</div>
-                          <div className="font-medium">{contact.value}</div>
-                        </div>
-                      </a>
-                    </motion.li>
-                  ))}
+                      <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
+                        <Mail size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
+                      </div>
+                      <div>
+                        <div className="text-sm text-slate-400">Email</div>
+                        <div className="font-medium">{contactData.email}</div>
+                      </div>
+                    </a>
+                  </motion.li>
+                  <motion.li
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 1 * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <a
+                      href={`tel:${contactData.phone}`}
+                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group"
+                    >
+                      <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
+                        <Phone size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
+                      </div>
+                      <div>
+                        <div className="text-sm text-slate-400">Telefon</div>
+                        <div className="font-medium">{contactData.phone}</div>
+                      </div>
+                    </a>
+                  </motion.li>
+                  <motion.li
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 2 * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="flex items-center gap-3 text-slate-300 group">
+                      <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
+                        <MapPin size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
+                      </div>
+                      <div>
+                        <div className="text-sm text-slate-400">Konum</div>
+                        <div className="font-medium">{contactData.location}</div>
+                      </div>
+                    </div>
+                  </motion.li>
+                  <motion.li
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 3 * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <a
+                      href={contactData.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group"
+                    >
+                      <div className="w-10 h-10 bg-slate-800/50 rounded-xl flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
+                        <Globe size={18} className="group-hover:text-indigo-400 transition-colors duration-300" />
+                      </div>
+                      <div>
+                        <div className="text-sm text-slate-400">Website</div>
+                        <div className="font-medium">{contactData.website}</div>
+                      </div>
+                    </a>
+                  </motion.li>
                 </ul>
               </motion.div>
             </div>
@@ -256,9 +317,7 @@ export default function Footer() {
               >
                 <h4 className="text-lg font-semibold text-white mb-4">Hakkımda</h4>
                 <p className="text-slate-300 text-sm mb-4">
-                  2018 yılında Web Programcılığı bölümünden mezun oldum. Teknolojiye olan merakım ve tutkumla
-                  UI/UX Front-End Developer olarak çalışıyorum. Kullanıcı odaklı ve görsel açıdan etkileyici
-                  dijital deneyimler tasarlıyorum.
+                  {profileData.bio}
                 </p>
                 
                 <div className="flex items-center gap-2 mb-4">
@@ -325,7 +384,7 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-2 text-slate-400 text-sm"
             >
-              <span>© 2024 Mehmet Can Şahin. Tüm hakları saklıdır.</span>
+              <span>{footerData.copyright}</span>
               <Heart size={16} className="text-red-400 animate-pulse" />
             </motion.div>
 

@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Mail } from "lucide-react";
+import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { navbarData } = useAdmin();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,14 +17,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navItems = [
-    { name: "Ana Sayfa", href: "#top" },
-    { name: "Hakkımda", href: "#about" },
-    { name: "Hizmetler", href: "#services" },
-    { name: "Projeler", href: "#portfolio" },
-    { name: "İletişim", href: "#contact" },
-  ];
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
@@ -63,15 +57,15 @@ export default function Navbar() {
               </div>
               <span className={`font-bold text-xl transition-colors duration-300 ${scrolled ? 'text-white' : 'text-white'
                 }`}>
-                Portfolio
+                {navbarData.logo}
               </span>
             </motion.a>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              {navItems.map((item) => (
+              {navbarData.menuItems.filter(item => item.isActive).map((item) => (
                 <motion.a
-                  key={item.name}
+                  key={item.label}
                   href={item.href}
                   onClick={(e) => {
                     e.preventDefault();
@@ -83,7 +77,7 @@ export default function Navbar() {
                     }`}
                   whileHover={{ y: -2 }}
                 >
-                  {item.name}
+                  {item.label}
                 </motion.a>
               ))}
             </div>
@@ -91,19 +85,21 @@ export default function Navbar() {
             {/* Right Side */}
             <div className="flex items-center gap-4">
               {/* Contact Button */}
-              <motion.a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick('#contact');
-                }}
-                className="hidden md:flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/30 transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Mail size={16} />
-                İletişim
-              </motion.a>
+              {navbarData.ctaButton.visible && (
+                <motion.a
+                  href={navbarData.ctaButton.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(navbarData.ctaButton.href);
+                  }}
+                  className="hidden md:flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-white/30 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Mail size={16} />
+                  {navbarData.ctaButton.text}
+                </motion.a>
+              )}
 
               {/* Mobile Menu Button */}
               <motion.button
@@ -169,9 +165,9 @@ export default function Navbar() {
 
                 {/* Mobile Navigation Items */}
                 <div className="space-y-2 flex-1">
-                  {navItems.map((item, index) => (
+                  {navbarData.menuItems.filter(item => item.isActive).map((item, index) => (
                     <motion.a
-                      key={item.name}
+                      key={item.label}
                       href={item.href}
                       onClick={(e) => {
                         e.preventDefault();
@@ -183,27 +179,29 @@ export default function Navbar() {
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ x: 10 }}
                     >
-                      {item.name}
+                      {item.label}
                     </motion.a>
                   ))}
                 </div>
 
                 {/* Mobile Contact Button */}
-                <motion.a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick('#contact');
-                  }}
-                  className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Mail size={20} />
-                  İletişime Geç
-                </motion.a>
+                {navbarData.ctaButton.visible && (
+                  <motion.a
+                    href={navbarData.ctaButton.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(navbarData.ctaButton.href);
+                    }}
+                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-xl"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Mail size={20} />
+                    {navbarData.ctaButton.text}
+                  </motion.a>
+                )}
               </div>
             </motion.div>
           </motion.div>

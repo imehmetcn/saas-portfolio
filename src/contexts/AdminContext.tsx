@@ -80,14 +80,62 @@ export interface SiteSettings {
   performanceMonitor: boolean;
 }
 
+export interface AboutData {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  stats: {
+    experience: string;
+    projects: string;
+    clients: string;
+    awards: string;
+  };
+  features: string[];
+}
+
+export interface NavbarData {
+  logo: string;
+  menuItems: {
+    label: string;
+    href: string;
+    isActive: boolean;
+  }[];
+  ctaButton: {
+    text: string;
+    href: string;
+    visible: boolean;
+  };
+}
+
+export interface FooterData {
+  companyName: string;
+  description: string;
+  socialLinks: {
+    platform: string;
+    url: string;
+    icon: string;
+  }[];
+  quickLinks: {
+    title: string;
+    links: {
+      label: string;
+      href: string;
+    }[];
+  }[];
+  copyright: string;
+}
+
 // Context tipi
 interface AdminContextType {
   // Data
   profileData: ProfileData;
   heroData: HeroData;
   contactData: ContactData;
+  aboutData: AboutData;
+  navbarData: NavbarData;
+  footerData: FooterData;
   projects: Project[];
-
   testimonials: Testimonial[];
   services: Service[];
   siteSettings: SiteSettings;
@@ -98,6 +146,9 @@ interface AdminContextType {
   // Update functions
   updateProfileData: (data: ProfileData) => void;
   updateHeroData: (data: HeroData) => void;
+  updateAboutData: (data: AboutData) => void;
+  updateNavbarData: (data: NavbarData) => void;
+  updateFooterData: (data: FooterData) => void;
   updateContactData: (data: ContactData) => void;
   updateProjects: (projects: Project[]) => void;
 
@@ -195,12 +246,84 @@ const defaultSiteSettings: SiteSettings = {
   performanceMonitor: false
 };
 
+const defaultAboutData: AboutData = {
+  title: "Hakkımda",
+  subtitle: "Yaratıcılık ve Teknoloji Buluşuyor",
+  description: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum. Kullanıcı odaklı tasarım ve cutting-edge teknolojilerle işinizi dijital dünyada zirveye taşıyorum.",
+  image: "/api/placeholder/500/600",
+  stats: {
+    experience: "8+ Yıl",
+    projects: "150+",
+    clients: "50+",
+    awards: "12"
+  },
+  features: [
+    "Modern UI/UX Tasarım",
+    "Responsive Web Geliştirme",
+    "Performance Optimizasyonu",
+    "SEO & Analytics",
+    "E-ticaret Çözümleri",
+    "API Entegrasyonları"
+  ]
+};
+
+const defaultNavbarData: NavbarData = {
+  logo: "MC",
+  menuItems: [
+    { label: "Ana Sayfa", href: "#top", isActive: true },
+    { label: "Hakkımda", href: "#about", isActive: true },
+    { label: "Projeler", href: "#portfolio", isActive: true },
+    { label: "Servisler", href: "#services", isActive: true },
+    { label: "Referanslar", href: "#testimonials", isActive: true },
+    { label: "İletişim", href: "#contact", isActive: true }
+  ],
+  ctaButton: {
+    text: "İletişime Geç",
+    href: "#contact",
+    visible: true
+  }
+};
+
+const defaultFooterData: FooterData = {
+  companyName: "Mehmet Can Şahin",
+  description: "Senior UI/UX & Frontend Developer olarak yaratıcı dijital çözümler üretiyorum.",
+  socialLinks: [
+    { platform: "LinkedIn", url: "https://linkedin.com/in/mehmetcan", icon: "linkedin" },
+    { platform: "GitHub", url: "https://github.com/mehmetcan", icon: "github" },
+    { platform: "Twitter", url: "https://twitter.com/mehmetcan", icon: "twitter" },
+    { platform: "Instagram", url: "https://instagram.com/mehmetcan", icon: "instagram" }
+  ],
+  quickLinks: [
+    {
+      title: "Hızlı Linkler",
+      links: [
+        { label: "Ana Sayfa", href: "#top" },
+        { label: "Hakkımda", href: "#about" },
+        { label: "Projeler", href: "#portfolio" },
+        { label: "İletişim", href: "#contact" }
+      ]
+    },
+    {
+      title: "Servisler",
+      links: [
+        { label: "Web Tasarım", href: "#services" },
+        { label: "Frontend Geliştirme", href: "#services" },
+        { label: "UI/UX Tasarım", href: "#services" },
+        { label: "Danışmanlık", href: "#services" }
+      ]
+    }
+  ],
+  copyright: "© 2024 Mehmet Can Şahin. Tüm hakları saklıdır."
+};
+
 export function AdminProvider({ children }: { children: ReactNode }) {
   const [profileData, setProfileData] = useState<ProfileData>(defaultProfileData);
   const [heroData, setHeroData] = useState<HeroData>(defaultHeroData);
   const [contactData, setContactData] = useState<ContactData>(defaultContactData);
+  const [aboutData, setAboutData] = useState<AboutData>(defaultAboutData);
+  const [navbarData, setNavbarData] = useState<NavbarData>(defaultNavbarData);
+  const [footerData, setFooterData] = useState<FooterData>(defaultFooterData);
   const [projects, setProjects] = useState<Project[]>(defaultProjects);
-
   const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
   const [services, setServices] = useState<Service[]>(defaultServices);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
@@ -274,7 +397,20 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           setContactData(JSON.parse(savedContact));
         }
 
+        const savedAbout = localStorage.getItem('aboutData');
+        if (savedAbout) {
+          setAboutData(JSON.parse(savedAbout));
+        }
 
+        const savedNavbar = localStorage.getItem('navbarData');
+        if (savedNavbar) {
+          setNavbarData(JSON.parse(savedNavbar));
+        }
+
+        const savedFooter = localStorage.getItem('footerData');
+        if (savedFooter) {
+          setFooterData(JSON.parse(savedFooter));
+        }
 
         const savedTestimonials = localStorage.getItem('testimonialsData');
         if (savedTestimonials) {
@@ -310,6 +446,21 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const updateContactData = (data: ContactData) => {
     setContactData(data);
     localStorage.setItem('contactData', JSON.stringify(data));
+  };
+
+  const updateAboutData = (data: AboutData) => {
+    setAboutData(data);
+    localStorage.setItem('aboutData', JSON.stringify(data));
+  };
+
+  const updateNavbarData = (data: NavbarData) => {
+    setNavbarData(data);
+    localStorage.setItem('navbarData', JSON.stringify(data));
+  };
+
+  const updateFooterData = (data: FooterData) => {
+    setFooterData(data);
+    localStorage.setItem('footerData', JSON.stringify(data));
   };
 
   const updateProjects = (newProjects: Project[]) => {
@@ -373,8 +524,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     profileData,
     heroData,
     contactData,
+    aboutData,
+    navbarData,
+    footerData,
     projects,
-
     testimonials,
     services,
     siteSettings,
@@ -386,8 +539,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     updateProfileData,
     updateHeroData,
     updateContactData,
+    updateAboutData,
+    updateNavbarData,
+    updateFooterData,
     updateProjects,
-
     updateTestimonials,
     updateServices,
     updateSiteSettings,
