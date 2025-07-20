@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code, Mail } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,8 +42,8 @@ export default function Navbar() {
       >
         <motion.nav
           className={`backdrop-blur-xl rounded-full px-6 shadow-2xl border transition-all duration-500 ${scrolled
-              ? 'bg-black/40 border-white/30 py-3'
-              : 'bg-black/20 border-white/20 py-4'
+            ? 'bg-black/40 border-white/30 py-3'
+            : 'bg-black/20 border-white/20 py-4'
             }`}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}

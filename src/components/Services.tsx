@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { useAdmin } from "@/contexts/AdminContext";
 import { 
@@ -16,7 +17,7 @@ export default function Services() {
   const { services } = useAdmin();
   
   const getIcon = (iconName: string) => {
-    const icons: { [key: string]: any } = {
+    const icons: { [key: string]: React.ComponentType<{ size?: number; className?: string }> } = {
       'code': Code2,
       'smartphone': Smartphone,
       'palette': Palette,
