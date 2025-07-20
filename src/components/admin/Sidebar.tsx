@@ -44,7 +44,7 @@ export default function Sidebar({}: SidebarProps) {
     { name: 'Referanslar', icon: Star, link: '/admin/testimonials', match: ['/admin/testimonials'], badge: null },
     { name: 'Servisler', icon: Wrench, link: '/admin/services', match: ['/admin/services'], badge: null },
     { name: 'Analitik', icon: BarChart3, link: '/admin/analytics', match: ['/admin/analytics'], badge: null },
-    { name: 'Ayarlar', icon: Settings, link: '/admin/settings', match: ['/admin/settings'], badge: null },
+    { name: 'Sistem Ayarları', icon: Settings, link: '/admin/settings', match: ['/admin/settings'], badge: null },
   ];
 
   return (

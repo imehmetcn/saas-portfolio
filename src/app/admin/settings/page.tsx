@@ -153,8 +153,8 @@ export default function SettingsPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <Header 
-          title="Ayarlar" 
-          description="Sistem ayarlarınızı yönetin"
+          title="Sistem Ayarları" 
+          description="Site ayarları, veri yönetimi ve yedekleme işlemleri"
         />
 
         {/* Content */}
@@ -162,9 +162,10 @@ export default function SettingsPage() {
           {/* Tabs */}
           <div className="flex space-x-1 mb-6 bg-slate-800 p-1 rounded-lg">
             {[
-              { id: 'general', name: 'Genel', icon: '⚙️' },
+              { id: 'general', name: 'Site Ayarları', icon: '🌐' },
               { id: 'data', name: 'Veri Yönetimi', icon: '💾' },
-              { id: 'backup', name: 'Yedekleme', icon: '🔄' }
+              { id: 'backup', name: 'Yedekleme', icon: '🔄' },
+              { id: 'security', name: 'Güvenlik', icon: '🔒' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -184,7 +185,7 @@ export default function SettingsPage() {
           {/* General Tab */}
           {activeTab === 'general' && (
             <div className="bg-slate-800 rounded-xl p-6">
-              <h2 className="text-xl font-bold mb-6">Genel Ayarlar</h2>
+              <h2 className="text-xl font-bold mb-6">Site Ayarları</h2>
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-3">Site Bilgileri</h3>
@@ -364,6 +365,87 @@ export default function SettingsPage() {
                     Veri içe aktarma işlemi mevcut verilerinizi değiştirecektir. 
                     İşlem öncesinde mutlaka yedek alın.
                   </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Security Tab */}
+          {activeTab === 'security' && (
+            <div className="bg-slate-800 rounded-xl p-6">
+              <h2 className="text-xl font-bold mb-6">Güvenlik Ayarları</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Oturum Yönetimi</h3>
+                  <div className="space-y-4">
+                    <div className="bg-slate-700/50 rounded-lg p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-medium text-white">Aktif Oturum</h4>
+                          <p className="text-sm text-slate-400">Son giriş: {new Date().toLocaleString('tr-TR')}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                          <span className="text-sm text-green-400">Aktif</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Şifre Güvenliği</h3>
+                  <div className="space-y-4">
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors text-left">
+                      🔑 Şifre Değiştir
+                    </button>
+                    <div className="bg-blue-900/20 border border-blue-600/30 rounded-lg p-4">
+                      <h4 className="text-blue-400 font-medium mb-2">💡 Güvenlik İpuçları</h4>
+                      <ul className="text-blue-200 text-sm space-y-1">
+                        <li>• En az 8 karakter kullanın</li>
+                        <li>• Büyük ve küçük harf karışımı yapın</li>
+                        <li>• Sayı ve özel karakter ekleyin</li>
+                        <li>• Düzenli olarak şifrenizi değiştirin</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Sistem Güvenliği</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between bg-slate-700/30 rounded-lg p-4">
+                      <div>
+                        <h4 className="font-medium text-white">Otomatik Çıkış</h4>
+                        <p className="text-sm text-slate-400">30 dakika işlem yapılmazsa otomatik çıkış yap</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-11 h-6 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center justify-between bg-slate-700/30 rounded-lg p-4">
+                      <div>
+                        <h4 className="font-medium text-white">Giriş Logları</h4>
+                        <p className="text-sm text-slate-400">Başarısız giriş denemelerini kaydet</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-11 h-6 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-red-900/20 border border-red-600/30 rounded-lg p-4">
+                  <h4 className="text-red-400 font-medium mb-2">🚨 Tehlikeli İşlemler</h4>
+                  <p className="text-red-200 text-sm mb-4">
+                    Bu işlemler geri alınamaz. Dikkatli olun!
+                  </p>
+                  <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                    🗑️ Hesabı Sil
+                  </button>
                 </div>
               </div>
             </div>
