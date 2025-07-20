@@ -34,21 +34,21 @@ export default function Navbar() {
     <>
       {/* Modern Pill-shaped Navbar */}
       <motion.div
-        className={`fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${scrolled ? 'top-4' : 'top-6'
+        className={`fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${scrolled ? 'top-2 md:top-4' : 'top-4 md:top-6'
           }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <motion.nav
-          className={`backdrop-blur-xl rounded-full px-6 shadow-2xl border transition-all duration-500 ${scrolled
-            ? 'bg-black/40 border-white/30 py-3'
-            : 'bg-black/20 border-white/20 py-4'
+          className={`backdrop-blur-xl rounded-full px-4 md:px-6 shadow-2xl border transition-all duration-500 ${scrolled
+            ? 'bg-black/40 border-white/30 py-2 md:py-3'
+            : 'bg-black/20 border-white/20 py-3 md:py-4'
             }`}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 md:gap-8">
             {/* Logo */}
             <motion.a
               href="#top"
@@ -56,11 +56,11 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick('#top');
               }}
-              className="flex items-center justify-center w-10 h-10 bg-white rounded-full shadow-lg"
+              className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg"
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Code className="text-black" size={18} />
+              <Code className="text-black" size={16} />
             </motion.a>
 
             {/* Desktop Navigation */}

@@ -43,7 +43,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-white overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 text-white overflow-hidden pt-20 md:pt-0">
       {/* Enhanced Background */}
       <div className="absolute inset-0">
         {/* Subtle Grid Pattern */}
