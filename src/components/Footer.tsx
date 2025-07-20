@@ -11,10 +11,7 @@ import {
   Globe,
   Heart,
   ArrowUp,
-  Code,
-  Palette,
   Shield,
-  Smartphone,
   Zap
 } from "lucide-react";
 
@@ -25,80 +22,9 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const socialLinks = [
-    { 
-      name: "GitHub", 
-      icon: FileCode2, 
-      url: "https://github.com/mehmetcn", 
-      color: "hover:text-gray-800 dark:hover:text-gray-200",
-      bgColor: "hover:bg-gray-100 dark:hover:bg-gray-800"
-    },
-    { 
-      name: "LinkedIn", 
-      icon: MessagesSquare, 
-      url: "https://linkedin.com/in/emcshn", 
-      color: "hover:text-blue-600",
-      bgColor: "hover:bg-blue-50 dark:hover:bg-blue-900/20"
-    },
-    { 
-      name: "Email", 
-      icon: Mail, 
-      url: "mailto:imehmetshn@hotmail.com", 
-      color: "hover:text-red-500",
-      bgColor: "hover:bg-red-50 dark:hover:bg-red-900/20"
-    },
-    { 
-      name: "Website", 
-      icon: Globe, 
-      url: "https://mehmetcn.com.tr", 
-      color: "hover:text-cyan-500",
-      bgColor: "hover:bg-cyan-50 dark:hover:bg-cyan-900/20"
-    }
-  ];
-
-  const quickLinks = [
-    { name: "Hakkımda", href: "#about" },
-    { name: "Projeler", href: "#portfolio" },
-    { name: "İletişim", href: "#contact" }
-  ];
-
-  const services = [
-    { name: "Web Geliştirme", icon: Code },
-    { name: "UI/UX Tasarım", icon: Palette },
-    { name: "Mobil Uygulamalar", icon: Smartphone },
-    { name: "Güvenlik", icon: Shield }
-  ];
-
   const technologies = [
     "HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", 
     "Tailwind CSS", "Figma", "Adobe XD", "Node.js", "Python", "PHP"
-  ];
-
-  const contactInfo = [
-    { 
-      icon: Mail, 
-      label: "Email", 
-      value: "imehmetshn@hotmail.com",
-      link: "mailto:imehmetshn@hotmail.com"
-    },
-    { 
-      icon: Phone, 
-      label: "Telefon", 
-      value: "0534 750 91 71",
-      link: "tel:+905347509171"
-    },
-    { 
-      icon: MapPin, 
-      label: "Konum", 
-      value: "İstanbul, Türkiye",
-      link: "https://maps.google.com"
-    },
-    { 
-      icon: Globe, 
-      label: "Website", 
-      value: "mehmetcn.com.tr",
-      link: "https://mehmetcn.com.tr"
-    }
   ];
 
   return (
@@ -190,32 +116,7 @@ export default function Footer() {
                 </motion.div>
               ))}
 
-              {/* Services */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <h4 className="text-lg font-semibold text-white mb-4">Hizmetler</h4>
-                <ul className="space-y-3">
-                  {services.map((service, index) => (
-                    <motion.li
-                      key={service.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.05 }}
-                      viewport={{ once: true }}
-                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors duration-300 group cursor-pointer"
-                    >
-                      <div className="w-8 h-8 bg-slate-800/50 rounded-lg flex items-center justify-center group-hover:bg-indigo-600/20 transition-colors duration-300">
-                        <service.icon size={16} className="group-hover:text-indigo-400 transition-colors duration-300" />
-                      </div>
-                      {service.name}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
+
             </div>
 
             {/* Contact Info */}

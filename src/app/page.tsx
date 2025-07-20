@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 // Lazy load ağır bileşenler
 const About = lazy(() => import("@/components/About"));
 const Portfolio = lazy(() => import("@/components/Portfolio"));
-const Services = lazy(() => import("@/components/Services"));
+const Services = lazy(() => import("@/components/MyServices"));
 const Testimonials = lazy(() => import("@/components/Testimonials"));
 
 const Contact = lazy(() => import("@/components/Contact"));

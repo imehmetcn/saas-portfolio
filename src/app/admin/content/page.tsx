@@ -5,7 +5,7 @@ import { useAdmin } from '@/contexts/AdminContext';
 import Sidebar from '@/components/admin/Sidebar';
 import Header from '@/components/admin/Header';
 import { motion } from 'framer-motion';
-import { Save, Plus, Trash2, Edit3 } from 'lucide-react';
+import { Save, Plus, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function ContentPage() {

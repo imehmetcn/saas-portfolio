@@ -58,7 +58,7 @@ export default function DynamicHead() {
       document.head.appendChild(meta);
     }
 
-  }, [siteSettings.siteTitle, siteSettings.siteDescription, isLoading]);
+  }, [siteSettings, isLoading]);
 
   return null; // This component doesn't render anything
 }
