@@ -170,14 +170,14 @@ const defaultProfileData: ProfileData = {
   phone: "0534 750 91 71",
   location: "İstanbul, Türkiye",
   website: "mehmetcn.com.tr",
-  bio: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum.",
+  bio: "Yaratıcı tasarım ve modern teknolojilerle dijital deneyimler oluşturan Senior UI/UX & Frontend Developer.",
   avatar: "/file.svg"
 };
 
 const defaultHeroData: HeroData = {
-  title: "Mehmet Can Şahin",
-  subtitle: "Senior UI/UX & Frontend Developer",
-  description: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum. Kullanıcı odaklı tasarım ve cutting-edge teknolojilerle işinizi dijital dünyada zirveye taşıyorum.",
+  title: "MEHMET CAN",
+  subtitle: "Sizin için",
+  description: "8+ yıllık deneyimimle modern teknolojiler kullanarak dijital hayallerinizi gerçeğe dönüştürüyorum.",
   skills: ["React", "Next.js", "TypeScript", "UI/UX Design", "Node.js", "Figma"]
 };
 
@@ -248,7 +248,7 @@ const defaultSiteSettings: SiteSettings = {
 
 const defaultAboutData: AboutData = {
   title: "Hakkımda",
-  subtitle: "Yaratıcılık ve Teknoloji Buluşuyor",
+  subtitle: "Merhaba, Ben Mehmet Can",
   description: "8+ yıllık deneyimimle Fortune 500 şirketlerinden startup'lara kadar geniş bir yelpazede dijital çözümler üretiyorum. Kullanıcı odaklı tasarım ve cutting-edge teknolojilerle işinizi dijital dünyada zirveye taşıyorum.",
   image: "/api/placeholder/500/600",
   stats: {
@@ -258,12 +258,12 @@ const defaultAboutData: AboutData = {
     awards: "12"
   },
   features: [
-    "Modern UI/UX Tasarım",
-    "Responsive Web Geliştirme",
-    "Performance Optimizasyonu",
-    "SEO & Analytics",
-    "E-ticaret Çözümleri",
-    "API Entegrasyonları"
+    "Frontend Development",
+    "UI/UX Design", 
+    "React & Next.js",
+    "TypeScript",
+    "Node.js & Backend",
+    "Design Tools"
   ]
 };
 
